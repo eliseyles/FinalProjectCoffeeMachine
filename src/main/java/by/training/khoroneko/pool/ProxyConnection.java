@@ -1,5 +1,8 @@
 package by.training.khoroneko.pool;
 
+import by.training.khoroneko.exception.ConnectionPoolException;
+import org.apache.log4j.Logger;
+
 import java.sql.*;
 import java.util.Map;
 import java.util.Properties;
@@ -9,7 +12,7 @@ public class ProxyConnection implements Connection {
 
     Connection connection;
 
-    public ProxyConnection(Connection connection) {
+    ProxyConnection(Connection connection) {
         this.connection = connection;
     }
 
@@ -49,7 +52,15 @@ public class ProxyConnection implements Connection {
         connection.rollback();
     }
 
-    public void close() throws SQLException {
+    public void close() {
+        try {
+            ConnectionPool.INSTANCE.releaseConnection(this);
+        } catch (ConnectionPoolException e) {
+            Logger.getLogger(ProxyConnection.class).error(e);
+        }
+    }
+
+    public void realClose() throws SQLException {
         connection.close();
     }
 
