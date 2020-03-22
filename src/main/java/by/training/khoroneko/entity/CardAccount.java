@@ -1,4 +1,4 @@
-package entity;
+package by.training.khoroneko.entity;
 
 import java.math.BigDecimal;
 import java.util.Objects;

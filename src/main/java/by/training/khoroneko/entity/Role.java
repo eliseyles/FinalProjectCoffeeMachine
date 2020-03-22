@@ -1,4 +1,4 @@
-package entity;
+package by.training.khoroneko.entity;
 
 public enum Role {
     USER,
