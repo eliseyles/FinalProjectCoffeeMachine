@@ -102,6 +102,7 @@ public class CardAccountDAOImpl implements CardAccountDAO {
         int indexTemp = 0;
         preparedStatement.setString(++indexTemp, cardAccount.getCardNumber());
         preparedStatement.setBigDecimal(++indexTemp, cardAccount.getAmount());
+        preparedStatement.setInt(++indexTemp, cardAccount.getId());
         return preparedStatement;
     }
 
