@@ -188,3 +188,7 @@ hs_err_pid*
 /.idea/
 /FinalProjectCoffeeMachine.iml
 /target/
+/src/main/java/by/training/khoroneko/command/
+/src/main/java/by/training/khoroneko/controller/
+/src/main/webapp/
+/src/main/java/by/training/khoroneko/factory/

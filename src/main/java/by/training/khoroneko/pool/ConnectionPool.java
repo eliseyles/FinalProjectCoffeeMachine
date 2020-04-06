@@ -47,7 +47,7 @@ public enum ConnectionPool {
                 String driver = properties.getProperty(DATABASE_DRIVER);
                 Class.forName(driver);
                 for (int i = 0; i < POOL_SIZE; i++) {
-                    availableConnections.add(new ProxyConnection(DriverManager.getConnection(url, properties)));
+                    availableConnections.add(new ProxyConnection(DriverManager.getConnection(url,properties)));
                 }
                 isInitialized.set(true);
             } catch (IOException | ClassNotFoundException | SQLException e) {
