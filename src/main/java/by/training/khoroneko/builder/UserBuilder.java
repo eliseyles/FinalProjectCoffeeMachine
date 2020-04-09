@@ -5,41 +5,59 @@ import by.training.khoroneko.entity.Role;
 import by.training.khoroneko.entity.User;
 
 public class UserBuilder {
-    User user;
 
-    public UserBuilder(User user) {
-        this.user = user;
+    private int id;
+    private String name;
+    private String email;
+    private String password;
+    private boolean activity;
+    private CardAccount cardAccount;
+    private Role role;
+
+    public UserBuilder() {
     }
 
-    public void setId(int id) {
-        user.setId(id);
+    public UserBuilder setId(int id) {
+        this.id = id;
+        return this;
     }
 
-    public void setName(String name) {
-        user.setName(name);
+    public UserBuilder setName(String name) {
+        this.name = name;
+        return this;
     }
 
-    public void setEmail(String email) {
-        user.setEmail(email);
+    public UserBuilder setEmail(String email) {
+        this.email = email;
+        return this;
     }
 
-    public void setPassword(String password) {
-        user.setPassword(password);
+    public UserBuilder setPassword(String password) {
+        this.password = password;
+        return this;
     }
 
-    public void setActivity(boolean activity) {
-        user.setActivity(activity);
+    public UserBuilder setActivity(boolean activity) {
+        this.activity = activity;
+        return this;
     }
 
-    public void setCardAccount(CardAccount cardAccount) {
-        user.setCardAccount(cardAccount);
+    public UserBuilder setCardAccount(CardAccount cardAccount) {
+        this.cardAccount = cardAccount;
+        return this;
     }
 
-    public void setRole(Role role) {
-        user.setRole(role);
+    public UserBuilder setRole(Role role) {
+        this.role = role;
+        return this;
     }
 
-    public void setRole(int id) {
-        user.setRole(Role.getRoleById(id));
+    public UserBuilder setRole(int id) {
+        this.role = Role.getRoleById(id);
+        return this;
+    }
+
+    public User getResult() {
+        return new User(id, name, email, password, activity, cardAccount, role);
     }
 }
