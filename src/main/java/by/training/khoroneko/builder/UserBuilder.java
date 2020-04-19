@@ -57,6 +57,11 @@ public class UserBuilder {
         return this;
     }
 
+    public UserBuilder setRole(String role) {
+        this.role = Role.valueOf(role);
+        return this;
+    }
+
     public User getResult() {
         return new User(id, name, email, password, activity, cardAccount, role);
     }

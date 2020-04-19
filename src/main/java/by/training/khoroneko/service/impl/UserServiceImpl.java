@@ -25,8 +25,12 @@ public class UserServiceImpl implements UserService {
         }
         try {
             userValidator.isValidUser(user);
-            userDAO.create(user);
-            return user;
+            if (((UserDAO) userDAO).findByEmail(user) == null) {
+                userDAO.create(user);
+                return user;
+            } else {
+                throw new ServiceException("Email is already taken");
+            }
         } catch (DAOException ex) {
             throw new ServiceException("Error while adding user");
         } catch (ValidationException ex) {
@@ -40,7 +44,7 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException("Invalid user data");
         }
         try {
-            userValidator.isValidUser(user);
+            userValidator.isValidUserId(user);
             userDAO.update(user);
             return user;
         } catch (DAOException ex) {
@@ -81,6 +85,18 @@ public class UserServiceImpl implements UserService {
             return ((UserDAO) userDAO).findByEmailAndPassword(user);
         } catch (DAOException ex) {
             throw new ServiceException("Error while sign in");
+        } catch (ValidationException ex) {
+            throw new ServiceException("Invalid user data");
+        }
+    }
+
+    @Override
+    public User findById(User user) throws ServiceException {
+        try {
+            userValidator.isValidUserId(user);
+            return ((UserDAO) userDAO).findById(user);
+        } catch (DAOException ex) {
+            throw new ServiceException("Error while getting user by id");
         } catch (ValidationException ex) {
             throw new ServiceException("Invalid user data");
         }
