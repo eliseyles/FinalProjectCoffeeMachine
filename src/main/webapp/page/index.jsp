@@ -65,25 +65,17 @@
         <source src="${pageContext.request.contextPath}/img/coffee_back.mp4" type="video/mp4"/>
     </video>
 
-    <div class="content">
-        <form action="controller" method="post">
-            <%--        <div class="form-check">--%>
-            <%--            <input class="form-check-input border-left-1" type="text"--%>
-            <%--                   name="command" id="SAX_PARSE"--%>
-            <%--                   value="SAX_PARSE">--%>
-            <%--            <label class="form-check-label white-text" for="SAX_PARSE">--%>
-            <%--                SAX PARSE--%>
-            <%--            </label>--%>
-            <%--        </div>--%>
-            <div class="col-sm-10">
-                <button type="submit" class="btn btn-outline-white btn-lg" name="command"
-                        value="REGISTRATION">
-                    Registration
-                </button>
-                <%--                                            <button type="submit" class="btn-outline-white btn-lg" name="command" value="parse">Parse</button>&ndash;%&gt;--%>
-            </div>
-        </form>
-    </div>
+<%--    <div class="content">--%>
+<%--        <form action="controller" method="post">--%>
+<%--            <div class="col-sm-10">--%>
+<%--                <button type="submit" class="btn btn-outline-white btn-lg" name="command"--%>
+<%--                        value="REGISTRATION">--%>
+<%--                    Registration--%>
+<%--                </button>--%>
+<%--                &lt;%&ndash;                                            <button type="submit" class="btn-outline-white btn-lg" name="command" value="parse">Parse</button>&ndash;%&gt;&ndash;%&gt;--%>
+<%--            </div>--%>
+<%--        </form>--%>
+<%--    </div>--%>
 
 
 <%--                --%>

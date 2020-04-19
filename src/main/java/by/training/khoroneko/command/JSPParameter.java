@@ -2,8 +2,15 @@ package by.training.khoroneko.command;
 
 public enum JSPParameter {
     COMMAND("command"),
-    FILE("file"),
-    REGISTER("register");
+    REGISTER("register"),
+    ERROR_MASSAGE("errorMessage"),
+    USER("user"),
+    USER_ID("userID"),
+    USER_NAME("userName"),
+    USER_EMAIL("userEmail"),
+    USER_PASSWORD("userPassword"),
+    USER_LIST("userList"),
+    USER_PROFILE("userProfile");
 
     private String value;
 

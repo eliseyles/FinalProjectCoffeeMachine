@@ -54,7 +54,8 @@
                 <!-- Mask & flexbox options-->
                 <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
 
-                    <h1 class="h3 mb-3">Oops, something goes wrong</h1>
+                    <h1 class="h3 mb-3">something goes wrong</h1>
+                    <h1 class="h3 mb-3">${errorMessage}</h1>
 
                 </div>
 

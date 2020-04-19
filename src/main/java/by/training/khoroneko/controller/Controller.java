@@ -2,7 +2,9 @@ package by.training.khoroneko.controller;
 
 import by.training.khoroneko.command.Command;
 import by.training.khoroneko.command.JSPParameter;
+import by.training.khoroneko.exception.ConnectionPoolException;
 import by.training.khoroneko.factory.CommandFactory;
+import by.training.khoroneko.pool.ConnectionPool;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -18,6 +20,17 @@ import java.io.IOException;
 
 public class Controller extends HttpServlet {
     private static final CommandFactory COMMAND_FACTORY = new CommandFactory();
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        try {
+            ConnectionPool.INSTANCE.init();
+        } catch (ConnectionPoolException e) {
+//            todo reduce
+            e.printStackTrace();
+        }
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
