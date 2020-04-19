@@ -18,6 +18,11 @@ public class UserValidator {
         isValidPassword(user);
     }
 
+    public void isValidUserId(User user) throws ValidationException {
+        isNotNull(user);
+        isValidId(user);
+    }
+
     private void isNotNull(User user) throws ValidationException {
         if (user == null) {
             throw new ValidationException("User is null");
@@ -39,6 +44,12 @@ public class UserValidator {
     private void isValidPassword(User user) throws ValidationException {
         if (!user.getPassword().matches("^[a-zA-Z0-9]{8,20}$")) {
             throw new ValidationException("Invalid user password");
+        }
+    }
+
+    private void isValidId(User user) throws ValidationException {
+        if (user.getId() <= 0) {
+            throw new ValidationException("Invalid user id");
         }
     }
 }

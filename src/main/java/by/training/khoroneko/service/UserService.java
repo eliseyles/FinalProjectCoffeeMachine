@@ -15,4 +15,6 @@ public interface UserService {
     List<User> getAll() throws ServiceException;
 
     User signIn(User user) throws ServiceException;
+
+    User findById(User user) throws ServiceException;
 }

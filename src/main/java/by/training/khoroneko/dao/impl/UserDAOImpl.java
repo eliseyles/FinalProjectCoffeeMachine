@@ -3,7 +3,6 @@ package by.training.khoroneko.dao.impl;
 import by.training.khoroneko.builder.UserBuilder;
 import by.training.khoroneko.dao.AbstractCommonDAO;
 import by.training.khoroneko.dao.UserDAO;
-import by.training.khoroneko.entity.Role;
 import by.training.khoroneko.entity.User;
 import by.training.khoroneko.exception.DAOException;
 import org.apache.log4j.Logger;
@@ -21,17 +20,28 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
             "INSERT INTO `user` (`name`, `email`, `password`, `is_active`, `role_id`) VALUES (?, ?, ?, ?, ?)";
 
     private static final String UPDATE_USER_BY_ID =
-            "UPDATE `user` SET `name`=?, `email`=?, `password`=?, `is_active`=?, `role_id`=? WHERE id=?";
+            "UPDATE `user` SET `is_active`=? WHERE id=?";
 
     private static final String DELETE_USER_BY_ID = "DELETE FROM `user` WHERE `id` = ?";
 
     private static final String FIND_ALL_USERS =
-            "SELECT `id`, `name`, `email`, `password`, `is_active`, `card_account_id`, `role_id` FROM `user`";
+            "SELECT `user`.`id`, `name`, `email`, `password`, `is_active`, `card_account_id`, `title` as `role_title` " +
+                    "FROM `user` join `role` on `user`.`role_id` = `role`.`id`";
 
     private static final String FIND_USER_BY_EMAIL_AND_PASSWORD =
             "SELECT `user`.`id`, `name`, `email`, `password`, `is_active`, `card_account_id`, `title` as `role_title` " +
                     "FROM `user` join `role` on `user`.`role_id` = `role`.`id`" +
                     "WHERE `email`=? AND `password`=?";
+
+    private static final String FIND_USER_BY_EMAIL =
+            "SELECT `user`.`id`, `name`, `email`, `password`, `is_active`, `card_account_id`, `title` as `role_title` " +
+                    "FROM `user` join `role` on `user`.`role_id` = `role`.`id`" +
+                    "WHERE `email`=?";
+
+    private static final String FIND_USER_BY_ID =
+            "SELECT `user`.`id`, `name`, `email`, `password`, `is_active`, `card_account_id`, `title` as `role_title` " +
+                    "FROM `user` join `role` on `user`.`role_id` = `role`.`id`" +
+                    "WHERE `user`.`id`=?";
 
     @Override
     public User findByEmailAndPassword(User user) throws DAOException {
@@ -46,6 +56,38 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
         } catch (SQLException e) {
             logger.error(e);
             throw new DAOException("Error while getting user by email and password");
+        }
+    }
+
+    @Override
+    public User findByEmail(User user) throws DAOException {
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = buildFindByEmail(connection, user);
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                return createEntityFromResultSet(resultSet);
+            }
+//            todo change to return optional
+            return null;
+        } catch (SQLException e) {
+            logger.error(e);
+            throw new DAOException("Error while getting user by email");
+        }
+    }
+
+    @Override
+    public User findById(User user) throws DAOException {
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = buildFindById(connection, user);
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                return createEntityFromResultSet(resultSet);
+            }
+//            todo change to return optional
+            return null;
+        } catch (SQLException e) {
+            logger.error(e);
+            throw new DAOException("Error while getting user by id");
         }
     }
 
@@ -65,11 +107,7 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
     protected PreparedStatement buildUpdateByID(Connection connection, User user) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_BY_ID);
         int statementIndex = 0;
-        preparedStatement.setString(++statementIndex, user.getName());
-        preparedStatement.setString(++statementIndex, user.getEmail());
-        preparedStatement.setString(++statementIndex, user.getPassword());
         preparedStatement.setBoolean(++statementIndex, user.isActivity());
-        preparedStatement.setInt(++statementIndex, user.getRole().getId());
         preparedStatement.setInt(++statementIndex, user.getId());
         return preparedStatement;
     }
@@ -94,6 +132,20 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
         return preparedStatement;
     }
 
+    protected PreparedStatement buildFindByEmail(Connection connection, User user) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_EMAIL);
+        int statementIndex = 0;
+        preparedStatement.setString(++statementIndex, user.getEmail());
+        return preparedStatement;
+    }
+
+    protected PreparedStatement buildFindById(Connection connection, User user) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_ID);
+        int statementIndex = 0;
+        preparedStatement.setInt(++statementIndex, user.getId());
+        return preparedStatement;
+    }
+
     @Override
     protected User createEntityFromResultSet(ResultSet resultSet) throws SQLException {
         return new UserBuilder()
@@ -102,7 +154,7 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
                 .setEmail(resultSet.getString("email"))
                 .setPassword(resultSet.getString("password"))
                 .setActivity(resultSet.getBoolean("is_active"))
-                .setRole(Role.valueOf(resultSet.getString("role")))
+                .setRole(resultSet.getString("role_title"))
                 .getResult();
     }
 }
