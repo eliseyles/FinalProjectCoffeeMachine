@@ -1,6 +1,7 @@
 package by.training.khoroneko.command;
 
 import by.training.khoroneko.command.impl.*;
+import by.training.khoroneko.command.redirect.AddDrinkCommand;
 import by.training.khoroneko.command.redirect.IndexPageCommand;
 import by.training.khoroneko.command.redirect.RegistrationPageCommand;
 import by.training.khoroneko.command.redirect.SignInPageCommand;
@@ -17,7 +18,8 @@ public enum CommandParameter {
     BLOCK_USER(new BlockUserCommand()),
     UNBLOCK_USER(new UnblockUserCommand()),
     DRINK_LIST(new DrinkListCommand()),
-    DRINK_MANAGEMENT(new DrinkManagementCommand());
+    DRINK_MANAGEMENT(new DrinkManagementCommand()),
+    ADD_DRINK(new AddDrinkCommand());
 
     Command command;
 

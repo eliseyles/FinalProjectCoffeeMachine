@@ -8,7 +8,8 @@ public enum Pages {
     USER_LIST_JSP("page/userlist.jsp"),
     USER_EDIT_JSP("page/useredit.jsp"),
     DRINK_LIST_JSP("page/drinks.jsp"),
-    DRINK_MANAGEMENT_JSP("page/drinkmanagement.jsp");
+    DRINK_MANAGEMENT_JSP("page/drinkmanagement.jsp"),
+    DRINK_ADDING_JSP("page/add_drink.jsp");
 
     private String value;
 
