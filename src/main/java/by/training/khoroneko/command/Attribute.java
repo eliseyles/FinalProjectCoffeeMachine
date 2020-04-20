@@ -4,7 +4,8 @@ public enum Attribute {
     ERROR_MASSAGE("errorMessage"),
     USER_PROFILE("userProfile"),
     USER("user"),
-    USER_LIST("userList");
+    USER_LIST("userList"),
+    DRINK_LIST("drinkList");
 
     private String value;
 

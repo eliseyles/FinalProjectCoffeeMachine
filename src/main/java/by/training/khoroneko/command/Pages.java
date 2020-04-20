@@ -6,7 +6,8 @@ public enum Pages {
     ERROR_JSP("page/error.jsp"),
     SIGN_IN_JSP("page/signin.jsp"),
     USER_LIST_JSP("page/userlist.jsp"),
-    USER_EDIT_JSP("page/useredit.jsp");
+    USER_EDIT_JSP("page/useredit.jsp"),
+    DRINK_LIST_JSP("page/drinks.jsp");
 
     private String value;
 
