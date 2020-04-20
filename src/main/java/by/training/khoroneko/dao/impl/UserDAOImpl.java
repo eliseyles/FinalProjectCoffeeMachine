@@ -14,7 +14,7 @@ import java.sql.SQLException;
 
 public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
 
-    private Logger logger = Logger.getLogger(UserDAO.class);
+    private Logger logger = Logger.getLogger(UserDAOImpl.class);
 
     private static final String INSERT_USER =
             "INSERT INTO `user` (`name`, `email`, `password`, `is_active`, `role_id`) VALUES (?, ?, ?, ?, ?)";
