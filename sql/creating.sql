@@ -175,3 +175,8 @@ COLLATE = utf8mb4_0900_ai_ci;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+insert into `role` values (null, "USER"), (null, "ADMIN"), (null, "GUEST");
+insert into `user` value (null, "admin", "horoneko00@gmail.com", "1234567890", 1, null, 2);
+insert into `drink_size` values (null, "SMALL"), (null, "MEDIUM"), (null, "LARGE");
