@@ -1,8 +1,7 @@
 package by.training.khoroneko.command.redirect;
 
-import by.training.khoroneko.builder.UserBuilder;
+import by.training.khoroneko.command.Attribute;
 import by.training.khoroneko.command.Command;
-import by.training.khoroneko.command.JSPParameter;
 import by.training.khoroneko.command.Pages;
 import by.training.khoroneko.entity.User;
 import by.training.khoroneko.exception.ServiceException;
@@ -17,11 +16,10 @@ public class UserListCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
             List<User> userList = new UserServiceImpl().getAll();
-            request.setAttribute(JSPParameter.USER_LIST.getValue(), userList);
+            request.setAttribute(Attribute.USER_LIST.getValue(), userList);
             return Pages.USER_LIST_JSP.getValue();
-        } catch (
-                ServiceException ex) {
-            request.setAttribute(JSPParameter.ERROR_MASSAGE.getValue(), ex.getMessage());
+        } catch (ServiceException ex) {
+            request.setAttribute(Attribute.ERROR_MASSAGE.getValue(), ex.getMessage());
             return Pages.ERROR_JSP.getValue();
         }
     }

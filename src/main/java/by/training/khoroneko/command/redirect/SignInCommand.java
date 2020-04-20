@@ -1,6 +1,7 @@
 package by.training.khoroneko.command.redirect;
 
 import by.training.khoroneko.builder.UserBuilder;
+import by.training.khoroneko.command.Attribute;
 import by.training.khoroneko.command.Command;
 import by.training.khoroneko.command.JSPParameter;
 import by.training.khoroneko.command.Pages;
@@ -15,15 +16,15 @@ public class SignInCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
 //            todo add password hashing
-            request.getSession().setAttribute(JSPParameter.USER.getValue(),
+            request.getSession().setAttribute(Attribute.USER.getValue(),
                     new UserServiceImpl()
-                    .signIn(new UserBuilder()
-                    .setEmail(request.getParameter(JSPParameter.USER_EMAIL.getValue()))
-                    .setPassword(request.getParameter(JSPParameter.USER_PASSWORD.getValue()))
-                    .getResult()));
+                            .signIn(new UserBuilder()
+                                    .setEmail(request.getParameter(JSPParameter.USER_EMAIL.getValue()))
+                                    .setPassword(request.getParameter(JSPParameter.USER_PASSWORD.getValue()))
+                                    .getResult()));
             return Pages.INDEX_JSP.getValue();
         } catch (ServiceException ex) {
-            request.setAttribute(JSPParameter.ERROR_MASSAGE.getValue(), ex.getMessage());
+            request.setAttribute(Attribute.ERROR_MASSAGE.getValue(), ex.getMessage());
             return Pages.SIGN_IN_JSP.getValue();
         }
     }

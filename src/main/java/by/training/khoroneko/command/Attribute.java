@@ -1,7 +1,10 @@
 package by.training.khoroneko.command;
 
 public enum Attribute {
-    INFORM_MESSAGE("informMessage");
+    ERROR_MASSAGE("errorMessage"),
+    USER_PROFILE("userProfile"),
+    USER("user"),
+    USER_LIST("userList");
 
     private String value;
 

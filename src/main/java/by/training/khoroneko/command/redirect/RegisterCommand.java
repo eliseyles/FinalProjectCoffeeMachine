@@ -1,6 +1,7 @@
 package by.training.khoroneko.command.redirect;
 
 import by.training.khoroneko.builder.UserBuilder;
+import by.training.khoroneko.command.Attribute;
 import by.training.khoroneko.command.Command;
 import by.training.khoroneko.command.JSPParameter;
 import by.training.khoroneko.command.Pages;
@@ -25,7 +26,7 @@ public class RegisterCommand implements Command {
                     .getResult());
             return Pages.INDEX_JSP.getValue();
         } catch (ServiceException ex) {
-            request.setAttribute(JSPParameter.ERROR_MASSAGE.getValue(), ex.getMessage());
+            request.setAttribute(Attribute.ERROR_MASSAGE.getValue(), ex.getMessage());
             return Pages.REGISTRATION_JSR.getValue();
         }
     }
