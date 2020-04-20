@@ -11,6 +11,7 @@ public class DrinkValidator {
 
     public void isValidDrink(Drink drink) throws ValidationException {
         isNotNull(drink);
+        isValidId(drink);
         isValidTitle(drink);
         isValidPrice(drink);
         isValidServingNumber(drink);
@@ -19,6 +20,19 @@ public class DrinkValidator {
     public void isValidDrinkId(Drink drink) throws ValidationException {
         isNotNull(drink);
         isValidId(drink);
+    }
+
+    public void isValidDrinkData(Drink drink) throws ValidationException {
+        isNotNull(drink);
+        isValidTitle(drink);
+        isValidPrice(drink);
+        isValidServingNumber(drink);
+    }
+
+    public void isValidIdAndServingNumber(Drink drink) throws ValidationException {
+        isNotNull(drink);
+        isValidId(drink);
+        isValidServingNumber(drink);
     }
 
     private void isNotNull(Drink drink) throws ValidationException {

@@ -33,10 +33,31 @@ public class DrinkDAOImpl extends AbstractCommonDAO<Drink> implements DrinkDAO {
                     "FROM `drinks` JOIN `drink_size` ON `drinks`.`drink_size_id` = `drink_size`.`id`" +
                     "WHERE `drinks`.`id`=?";
 
+    private static final String FIND_DRINK_BY_TITLE_AND_SIZE =
+            "SELECT `drinks`.`id`, `title`, `price`, `serving_number`, `volume`" +
+                    "FROM `drinks` JOIN `drink_size` ON `drinks`.`drink_size_id` = `drink_size`.`id`" +
+                    "WHERE `title`=? AND `volume`=?";
+
     @Override
     public Drink findById(Drink drink) throws DAOException {
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = buildFindById(connection, drink);
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                return createEntityFromResultSet(resultSet);
+            }
+//            todo change to return optional
+            return null;
+        } catch (SQLException ex) {
+            logger.error(ex);
+            throw new DAOException("Error while getting drink by id", ex);
+        }
+    }
+
+    @Override
+    public Drink findByTitleAndSize(Drink drink) throws DAOException {
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = buildFindByTitleAndSize(connection, drink);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 return createEntityFromResultSet(resultSet);
@@ -84,6 +105,14 @@ public class DrinkDAOImpl extends AbstractCommonDAO<Drink> implements DrinkDAO {
     protected PreparedStatement buildFindById(Connection connection, Drink drink) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(FIND_DRINK_BY_ID);
         preparedStatement.setInt(1, drink.getId());
+        return preparedStatement;
+    }
+
+    protected PreparedStatement buildFindByTitleAndSize(Connection connection, Drink drink) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(FIND_DRINK_BY_TITLE_AND_SIZE);
+        int statementIndex = 0;
+        preparedStatement.setString(++statementIndex, drink.getTitle());
+        preparedStatement.setString(++statementIndex, drink.getDrinkSize().toString());
         return preparedStatement;
     }
 
