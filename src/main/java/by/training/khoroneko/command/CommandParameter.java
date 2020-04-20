@@ -1,6 +1,9 @@
 package by.training.khoroneko.command;
 
-import by.training.khoroneko.command.redirect.*;
+import by.training.khoroneko.command.impl.*;
+import by.training.khoroneko.command.redirect.IndexPageCommand;
+import by.training.khoroneko.command.redirect.RegistrationPageCommand;
+import by.training.khoroneko.command.redirect.SignInPageCommand;
 
 public enum CommandParameter {
     INDEX_PAGE(new IndexPageCommand()),

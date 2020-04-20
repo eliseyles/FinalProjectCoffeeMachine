@@ -1,4 +1,4 @@
-package by.training.khoroneko.command.redirect;
+package by.training.khoroneko.command.impl;
 
 import by.training.khoroneko.builder.UserBuilder;
 import by.training.khoroneko.command.Attribute;
