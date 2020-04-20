@@ -42,14 +42,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User update(User user) throws ServiceException {
+    public void update(User user) throws ServiceException {
         if (user == null) {
             throw new ServiceException("Invalid user, user is null");
         }
         try {
             userValidator.isValidUserId(user);
             userDAO.update(user);
-            return user;
         } catch (DAOException ex) {
             logger.error(ex);
             throw new ServiceException("Error while updating user", ex);

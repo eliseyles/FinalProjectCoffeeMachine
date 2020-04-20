@@ -15,12 +15,14 @@ public class UnblockUserCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
-            request.setAttribute(Attribute.USER_PROFILE.getValue(),
-                    new UserServiceImpl().update(
-                            new UserBuilder()
-                                    .setId(Integer.parseInt(request.getParameter(JSPParameter.USER_ID.getValue())))
-                                    .setActivity(true)
-                                    .getResult()));
+            new UserServiceImpl().update(new UserBuilder()
+                    .setId(Integer.parseInt(request.getParameter(JSPParameter.USER_ID.getValue())))
+                    .setActivity(true)
+                    .getResult());
+            request.setAttribute(Attribute.USER_PROFILE.getValue(), new UserServiceImpl()
+                    .findById(new UserBuilder()
+                            .setId(Integer.parseInt(request.getParameter(JSPParameter.USER_ID.getValue())))
+                            .getResult()));
             return Pages.USER_EDIT_JSP.getValue();
         } catch (ServiceException ex) {
             request.setAttribute(Attribute.ERROR_MASSAGE.getValue(), ex.getMessage());

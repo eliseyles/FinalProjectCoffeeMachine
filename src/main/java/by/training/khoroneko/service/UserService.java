@@ -8,7 +8,7 @@ import java.util.List;
 public interface UserService {
     User register(User user) throws ServiceException;
 
-    User update(User user) throws ServiceException;
+    void update(User user) throws ServiceException;
 
     void delete(User user) throws ServiceException;
 
