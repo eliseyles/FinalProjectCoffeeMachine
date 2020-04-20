@@ -14,8 +14,8 @@ import java.util.List;
 
 public class UserServiceImpl implements UserService {
 
-    AbstractCommonDAO userDAO = DAOFactory.INSTANCE.getUserDAO();
-    UserValidator userValidator = new UserValidator();
+    private AbstractCommonDAO<User> userDAO = DAOFactory.INSTANCE.getUserDAO();
+    private UserValidator userValidator = new UserValidator();
 //    todo add logger
 
     @Override
