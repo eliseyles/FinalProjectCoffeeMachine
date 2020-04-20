@@ -55,8 +55,8 @@ public class ProxyConnection implements Connection {
     public void close() {
         try {
             ConnectionPool.INSTANCE.releaseConnection(this);
-        } catch (ConnectionPoolException e) {
-            Logger.getLogger(ProxyConnection.class).error(e);
+        } catch (ConnectionPoolException ex) {
+            Logger.getLogger(ProxyConnection.class).error(ex);
         }
     }
 

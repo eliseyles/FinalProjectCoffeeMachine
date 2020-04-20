@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User register(User user) throws ServiceException {
         if (user == null) {
-            throw new ServiceException("Invalid user data");
+            throw new ServiceException("Invalid user, user is null");
         }
         try {
             userValidator.isValidUser(user);
@@ -32,40 +32,40 @@ public class UserServiceImpl implements UserService {
                 throw new ServiceException("Email is already taken");
             }
         } catch (DAOException ex) {
-            throw new ServiceException("Error while adding user");
+            throw new ServiceException("Error while adding user", ex);
         } catch (ValidationException ex) {
-            throw new ServiceException("Invalid user data");
+            throw new ServiceException("Invalid user data", ex);
         }
     }
 
     @Override
     public User update(User user) throws ServiceException {
         if (user == null) {
-            throw new ServiceException("Invalid user data");
+            throw new ServiceException("Invalid user, user is null");
         }
         try {
             userValidator.isValidUserId(user);
             userDAO.update(user);
             return user;
         } catch (DAOException ex) {
-            throw new ServiceException("Error while updating user");
+            throw new ServiceException("Error while updating user", ex);
         } catch (ValidationException ex) {
-            throw new ServiceException("Invalid user data");
+            throw new ServiceException("Invalid user data", ex);
         }
     }
 
     @Override
     public void delete(User user) throws ServiceException {
         if (user == null) {
-            throw new ServiceException("Invalid user data");
+            throw new ServiceException("Invalid user, user is null");
         }
         try {
             userValidator.isValidUser(user);
             userDAO.delete(user);
         } catch (DAOException ex) {
-            throw new ServiceException("Error while deleting user");
+            throw new ServiceException("Error while deleting user", ex);
         } catch (ValidationException ex) {
-            throw new ServiceException("Invalid user data");
+            throw new ServiceException("Invalid user data", ex);
         }
     }
 
@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserService {
         try {
             return userDAO.getAll();
         } catch (DAOException ex) {
-            throw new ServiceException("Error while getting all users");
+            throw new ServiceException("Error while getting all users", ex);
         }
     }
 
@@ -84,9 +84,9 @@ public class UserServiceImpl implements UserService {
             userValidator.isValidEmailAndPassword(user);
             return ((UserDAO) userDAO).findByEmailAndPassword(user);
         } catch (DAOException ex) {
-            throw new ServiceException("Error while sign in");
+            throw new ServiceException("Error while sign in", ex);
         } catch (ValidationException ex) {
-            throw new ServiceException("Invalid user data");
+            throw new ServiceException("Invalid user data", ex);
         }
     }
 
@@ -96,9 +96,9 @@ public class UserServiceImpl implements UserService {
             userValidator.isValidUserId(user);
             return ((UserDAO) userDAO).findById(user);
         } catch (DAOException ex) {
-            throw new ServiceException("Error while getting user by id");
+            throw new ServiceException("Error while getting user by id", ex);
         } catch (ValidationException ex) {
-            throw new ServiceException("Invalid user data");
+            throw new ServiceException("Invalid user data", ex);
         }
     }
 }

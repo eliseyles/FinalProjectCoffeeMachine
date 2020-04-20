@@ -19,8 +19,8 @@ public class BlockUserCommand implements Command {
                     .setActivity(false)
                     .getResult()));
             return Pages.USER_EDIT_JSP.getValue();
-        } catch (ServiceException e) {
-            request.setAttribute(JSPParameter.ERROR_MASSAGE.getValue(), e.getMessage());
+        } catch (ServiceException ex) {
+            request.setAttribute(JSPParameter.ERROR_MASSAGE.getValue(), ex.getMessage());
             return Pages.ERROR_JSP.getValue();
         }
     }

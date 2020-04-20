@@ -50,9 +50,9 @@ public enum ConnectionPool {
                     availableConnections.add(new ProxyConnection(DriverManager.getConnection(url,properties)));
                 }
                 isInitialized.set(true);
-            } catch (IOException | ClassNotFoundException | SQLException e) {
-                logger.fatal(e);
-                throw new ConnectionPoolException("Failed to initialize pool");
+            } catch (IOException | ClassNotFoundException | SQLException ex) {
+                logger.fatal(ex);
+                throw new ConnectionPoolException("Failed to initialize pool", ex);
             }
         }
     }
@@ -62,8 +62,8 @@ public enum ConnectionPool {
         try {
             connection = availableConnections.take();
             usedConnections.add(connection);
-        } catch (InterruptedException e) {
-            logger.error(e);
+        } catch (InterruptedException ex) {
+            logger.error(ex);
             Thread.currentThread().interrupt();
         }
         return connection;
@@ -74,8 +74,8 @@ public enum ConnectionPool {
         try {
             connection = availableConnections.poll(waitingTimeInSecond, TimeUnit.SECONDS);
             usedConnections.add(connection);
-        } catch (InterruptedException e) {
-            logger.error(e);
+        } catch (InterruptedException ex) {
+            logger.error(ex);
             Thread.currentThread().interrupt();
         }
         return connection;
@@ -83,7 +83,7 @@ public enum ConnectionPool {
 
     public void releaseConnection(Connection connection) throws ConnectionPoolException {
         if (connection.getClass() != ProxyConnection.class) {
-            throw new ConnectionPoolException();
+            throw new ConnectionPoolException("Invalid entered connection");
         }
         usedConnections.remove(connection);
         availableConnections.offer((ProxyConnection) connection);
@@ -93,8 +93,8 @@ public enum ConnectionPool {
         for (int i = 0; i < POOL_SIZE; i++) {
             try {
                 availableConnections.take().realClose();
-            } catch (SQLException | InterruptedException e) {
-                logger.error(e);
+            } catch (SQLException | InterruptedException ex) {
+                logger.error(ex);
             }
         }
         deregisterDrivers();
@@ -105,8 +105,8 @@ public enum ConnectionPool {
         while (drivers.hasMoreElements()) {
             try {
                 DriverManager.deregisterDriver(drivers.nextElement());
-            } catch (SQLException e) {
-                logger.warn(e);
+            } catch (SQLException ex) {
+                logger.warn(ex);
             }
         }
     }

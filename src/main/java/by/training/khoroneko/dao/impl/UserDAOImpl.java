@@ -53,9 +53,9 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
             }
 //            todo change to return optional
             return null;
-        } catch (SQLException e) {
-            logger.error(e);
-            throw new DAOException("Error while getting user by email and password");
+        } catch (SQLException ex) {
+            logger.error(ex);
+            throw new DAOException("Error while getting user by email and password", ex);
         }
     }
 
@@ -69,9 +69,9 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
             }
 //            todo change to return optional
             return null;
-        } catch (SQLException e) {
-            logger.error(e);
-            throw new DAOException("Error while getting user by email");
+        } catch (SQLException ex) {
+            logger.error(ex);
+            throw new DAOException("Error while getting user by email", ex);
         }
     }
 
@@ -85,9 +85,9 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
             }
 //            todo change to return optional
             return null;
-        } catch (SQLException e) {
-            logger.error(e);
-            throw new DAOException("Error while getting user by id");
+        } catch (SQLException ex) {
+            logger.error(ex);
+            throw new DAOException("Error while getting user by id", ex);
         }
     }
 

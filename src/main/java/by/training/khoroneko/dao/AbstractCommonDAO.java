@@ -21,9 +21,9 @@ public abstract class AbstractCommonDAO<T> implements CommonDAO<T> {
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = buildInsertStatement(connection, element)) {
             statement.executeUpdate();
-        } catch (SQLException e) {
-            logger.error(e);
-            throw new DAOException("Error while adding element");
+        } catch (SQLException ex) {
+            logger.error(ex);
+            throw new DAOException("Error while adding element", ex);
         }
     }
 
@@ -32,9 +32,9 @@ public abstract class AbstractCommonDAO<T> implements CommonDAO<T> {
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = buildUpdateByID(connection, element)) {
             statement.executeUpdate();
-        } catch (SQLException e) {
-            logger.error(e);
-            throw new DAOException("Error while updating element");
+        } catch (SQLException ex) {
+            logger.error(ex);
+            throw new DAOException("Error while updating element", ex);
         }
     }
 
@@ -43,9 +43,9 @@ public abstract class AbstractCommonDAO<T> implements CommonDAO<T> {
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = buildDeleteById(connection, element)) {
             statement.executeUpdate();
-        } catch (SQLException e) {
-            logger.error(e);
-            throw new DAOException("Error while deleting element");
+        } catch (SQLException ex) {
+            logger.error(ex);
+            throw new DAOException("Error while deleting element", ex);
         }
     }
 
@@ -59,9 +59,9 @@ public abstract class AbstractCommonDAO<T> implements CommonDAO<T> {
                 result.add(createEntityFromResultSet(resultSet));
             }
             return result;
-        } catch (SQLException e) {
-            logger.error(e);
-            throw new DAOException("Error while getting all elements");
+        } catch (SQLException ex) {
+            logger.error(ex);
+            throw new DAOException("Error while getting all elements", ex);
         }
     }
 

@@ -24,8 +24,8 @@ public class RegisterCommand implements Command {
                     .setRole(Role.USER.getId())
                     .getResult());
             return Pages.INDEX_JSP.getValue();
-        } catch (ServiceException e) {
-            request.setAttribute(JSPParameter.ERROR_MASSAGE.getValue(), e.getMessage());
+        } catch (ServiceException ex) {
+            request.setAttribute(JSPParameter.ERROR_MASSAGE.getValue(), ex.getMessage());
             return Pages.REGISTRATION_JSR.getValue();
         }
     }

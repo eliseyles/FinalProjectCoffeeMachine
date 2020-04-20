@@ -20,8 +20,8 @@ public class UserListCommand implements Command {
             request.setAttribute(JSPParameter.USER_LIST.getValue(), userList);
             return Pages.USER_LIST_JSP.getValue();
         } catch (
-                ServiceException e) {
-            request.setAttribute(JSPParameter.ERROR_MASSAGE.getValue(), e.getMessage());
+                ServiceException ex) {
+            request.setAttribute(JSPParameter.ERROR_MASSAGE.getValue(), ex.getMessage());
             return Pages.ERROR_JSP.getValue();
         }
     }

@@ -22,8 +22,8 @@ public class SignInCommand implements Command {
                     .setPassword(request.getParameter(JSPParameter.USER_PASSWORD.getValue()))
                     .getResult()));
             return Pages.INDEX_JSP.getValue();
-        } catch (ServiceException e) {
-            request.setAttribute(JSPParameter.ERROR_MASSAGE.getValue(), e.getMessage());
+        } catch (ServiceException ex) {
+            request.setAttribute(JSPParameter.ERROR_MASSAGE.getValue(), ex.getMessage());
             return Pages.SIGN_IN_JSP.getValue();
         }
     }
