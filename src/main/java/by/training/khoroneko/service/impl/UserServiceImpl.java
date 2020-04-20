@@ -9,14 +9,15 @@ import by.training.khoroneko.exception.ValidationException;
 import by.training.khoroneko.factory.DAOFactory;
 import by.training.khoroneko.service.UserService;
 import by.training.khoroneko.validation.UserValidator;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
 
+    private Logger logger = Logger.getLogger(UserServiceImpl.class);
     private AbstractCommonDAO<User> userDAO = DAOFactory.INSTANCE.getUserDAO();
     private UserValidator userValidator = new UserValidator();
-//    todo add logger
 
     @Override
     public User register(User user) throws ServiceException {
@@ -32,8 +33,10 @@ public class UserServiceImpl implements UserService {
                 throw new ServiceException("Email is already taken");
             }
         } catch (DAOException ex) {
+            logger.error(ex);
             throw new ServiceException("Error while adding user", ex);
         } catch (ValidationException ex) {
+            logger.error(ex);
             throw new ServiceException("Invalid user data", ex);
         }
     }
@@ -48,8 +51,10 @@ public class UserServiceImpl implements UserService {
             userDAO.update(user);
             return user;
         } catch (DAOException ex) {
+            logger.error(ex);
             throw new ServiceException("Error while updating user", ex);
         } catch (ValidationException ex) {
+            logger.error(ex);
             throw new ServiceException("Invalid user data", ex);
         }
     }
@@ -63,8 +68,10 @@ public class UserServiceImpl implements UserService {
             userValidator.isValidUser(user);
             userDAO.delete(user);
         } catch (DAOException ex) {
+            logger.error(ex);
             throw new ServiceException("Error while deleting user", ex);
         } catch (ValidationException ex) {
+            logger.error(ex);
             throw new ServiceException("Invalid user data", ex);
         }
     }
@@ -96,8 +103,10 @@ public class UserServiceImpl implements UserService {
             userValidator.isValidUserId(user);
             return ((UserDAO) userDAO).findById(user);
         } catch (DAOException ex) {
+            logger.error(ex);
             throw new ServiceException("Error while getting user by id", ex);
         } catch (ValidationException ex) {
+            logger.error(ex);
             throw new ServiceException("Invalid user data", ex);
         }
     }

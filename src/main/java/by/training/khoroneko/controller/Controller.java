@@ -5,6 +5,7 @@ import by.training.khoroneko.command.JSPParameter;
 import by.training.khoroneko.exception.ConnectionPoolException;
 import by.training.khoroneko.factory.CommandFactory;
 import by.training.khoroneko.pool.ConnectionPool;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -19,6 +20,7 @@ import java.io.IOException;
 @MultipartConfig(maxFileSize = 10240)
 
 public class Controller extends HttpServlet {
+    private Logger logger = Logger.getLogger(Controller.class);
     private static final CommandFactory COMMAND_FACTORY = new CommandFactory();
 
     @Override
@@ -26,9 +28,8 @@ public class Controller extends HttpServlet {
         super.init();
         try {
             ConnectionPool.INSTANCE.init();
-        } catch (ConnectionPoolException e) {
-//            todo reduce
-            e.printStackTrace();
+        } catch (ConnectionPoolException ex) {
+            logger.error(ex);
         }
     }
 
