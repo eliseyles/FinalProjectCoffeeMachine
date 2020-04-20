@@ -16,7 +16,8 @@ public enum CommandParameter {
     USER_EDIT(new UserEditCommand()),
     BLOCK_USER(new BlockUserCommand()),
     UNBLOCK_USER(new UnblockUserCommand()),
-    DRINK_LIST(new DrinkListCommand());
+    DRINK_LIST(new DrinkListCommand()),
+    DRINK_MANAGEMENT(new DrinkManagementCommand());
 
     Command command;
 

@@ -38,6 +38,11 @@
                             User List
                         </a>
                     </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="controller?command=DRINK_MANAGEMENT">
+                            Drink Management
+                        </a>
+                    </li>
                 </c:if>
             </ul>
 
