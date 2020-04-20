@@ -6,20 +6,23 @@ import by.training.khoroneko.command.Command;
 import by.training.khoroneko.command.JSPParameter;
 import by.training.khoroneko.command.Pages;
 import by.training.khoroneko.exception.ServiceException;
-import by.training.khoroneko.service.impl.UserServiceImpl;
+import by.training.khoroneko.factory.ServiceFactory;
+import by.training.khoroneko.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class BlockUserCommand implements Command {
+    private UserService userService = ServiceFactory.INSTANCE.getUserService();
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
-            new UserServiceImpl().update(new UserBuilder()
+            userService.update(new UserBuilder()
                     .setId(Integer.parseInt(request.getParameter(JSPParameter.USER_ID.getValue())))
                     .setActivity(false)
                     .getResult());
-            request.setAttribute(Attribute.USER_PROFILE.getValue(), new UserServiceImpl()
+            request.setAttribute(Attribute.USER_PROFILE.getValue(), userService
                     .findById(new UserBuilder()
                             .setId(Integer.parseInt(request.getParameter(JSPParameter.USER_ID.getValue())))
                             .getResult()));

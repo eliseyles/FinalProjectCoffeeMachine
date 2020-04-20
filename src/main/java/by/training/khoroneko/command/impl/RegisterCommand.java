@@ -7,7 +7,7 @@ import by.training.khoroneko.command.JSPParameter;
 import by.training.khoroneko.command.Pages;
 import by.training.khoroneko.entity.Role;
 import by.training.khoroneko.exception.ServiceException;
-import by.training.khoroneko.service.impl.UserServiceImpl;
+import by.training.khoroneko.factory.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +17,7 @@ public class RegisterCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
 //            todo add password hashing
-            new UserServiceImpl().register(new UserBuilder()
+            ServiceFactory.INSTANCE.getUserService().register(new UserBuilder()
                     .setName(request.getParameter(JSPParameter.USER_NAME.getValue()))
                     .setEmail(request.getParameter(JSPParameter.USER_EMAIL.getValue()))
                     .setPassword(request.getParameter(JSPParameter.USER_PASSWORD.getValue()))
