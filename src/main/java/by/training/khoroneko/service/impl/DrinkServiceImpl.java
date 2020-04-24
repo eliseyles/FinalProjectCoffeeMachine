@@ -23,7 +23,7 @@ public class DrinkServiceImpl implements DrinkService {
     public void add(Drink drink) throws ServiceException {
         try {
             drinkValidator.isValidDrinkData(drink);
-            Drink existDrink = ((DrinkDAO) drinkDAO).findByTitleAndSize(drink);
+            Drink existDrink = ((DrinkDAO) drinkDAO).findByTitleAndSizeAndPrice(drink);
             if (existDrink == null) {
                 drinkDAO.create(drink);
             } else {

@@ -101,7 +101,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroupPrepend">$</span>
                     </div>
-                    <input type="text" class="form-control" id="price" aria-describedby="inputGroupPrepend" required>
+                    <input type="text" class="form-control" id="price" aria-describedby="inputGroupPrepend" name="drinkPrice">
                 </div>
             </div>
             <div class="form-group">
@@ -109,7 +109,7 @@
                 <input type="text" class="form-control" id="inputNumber" name="servingNumber">
             </div>
             <button type="submit" class="btn btn-outline-white btn-lg" name="command"
-                    value="ADD">Submit
+                    value="ADD">Add
             </button>
         </form>
     </div>

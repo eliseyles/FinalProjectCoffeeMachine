@@ -48,7 +48,7 @@
         }
 
         form{
-            padding: 60px 120px 15px 120px;
+            padding: 60px 50px 15px 50px;
         }
 
     </style>
@@ -87,11 +87,11 @@
                     <form action="controller" method="post">
                         <input type="hidden" name="userID" value="${drink.id}"/>
                         <td>${drink.title}</td>
-                        <td>${drink.drink_size}</td>
+                        <td>${drink.drinkSize}</td>
                         <td>${drink.price}</td>
                         <td>${drink.servingNumber}</td>
                         <td>
-                            <button type="submit" class="btn" name="command" value="DRINK_EDIT">Add servings</button>
+                            <button type="submit" class="btn" name="command" value="ADD_SERVINGS">Add servings</button>
                         </td>
                     </form>
                 </tr>

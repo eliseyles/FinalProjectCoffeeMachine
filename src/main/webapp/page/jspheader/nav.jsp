@@ -56,7 +56,7 @@
                     </a>
 
 <%--                    <li class="nav-item ">--%>
-                        <a class="nav-link btn-outline-white" href="controller?command=SIGN_OUT">
+                        <a class="nav-link btn-outline-white mr-1 ml-2" href="controller?command=SIGN_OUT">
                             Sign Out
                         </a>
 <%--                    </li>--%>
@@ -64,7 +64,7 @@
 
                 <c:if test="${user == null}">
 <%--                    <li class="nav-item ">--%>
-                        <a class="nav-link btn-outline-white" href="controller?command=SIGN_IN_PAGE">
+                        <a class="nav-link btn-outline-white mr-1 ml-2" href="controller?command=SIGN_IN_PAGE">
                             Sign In
                         </a>
 <%--                    </li>--%>

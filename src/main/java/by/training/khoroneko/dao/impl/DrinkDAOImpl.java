@@ -33,10 +33,10 @@ public class DrinkDAOImpl extends AbstractCommonDAO<Drink> implements DrinkDAO {
                     "FROM `drinks` JOIN `drink_size` ON `drinks`.`drink_size_id` = `drink_size`.`id`" +
                     "WHERE `drinks`.`id`=?";
 
-    private static final String FIND_DRINK_BY_TITLE_AND_SIZE =
+    private static final String FIND_DRINK_BY_TITLE_AND_SIZE_AND_PRICE =
             "SELECT `drinks`.`id`, `title`, `price`, `serving_number`, `volume`" +
                     "FROM `drinks` JOIN `drink_size` ON `drinks`.`drink_size_id` = `drink_size`.`id`" +
-                    "WHERE `title`=? AND `volume`=?";
+                    "WHERE `title`=? AND `volume`=? AND `price`=?";
 
     @Override
     public Drink findById(Drink drink) throws DAOException {
@@ -55,9 +55,9 @@ public class DrinkDAOImpl extends AbstractCommonDAO<Drink> implements DrinkDAO {
     }
 
     @Override
-    public Drink findByTitleAndSize(Drink drink) throws DAOException {
+    public Drink findByTitleAndSizeAndPrice(Drink drink) throws DAOException {
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = buildFindByTitleAndSize(connection, drink);
+             PreparedStatement statement = buildFindByTitleAndSizeAndPrice(connection, drink);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 return createEntityFromResultSet(resultSet);
@@ -108,11 +108,12 @@ public class DrinkDAOImpl extends AbstractCommonDAO<Drink> implements DrinkDAO {
         return preparedStatement;
     }
 
-    protected PreparedStatement buildFindByTitleAndSize(Connection connection, Drink drink) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement(FIND_DRINK_BY_TITLE_AND_SIZE);
+    protected PreparedStatement buildFindByTitleAndSizeAndPrice(Connection connection, Drink drink) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(FIND_DRINK_BY_TITLE_AND_SIZE_AND_PRICE);
         int statementIndex = 0;
         preparedStatement.setString(++statementIndex, drink.getTitle());
         preparedStatement.setString(++statementIndex, drink.getDrinkSize().toString());
+        preparedStatement.setBigDecimal(++statementIndex, drink.getPrice());
         return preparedStatement;
     }
 

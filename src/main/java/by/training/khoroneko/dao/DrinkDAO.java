@@ -6,5 +6,5 @@ import by.training.khoroneko.exception.DAOException;
 public interface DrinkDAO {
     Drink findById(Drink drink) throws DAOException;
 
-    Drink findByTitleAndSize(Drink drink) throws DAOException;
+    Drink findByTitleAndSizeAndPrice(Drink drink) throws DAOException;
 }
