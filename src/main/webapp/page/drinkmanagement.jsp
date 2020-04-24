@@ -85,13 +85,13 @@
             <c:forEach var="drink" items="${drinkList}">
                 <tr>
                     <form action="controller" method="post">
-                        <input type="hidden" name="userID" value="${drink.id}"/>
+                        <input type="hidden" name="drinkId" value="${drink.id}"/>
                         <td>${drink.title}</td>
                         <td>${drink.drinkSize}</td>
                         <td>${drink.price}</td>
                         <td>${drink.servingNumber}</td>
                         <td>
-                            <button type="submit" class="btn" name="command" value="ADD_SERVINGS">Add servings</button>
+                            <button type="submit" class="btn" name="command" value="ADD_SERVINGS_PAGE">Add servings</button>
                         </td>
                     </form>
                 </tr>
