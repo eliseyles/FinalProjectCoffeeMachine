@@ -94,7 +94,7 @@
                 <label>Price: ${drink.price}</label>
             </div>
             <div class="form-group">
-                <input type="hidden" name="userID" value="${drink.id}"/>
+                <input type="hidden" name="drinkId" value="${drink.id}"/>
                 <label for="inputNumber">Servings number</label>
                 <input type="text" class="form-control" id="inputNumber" name="servingNumber">
             </div>

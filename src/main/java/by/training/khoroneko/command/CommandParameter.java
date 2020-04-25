@@ -21,7 +21,8 @@ public enum CommandParameter {
     DRINK_MANAGEMENT(new DrinkManagementCommand()),
     ADD_DRINK(new AddDrinkCommand()),
     ADD(new AddCommand()),
-    ADD_SERVINGS_PAGE(new AddServingsPageCommand());
+    ADD_SERVINGS_PAGE(new AddServingsPageCommand()),
+    ADD_SERVINGS(new AddServingsCommand());
 
     Command command;
 
