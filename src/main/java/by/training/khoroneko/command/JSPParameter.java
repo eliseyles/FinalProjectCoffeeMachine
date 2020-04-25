@@ -6,7 +6,12 @@ public enum JSPParameter {
     USER_ID("userID"),
     USER_NAME("userName"),
     USER_EMAIL("userEmail"),
-    USER_PASSWORD("userPassword");
+    USER_PASSWORD("userPassword"),
+    DRINK_TITLE("drinkTitle"),
+    DRINK_VOLUME("drinkVolume"),
+    DRINK_PRICE("drinkPrice"),
+    DRINK_SERVING_NUMBER("servingNumber"),
+    DRINK_ID("drinkId");
 
     private String value;
 

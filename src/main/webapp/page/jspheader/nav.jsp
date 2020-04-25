@@ -27,16 +27,26 @@
                         Home
                     </a>
                 </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="controller?command=DRINK_LIST">
+                        Drinks
+                    </a>
+                </li>
                 <c:if test="${user.role == 'ADMIN'}">
                     <li class="nav-item ">
                         <a class="nav-link" href="controller?command=USER_LIST">
                             User List
                         </a>
                     </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="controller?command=DRINK_MANAGEMENT">
+                            Drink Management
+                        </a>
+                    </li>
                 </c:if>
             </ul>
 
-            <ul class="navbar-nav mr-auto justify-content-end">
+<%--            <ul class="navbar-nav mr-auto justify-content-end">--%>
 
 
                 <c:if test="${user != null}">
@@ -45,30 +55,30 @@
                             ${user.name}
                     </a>
 
-                    <li class="nav-item ">
-                        <a class="nav-link btn-outline-white" href="controller?command=SIGN_OUT">
+<%--                    <li class="nav-item ">--%>
+                        <a class="nav-link btn-outline-white mr-1 ml-2" href="controller?command=SIGN_OUT">
                             Sign Out
                         </a>
-                    </li>
+<%--                    </li>--%>
                 </c:if>
 
                 <c:if test="${user == null}">
-                    <li class="nav-item ">
-                        <a class="nav-link btn-outline-white" href="controller?command=SIGN_IN_PAGE">
+<%--                    <li class="nav-item ">--%>
+                        <a class="nav-link btn-outline-white mr-1 ml-2" href="controller?command=SIGN_IN_PAGE">
                             Sign In
                         </a>
-                    </li>
+<%--                    </li>--%>
                 </c:if>
 
                 <c:if test="${user == null}">
-                    <li class="nav-item ">
+<%--                    <li class="nav-item ">--%>
                         <a class="nav-link btn-outline-white" href="controller?command=REGISTRATION_PAGE">
                             Sign Up
                         </a>
-                    </li>
+<%--                    </li>--%>
                 </c:if>
 
-            </ul>
+<%--            </ul>--%>
 
 
             <!-- Collapse -->

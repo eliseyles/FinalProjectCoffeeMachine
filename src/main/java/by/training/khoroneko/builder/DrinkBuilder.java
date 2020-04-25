@@ -6,33 +6,51 @@ import by.training.khoroneko.entity.DrinkSize;
 import java.math.BigDecimal;
 
 public class DrinkBuilder {
-    Drink drink;
+    private int id;
+    private String title;
+    private BigDecimal price;
+    private DrinkSize drinkSize;
+    private int servingNumber;
 
-    public DrinkBuilder(Drink drink) {
-        this.drink = drink;
+    public DrinkBuilder() {
     }
 
-    public void setId(int id) {
-        drink.setId(id);
+    public DrinkBuilder setId(int id) {
+        this.id = id;
+        return this;
     }
 
-    public void setTitle(String title) {
-        drink.setTitle(title);
+    public DrinkBuilder setTitle(String title) {
+        this.title = title;
+        return this;
     }
 
-    public void setPrice(BigDecimal price) {
-        drink.setPrice(price);
+    public DrinkBuilder setPrice(BigDecimal price) {
+        this.price = price;
+        return this;
     }
 
-    public void setDrinkSize(DrinkSize drinkSize) {
-        drink.setDrinkSize(drinkSize);
+    public DrinkBuilder setDrinkSize(DrinkSize drinkSize) {
+        this.drinkSize = drinkSize;
+        return this;
     }
 
-    public void setDrinkSize(int drinkSizeId) {
-        drink.setDrinkSize(DrinkSize.getDrinkSizeById(drinkSizeId));
+    public DrinkBuilder setDrinkSize(int id) {
+        this.drinkSize = DrinkSize.getDrinkSizeById(id);
+        return this;
     }
 
-    public void setServingNumber(int servingNumber) {
-        drink.setServingNumber(servingNumber);
+    public DrinkBuilder setDrinkSize(String drinkSize) {
+        this.drinkSize = DrinkSize.valueOf(drinkSize);
+        return this;
+    }
+    
+    public DrinkBuilder setServingNumber(int servingNumber) {
+        this.servingNumber = servingNumber;
+        return this;
+    }
+
+    public Drink getResult() {
+        return new Drink(id, title, price, drinkSize, servingNumber);
     }
 }
