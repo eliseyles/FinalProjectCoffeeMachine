@@ -16,8 +16,7 @@
     <div class="container">
 
         <!-- Brand -->
-        <a class="navbar-brand text-white">
-            <%--           href="controller?command=INDEX_PAGE"--%>
+        <a class="navbar-brand text-white" href="controller?command=INDEX_PAGE">
             <strong>Coffee machine</strong>
         </a>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
@@ -45,41 +44,36 @@
                     </li>
                 </c:if>
             </ul>
-
-<%--            <ul class="navbar-nav mr-auto justify-content-end">--%>
-
-
+            <ul class="navbar-nav ml-md-auto">
                 <c:if test="${user != null}">
+                    <li class="nav-item">
+                        <a class="nav-link" href="controller?command=USER_PROFILE">
+                                ${user.name}
+                        </a>
+                    </li>
 
-                    <a class="navbar-text text-white">
-                            ${user.name}
-                    </a>
 
-<%--                    <li class="nav-item ">--%>
-                        <a class="nav-link btn-outline-white mr-1 ml-2" href="controller?command=SIGN_OUT">
+                    <li class="nav-item">
+                        <a class="nav-link btn-outline-white mr-1 ml-1" href="controller?command=SIGN_OUT">
                             Sign Out
                         </a>
-<%--                    </li>--%>
+                    </li>
                 </c:if>
 
+
                 <c:if test="${user == null}">
-<%--                    <li class="nav-item ">--%>
-                        <a class="nav-link btn-outline-white mr-1 ml-2" href="controller?command=SIGN_IN_PAGE">
+                    <li class="nav-item">
+                        <a class="nav-link btn-outline-white mr-1 ml-1" href="controller?command=SIGN_IN_PAGE">
                             Sign In
                         </a>
-<%--                    </li>--%>
-                </c:if>
-
-                <c:if test="${user == null}">
-<%--                    <li class="nav-item ">--%>
-                        <a class="nav-link btn-outline-white" href="controller?command=REGISTRATION_PAGE">
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn-outline-white mr-1 ml-1" href="controller?command=REGISTRATION_PAGE">
                             Sign Up
                         </a>
-<%--                    </li>--%>
+                    </li>
                 </c:if>
-
-<%--            </ul>--%>
-
+            </ul>
 
             <!-- Collapse -->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
