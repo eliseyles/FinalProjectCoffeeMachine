@@ -109,4 +109,22 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException("Invalid user data", ex);
         }
     }
+
+    @Override
+    public void updateUserInfoById(User user) throws ServiceException {
+        if (user == null) {
+            throw new ServiceException("Invalid user, user is null");
+        }
+        try {
+            userValidator.isValidUserId(user);
+            userValidator.isValidUser(user);
+            ((UserDAO)userDAO).updateUserInfoById(user);
+        } catch (DAOException ex) {
+            logger.error(ex);
+            throw new ServiceException("Error while updating user info", ex);
+        } catch (ValidationException ex) {
+            logger.error(ex);
+            throw new ServiceException("Invalid user data", ex);
+        }
+    }
 }

@@ -1,10 +1,7 @@
 package by.training.khoroneko.command;
 
 import by.training.khoroneko.command.impl.*;
-import by.training.khoroneko.command.redirect.AddDrinkCommand;
-import by.training.khoroneko.command.redirect.IndexPageCommand;
-import by.training.khoroneko.command.redirect.RegistrationPageCommand;
-import by.training.khoroneko.command.redirect.SignInPageCommand;
+import by.training.khoroneko.command.redirect.*;
 
 public enum CommandParameter {
     INDEX_PAGE(new IndexPageCommand()),
@@ -22,7 +19,10 @@ public enum CommandParameter {
     ADD_DRINK(new AddDrinkCommand()),
     ADD(new AddCommand()),
     ADD_SERVINGS_PAGE(new AddServingsPageCommand()),
-    ADD_SERVINGS(new AddServingsCommand());
+    ADD_SERVINGS(new AddServingsCommand()),
+    USER_PROFILE(new UserProfilePageCommand()),
+    EDIT_PROFILE_PAGE(new EditProfilePageCommand()),
+    EDIT_USER_PROFILE(new EditUserProfileCommand());
 
     Command command;
 

@@ -9,4 +9,6 @@ public interface UserDAO {
     User findByEmail(User user) throws DAOException;
 
     User findById(User user) throws DAOException;
+
+    void updateUserInfoById(User user) throws DAOException;
 }

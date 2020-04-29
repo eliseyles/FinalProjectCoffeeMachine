@@ -17,4 +17,6 @@ public interface UserService {
     User signIn(User user) throws ServiceException;
 
     User findById(User user) throws ServiceException;
+
+    void updateUserInfoById(User user) throws ServiceException;
 }
