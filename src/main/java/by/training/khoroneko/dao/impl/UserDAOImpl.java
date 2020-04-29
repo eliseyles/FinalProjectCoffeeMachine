@@ -43,6 +43,9 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
                     "FROM `user` join `role` on `user`.`role_id` = `role`.`id`" +
                     "WHERE `user`.`id`=?";
 
+    private static final String UPDATE_USER_INFO_BY_ID =
+            "UPDATE `user` SET `name`=?, `email`=?, `password`=? WHERE id=?";
+
     @Override
     public User findByEmailAndPassword(User user) throws DAOException {
         try (Connection connection = connectionPool.getConnection();
@@ -88,6 +91,17 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
         } catch (SQLException ex) {
             logger.error(ex);
             throw new DAOException("Error while getting user by id", ex);
+        }
+    }
+
+    @Override
+    public void updateUserInfoById(User user) throws DAOException {
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = buildUpdateUserInfoById(connection, user)) {
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            logger.error(ex);
+            throw new DAOException("Error while updating user info", ex);
         }
     }
 
@@ -142,6 +156,16 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
     protected PreparedStatement buildFindById(Connection connection, User user) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_ID);
         int statementIndex = 0;
+        preparedStatement.setInt(++statementIndex, user.getId());
+        return preparedStatement;
+    }
+
+    protected PreparedStatement buildUpdateUserInfoById(Connection connection, User user) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_INFO_BY_ID);
+        int statementIndex = 0;
+        preparedStatement.setString(++statementIndex, user.getName());
+        preparedStatement.setString(++statementIndex, user.getEmail());
+        preparedStatement.setString(++statementIndex, user.getPassword());
         preparedStatement.setInt(++statementIndex, user.getId());
         return preparedStatement;
     }

@@ -77,6 +77,9 @@
                 </div>
             </c:if>
             <div class="form-group">
+                <input type="hidden" class="form-control" id="id" name="userID" value="${user.id}">
+            </div>
+            <div class="form-group">
                 <label for="inputName">Name</label>
                 <input type="text" class="form-control" id="inputName" name="userName" value="${user.name}">
             </div>

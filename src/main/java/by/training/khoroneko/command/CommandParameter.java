@@ -21,7 +21,8 @@ public enum CommandParameter {
     ADD_SERVINGS_PAGE(new AddServingsPageCommand()),
     ADD_SERVINGS(new AddServingsCommand()),
     USER_PROFILE(new UserProfilePageCommand()),
-    EDIT_PROFILE_PAGE(new EditProfilePageCommand());
+    EDIT_PROFILE_PAGE(new EditProfilePageCommand()),
+    EDIT_USER_PROFILE(new EditUserProfileCommand());
 
     Command command;
 
