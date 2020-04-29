@@ -11,7 +11,8 @@ public enum Pages {
     DRINK_MANAGEMENT_JSP("page/drinkmanagement.jsp"),
     DRINK_ADDING_JSP("page/add_drink.jsp"),
     DRINK_ADDING_SERVINGS_JSP("page/add_servings.jsp"),
-    USER_PROFILE_JSP("page/user_profile.jsp");
+    USER_PROFILE_JSP("page/user_profile.jsp"),
+    EDIT_PROFILE_JSP("page/edit_profile.jsp");
 
     private String value;
 

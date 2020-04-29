@@ -27,7 +27,7 @@
 
 <div class="shift">
     <div class="container emp-profile">
-        <form>
+        <form action="controller" method="get">
             <div class="row">
                 <div class="col-md-4">
                 </div>
@@ -40,18 +40,23 @@
 
                         <ul class="nav nav-tabs" id="myTab">
                             <li class="nav-item">
-                                <a class="nav-link active" id="home-tab" data-toggle="tab" data-target="#about" role="tab"
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" data-target="#about"
+                                   role="tab"
                                    href=""><label>About</label></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="profile-tab" data-toggle="tab" data-target="#history" href="" role="tab">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" data-target="#history" href=""
+                                   role="tab">
                                     <label>Order History</label></a>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
+                    <button type="submit" name="command" value="EDIT_PROFILE_PAGE" class="btn profile-edit-btn">
+                        Edit Profile
+                    </button>
+                    <%--                    <input type="submit" class="profile-edit-btn" name="command" value="EDIT_PROFILE">Edit Profile</input>--%>
                 </div>
             </div>
 
@@ -91,6 +96,7 @@
                                     </c:if>
                                     <c:if test="${user.cardAccount == null}">
                                         <p>${user.cardAccount}</p>
+                                        <%--                                        <input type="submit" class="profile-edit-btn" name="btnAddCard" value="Add card"/>--%>
                                     </c:if>
                                 </div>
                             </div>
