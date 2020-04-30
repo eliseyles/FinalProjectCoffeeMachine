@@ -56,7 +56,6 @@
                     <button type="submit" name="command" value="EDIT_PROFILE_PAGE" class="btn profile-edit-btn">
                         Edit Profile
                     </button>
-                    <%--                    <input type="submit" class="profile-edit-btn" name="command" value="EDIT_PROFILE">Edit Profile</input>--%>
                 </div>
             </div>
 
@@ -88,19 +87,37 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label>Card</label>
+                                    <label>Card number</label>
                                 </div>
                                 <div class="col-md-6">
                                     <c:if test="${user.cardAccount == null}">
                                         <p>Card is not attached yet</p>
+                                        <button type="submit" name="command" value="ADD_CARD_PAGE"
+                                                class="btn profile-edit-btn">
+                                            Attach Card
+                                        </button>
                                     </c:if>
-                                    <c:if test="${user.cardAccount == null}">
-                                        <p>${user.cardAccount}</p>
-                                        <%--                                        <input type="submit" class="profile-edit-btn" name="btnAddCard" value="Add card"/>--%>
+                                    <c:if test="${user.cardAccount != null}">
+                                        <p>${user.cardAccount.number}</p>
                                     </c:if>
                                 </div>
                             </div>
+                            <c:if test="${user.cardAccount != null}">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Card amount</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>${user.cardAccount.amount}</p>
+                                        <button type="submit" name="command" value="EDIT_CARD_PAGE"
+                                                class="btn profile-edit-btn">
+                                            Edit Card
+                                        </button>
+                                    </div>
+                                </div>
+                            </c:if>
                         </div>
+
 
                         <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="profile-tab">
                             <c:if test="${history == null}">
