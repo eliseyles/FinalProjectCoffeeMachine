@@ -1,5 +1,6 @@
 package by.training.khoroneko.dao.impl;
 
+import by.training.khoroneko.builder.CardAccountBuilder;
 import by.training.khoroneko.builder.UserBuilder;
 import by.training.khoroneko.dao.AbstractCommonDAO;
 import by.training.khoroneko.dao.UserDAO;
@@ -27,23 +28,20 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
     private static final String DELETE_USER_BY_ID = "DELETE FROM `user` WHERE `id` = ?";
 
     private static final String FIND_ALL_USERS =
-            "SELECT `user`.`id`, `name`, `email`, `password`, `is_active`, `card_account_id`, `title` as `role_title` " +
-                    "FROM `user` join `role` on `user`.`role_id` = `role`.`id`";
+            "SELECT `user`.`id`, `name`, `email`, `password`, `is_active`," +
+                    " `card_account`.`id` as `card_id`, `number` as `card_number`, `amount` as `card_amount`," +
+                    " `title` as `role_title` " +
+                    "FROM `user` join `role` on `user`.`role_id` = `role`.`id`" +
+                    "left join `card_account` on `user`.`card_account_id` = `card_account`.`id`";
 
     private static final String FIND_USER_BY_EMAIL_AND_PASSWORD =
-            "SELECT `user`.`id`, `name`, `email`, `password`, `is_active`, `card_account_id`, `title` as `role_title` " +
-                    "FROM `user` join `role` on `user`.`role_id` = `role`.`id`" +
-                    "WHERE `email`=? AND `password`=?";
+            FIND_ALL_USERS + "WHERE `email`=? AND `password`=?";
 
     private static final String FIND_USER_BY_EMAIL =
-            "SELECT `user`.`id`, `name`, `email`, `password`, `is_active`, `card_account_id`, `title` as `role_title` " +
-                    "FROM `user` join `role` on `user`.`role_id` = `role`.`id`" +
-                    "WHERE `email`=?";
+            FIND_ALL_USERS + "WHERE `email`=?";
 
     private static final String FIND_USER_BY_ID =
-            "SELECT `user`.`id`, `name`, `email`, `password`, `is_active`, `card_account_id`, `title` as `role_title` " +
-                    "FROM `user` join `role` on `user`.`role_id` = `role`.`id`" +
-                    "WHERE `user`.`id`=?";
+            FIND_ALL_USERS + "WHERE `user`.`id`=?";
 
     private static final String UPDATE_USER_INFO_BY_ID =
             "UPDATE `user` SET `name`=?, `email`=?, `password`=? WHERE id=?";
@@ -229,6 +227,11 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
                 .setEmail(resultSet.getString("email"))
                 .setPassword(resultSet.getString("password"))
                 .setActivity(resultSet.getBoolean("is_active"))
+                .setCardAccount(new CardAccountBuilder()
+                        .setId(resultSet.getInt("card_id"))
+                        .setCardNumber(resultSet.getString("card_number"))
+                        .setAmount(resultSet.getBigDecimal("card_amount"))
+                        .getResult())
                 .setRole(resultSet.getString("role_title"))
                 .getResult();
     }
