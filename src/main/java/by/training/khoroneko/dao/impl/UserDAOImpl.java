@@ -3,14 +3,16 @@ package by.training.khoroneko.dao.impl;
 import by.training.khoroneko.builder.UserBuilder;
 import by.training.khoroneko.dao.AbstractCommonDAO;
 import by.training.khoroneko.dao.UserDAO;
+import by.training.khoroneko.entity.CardAccount;
 import by.training.khoroneko.entity.User;
+import by.training.khoroneko.exception.ConnectionPoolException;
 import by.training.khoroneko.exception.DAOException;
+import by.training.khoroneko.factory.DAOFactory;
+import by.training.khoroneko.pool.ConnectionPool;
 import org.apache.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.math.BigDecimal;
+import java.sql.*;
 
 public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
 
@@ -45,6 +47,12 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
 
     private static final String UPDATE_USER_INFO_BY_ID =
             "UPDATE `user` SET `name`=?, `email`=?, `password`=? WHERE id=?";
+
+    private static final String INSERT_CARD =
+            "INSERT INTO `card_account` (`number`, `amount`) VALUES (?, ?)";
+
+    private static final String UPDATE_USER_CARD_BY_ID =
+            "UPDATE `user` SET `card_account_id`=? WHERE id=?";
 
     @Override
     public User findByEmailAndPassword(User user) throws DAOException {
@@ -102,6 +110,33 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
         } catch (SQLException ex) {
             logger.error(ex);
             throw new DAOException("Error while updating user info", ex);
+        }
+    }
+
+    @Override
+    public int addCard(User user) throws DAOException {
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = buildAddCardStatement(connection, user)) {
+            statement.executeUpdate();
+            ResultSet resultSet = statement.getGeneratedKeys();
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (SQLException ex) {
+            logger.error(ex);
+            throw new DAOException("Error while adding card", ex);
+        }
+        return 0;
+    }
+
+    @Override
+    public void attachCardToUserById(User user) throws DAOException {
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = buildUpdateUserCardByIdStatement(connection, user)) {
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            logger.error(ex);
+            throw new DAOException("Error while updating user card", ex);
         }
     }
 
@@ -166,6 +201,22 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
         preparedStatement.setString(++statementIndex, user.getName());
         preparedStatement.setString(++statementIndex, user.getEmail());
         preparedStatement.setString(++statementIndex, user.getPassword());
+        preparedStatement.setInt(++statementIndex, user.getId());
+        return preparedStatement;
+    }
+
+    protected PreparedStatement buildAddCardStatement(Connection connection, User user) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(INSERT_CARD, Statement.RETURN_GENERATED_KEYS);
+        int statementIndex = 0;
+        preparedStatement.setString(++statementIndex, user.getCardAccount().getCardNumber());
+        preparedStatement.setBigDecimal(++statementIndex, user.getCardAccount().getAmount());
+        return preparedStatement;
+    }
+
+    protected PreparedStatement buildUpdateUserCardByIdStatement(Connection connection, User user) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_CARD_BY_ID);
+        int statementIndex = 0;
+        preparedStatement.setInt(++statementIndex, user.getCardAccount().getId());
         preparedStatement.setInt(++statementIndex, user.getId());
         return preparedStatement;
     }
