@@ -55,6 +55,9 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
     private static final String UPDATE_CARD_NUMBER_BY_ID =
             "UPDATE `card_account` SET `number`=? WHERE id=?";
 
+    private static final String UPDATE_CARD_AMOUNT_BY_ID =
+            "UPDATE `card_account` SET `amount`=? WHERE id=?";
+
     @Override
     public User findByEmailAndPassword(User user) throws DAOException {
         try (Connection connection = connectionPool.getConnection();
@@ -156,6 +159,17 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
     }
 
     @Override
+    public void updateCardAmountById(User user) throws DAOException {
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = buildUpdateCardAmountByIdStatement(connection, user)) {
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            logger.error(ex);
+            throw new DAOException("Error while updating card amount info", ex);
+        }
+    }
+
+    @Override
     protected PreparedStatement buildInsertStatement(Connection connection, User user) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER);
         int statementIndex = 0;
@@ -240,6 +254,14 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
         PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_CARD_NUMBER_BY_ID);
         int statementIndex = 0;
         preparedStatement.setString(++statementIndex, user.getCardAccount().getCardNumber());
+        preparedStatement.setInt(++statementIndex, user.getCardAccount().getId());
+        return preparedStatement;
+    }
+
+    protected PreparedStatement buildUpdateCardAmountByIdStatement(Connection connection, User user) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_CARD_AMOUNT_BY_ID);
+        int statementIndex = 0;
+        preparedStatement.setBigDecimal(++statementIndex, user.getCardAccount().getAmount());
         preparedStatement.setInt(++statementIndex, user.getCardAccount().getId());
         return preparedStatement;
     }

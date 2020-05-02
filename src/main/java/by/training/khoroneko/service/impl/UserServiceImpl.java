@@ -12,6 +12,7 @@ import by.training.khoroneko.validation.CardAccountValidator;
 import by.training.khoroneko.validation.UserValidator;
 import org.apache.log4j.Logger;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
@@ -134,7 +135,7 @@ public class UserServiceImpl implements UserService {
     public void attachCardToUserById(User user) throws ServiceException {
         try {
             userValidator.isValidUserId(user);
-            cardAccountValidator.isValidCardAccount(user.getCardAccount());
+            cardAccountValidator.isValidCardAccountData(user.getCardAccount());
             ((UserDAO)userDAO).attachCardToUserById(user);
         } catch (DAOException ex) {
             logger.error(ex);
@@ -149,7 +150,7 @@ public class UserServiceImpl implements UserService {
     public void updateCardInfoById(User user) throws ServiceException {
         try {
             userValidator.isValidUserId(user);
-            cardAccountValidator.isValidCardAccount(user.getCardAccount());
+            cardAccountValidator.isValidCardAccountIdAndNumber(user.getCardAccount());
             if (((UserDAO)userDAO).findById(user).getCardAccount().getId() != user.getCardAccount().getId()) {
                 throw new ServiceException("Invalid card data, user card mismatch with the entered card");
             }
@@ -157,6 +158,26 @@ public class UserServiceImpl implements UserService {
         } catch (DAOException ex) {
             logger.error(ex);
             throw new ServiceException("Error while updating card", ex);
+        } catch (ValidationException ex) {
+            logger.error(ex);
+            throw new ServiceException("Invalid data", ex);
+        }
+    }
+
+    @Override
+    public void updateCardAmountById(User user) throws ServiceException {
+        try {
+            userValidator.isValidUserId(user);
+            cardAccountValidator.isValidCardAccountIdAndAmount(user.getCardAccount());
+            if (((UserDAO)userDAO).findById(user).getCardAccount().getId() != user.getCardAccount().getId()) {
+                throw new ServiceException("Invalid card data, user card mismatch with the entered card");
+            }
+            BigDecimal currentAmount = ((UserDAO)userDAO).findById(user).getCardAccount().getAmount();
+            user.getCardAccount().setAmount(currentAmount.add(user.getCardAccount().getAmount()));
+            ((UserDAO)userDAO).updateCardAmountById(user);
+        } catch (DAOException ex) {
+            logger.error(ex);
+            throw new ServiceException("Error while updating card amount", ex);
         } catch (ValidationException ex) {
             logger.error(ex);
             throw new ServiceException("Invalid data", ex);

@@ -82,7 +82,7 @@
                         <span class="input-group-text" id="inputGroupPrepend">$</span>
                     </div>
                     <input type="text" class="form-control" id="cardAmount" aria-describedby="inputGroupPrepend"
-                           name="cardAmount">
+                           name="addingCardAmount">
                 </div>
             </div>
 
