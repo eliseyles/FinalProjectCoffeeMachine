@@ -19,4 +19,6 @@ public interface UserService {
     User findById(User user) throws ServiceException;
 
     void updateUserInfoById(User user) throws ServiceException;
+
+    void attachCardToUserById(User user) throws ServiceException;
 }
