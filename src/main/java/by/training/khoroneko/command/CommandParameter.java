@@ -24,7 +24,8 @@ public enum CommandParameter {
     EDIT_PROFILE_PAGE(new EditProfilePageCommand()),
     EDIT_USER_PROFILE(new EditUserProfileCommand()),
     ADD_CARD_PAGE(new AddCardPageCommand()),
-    ADD_CARD(new AddCardCommand());
+    ADD_CARD(new AddCardCommand()),
+    EDIT_CARD_PAGE(new EditCardPageCommand());
 
     Command command;
 
