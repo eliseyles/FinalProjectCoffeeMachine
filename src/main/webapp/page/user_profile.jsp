@@ -90,19 +90,19 @@
                                     <label>Card number</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <c:if test="${user.cardAccount == null}">
+                                    <c:if test="${user.cardAccount == null or user.cardAccount.cardNumber == null}">
                                         <p>Card is not attached yet</p>
                                         <button type="submit" name="command" value="ADD_CARD_PAGE"
                                                 class="btn profile-edit-btn">
                                             Attach Card
                                         </button>
                                     </c:if>
-                                    <c:if test="${user.cardAccount != null}">
-                                        <p>${user.cardAccount.number}</p>
+                                    <c:if test="${user.cardAccount != null or user.cardAccount.cardNumber != null}">
+                                        <p>${user.cardAccount.cardNumber}</p>
                                     </c:if>
                                 </div>
                             </div>
-                            <c:if test="${user.cardAccount != null}">
+                            <c:if test="${user.cardAccount != null and user.cardAccount.cardNumber != null}">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label>Card amount</label>
@@ -112,6 +112,10 @@
                                         <button type="submit" name="command" value="EDIT_CARD_PAGE"
                                                 class="btn profile-edit-btn">
                                             Edit Card
+                                        </button>
+                                        <button type="submit" name="command" value="ADD_MONEY_PAGE"
+                                                class="btn profile-edit-btn">
+                                            Add Money
                                         </button>
                                     </div>
                                 </div>
