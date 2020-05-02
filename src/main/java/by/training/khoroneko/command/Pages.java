@@ -14,7 +14,8 @@ public enum Pages {
     USER_PROFILE_JSP("page/user_profile.jsp"),
     EDIT_PROFILE_JSP("page/edit_profile.jsp"),
     ADD_CARD_JSP("page/add_card.jsp"),
-    EDIT_CARD_JSP("page/edit_card.jsp");
+    EDIT_CARD_JSP("page/edit_card.jsp"),
+    ADD_MONEY_JSP("page/add_money.jsp");
 
     private String value;
 

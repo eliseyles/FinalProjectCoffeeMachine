@@ -26,7 +26,8 @@ public enum CommandParameter {
     ADD_CARD_PAGE(new AddCardPageCommand()),
     ADD_CARD(new AddCardCommand()),
     EDIT_CARD_PAGE(new EditCardPageCommand()),
-    EDIT_CARD(new EditCardCommand());
+    EDIT_CARD(new EditCardCommand()),
+    ADD_MONEY_PAGE(new AddMoneyPageCommand());
 
     Command command;
 
