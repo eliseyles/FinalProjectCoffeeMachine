@@ -2,12 +2,10 @@ package by.training.khoroneko.dao;
 
 import by.training.khoroneko.exception.DAOException;
 import by.training.khoroneko.pool.ConnectionPool;
+import by.training.khoroneko.pool.ProxyConnection;
 import org.apache.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,6 +60,46 @@ public abstract class AbstractCommonDAO<T> implements CommonDAO<T> {
         } catch (SQLException ex) {
             logger.error(ex);
             throw new DAOException("Error while getting all elements", ex);
+        }
+    }
+
+    protected void closeResultSet(ResultSet resultSet) {
+        if (resultSet != null) {
+            try {
+                resultSet.close();
+            } catch (SQLException ex) {
+                logger.error("Cannot close resultSet", ex);
+            }
+        }
+    }
+
+    protected void closeStatement(Statement statement) {
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (SQLException ex) {
+                logger.error("Cannot close PreparedStatement", ex);
+            }
+        }
+    }
+
+    protected void closeConnection(Connection connection) {
+        if (connection != null) {
+            try {
+                ((ProxyConnection)connection).close();
+            } catch (ClassCastException ex) {
+                logger.error("Invalid connection", ex);
+            }
+        }
+    }
+
+    protected void rollbackTransaction(Connection connection) {
+        if (connection != null) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                logger.error("Cannot rollback transaction", ex);
+            }
         }
     }
 
