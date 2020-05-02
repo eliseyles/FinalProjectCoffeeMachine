@@ -17,4 +17,6 @@ public interface UserDAO {
     void updateCardInfoById(User user) throws DAOException;
 
     void updateCardAmountById(User user) throws DAOException;
+
+    void deleteCardFromUserById(User user) throws DAOException;
 }

@@ -27,6 +27,11 @@ public class CardAccountValidator {
         isValidNumber(cardAccount);
     }
 
+    public void isValidCardAccountId(CardAccount cardAccount) throws ValidationException{
+        isNotNull(cardAccount);
+        isValidId(cardAccount);
+    }
+
     private void isNotNull(CardAccount cardAccount) throws ValidationException{
         if (cardAccount == null) {
             throw new ValidationException("Card account is null");

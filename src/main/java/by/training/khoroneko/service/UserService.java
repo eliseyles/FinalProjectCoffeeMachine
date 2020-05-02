@@ -25,4 +25,6 @@ public interface UserService {
     void updateCardInfoById(User user) throws ServiceException;
 
     void updateCardAmountById(User user) throws ServiceException;
+
+    void deleteCardFromUserById(User user) throws ServiceException;
 }

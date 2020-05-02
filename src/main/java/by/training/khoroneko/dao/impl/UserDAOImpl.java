@@ -58,6 +58,12 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
     private static final String UPDATE_CARD_AMOUNT_BY_ID =
             "UPDATE `card_account` SET `amount`=? WHERE id=?";
 
+    private static final String DELETE_CARD_BY_ID =
+            "DELETE FROM `card_account` WHERE id=?";
+
+    private static final String DELETE_CARD_FROM_USER_BY_ID =
+            "UPDATE `user` SET `card_account_id`=null WHERE id=?";
+
     @Override
     public User findByEmailAndPassword(User user) throws DAOException {
         try (Connection connection = connectionPool.getConnection();
@@ -139,8 +145,7 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
             rollbackTransaction(connection);
             logger.error(ex);
             throw new DAOException("Error while adding card", ex);
-        }
-        finally {
+        } finally {
             closeConnection(connection);
             closeStatement(statement);
             closeResultSet(resultSet);
@@ -166,6 +171,30 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
         } catch (SQLException ex) {
             logger.error(ex);
             throw new DAOException("Error while updating card amount info", ex);
+        }
+    }
+
+    @Override
+    public void deleteCardFromUserById(User user) throws DAOException {
+        Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            connection.setAutoCommit(false);
+            statement = buildDeleteCardFromUserByIdStatement(connection, user);
+            statement.executeUpdate();
+
+            statement = buildDeleteCardByIdStatement(connection, user);
+            statement.executeUpdate();
+            connection.commit();
+        } catch (SQLException ex) {
+            rollbackTransaction(connection);
+            logger.error(ex);
+            throw new DAOException("Error while removing card", ex);
+        } finally {
+            closeConnection(connection);
+            closeStatement(statement);
+            closeResultSet(resultSet);
         }
     }
 
@@ -263,6 +292,18 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
         int statementIndex = 0;
         preparedStatement.setBigDecimal(++statementIndex, user.getCardAccount().getAmount());
         preparedStatement.setInt(++statementIndex, user.getCardAccount().getId());
+        return preparedStatement;
+    }
+
+    protected PreparedStatement buildDeleteCardByIdStatement(Connection connection, User user) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(DELETE_CARD_BY_ID);
+        preparedStatement.setInt(1, user.getCardAccount().getId());
+        return preparedStatement;
+    }
+
+    protected PreparedStatement buildDeleteCardFromUserByIdStatement(Connection connection, User user) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(DELETE_CARD_FROM_USER_BY_ID);
+        preparedStatement.setInt(1, user.getId());
         return preparedStatement;
     }
 

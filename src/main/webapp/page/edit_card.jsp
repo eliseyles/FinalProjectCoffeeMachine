@@ -83,11 +83,17 @@
             </div>
             <div class="form-group">
                 <label for="inputCardNumber">Card number</label>
-                <input type="text" class="form-control" id="inputCardNumber" name="cardNumber" value="${user.cardAccount.cardNumber}">
+                <input type="text" class="form-control" id="inputCardNumber" name="cardNumber"
+                       value="${user.cardAccount.cardNumber}">
             </div>
-            <button type="submit" class="btn btn-outline-white btn-lg" name="command"
-                    value="EDIT_CARD">Save Card
-            </button>
+            <div class="row">
+                <button type="submit" class="btn btn-outline-white btn-lg" name="command"
+                        value="EDIT_CARD">Save Card
+                </button>
+                <button type="submit" class="btn btn-outline-danger btn-lg" name="command"
+                        value="DELETE_CARD">Delete Card
+                </button>
+            </div>
         </form>
     </div>
     <!-- Content -->

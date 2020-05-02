@@ -183,4 +183,22 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException("Invalid data", ex);
         }
     }
+
+    @Override
+    public void deleteCardFromUserById(User user) throws ServiceException {
+        try {
+            userValidator.isValidUserId(user);
+            cardAccountValidator.isValidCardAccountId(user.getCardAccount());
+            if (((UserDAO)userDAO).findById(user).getCardAccount().getId() != user.getCardAccount().getId()) {
+                throw new ServiceException("Invalid card data, user card mismatch with the entered card");
+            }
+            ((UserDAO)userDAO).deleteCardFromUserById(user);
+        } catch (DAOException ex) {
+            logger.error(ex);
+            throw new ServiceException("Error while deleting card", ex);
+        } catch (ValidationException ex) {
+            logger.error(ex);
+            throw new ServiceException("Invalid data", ex);
+        }
+    }
 }
