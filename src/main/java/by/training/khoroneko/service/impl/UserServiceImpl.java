@@ -141,7 +141,25 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException("Error while attaching card", ex);
         } catch (ValidationException ex) {
             logger.error(ex);
-            throw new ServiceException("Invalid user data", ex);
+            throw new ServiceException("Invalid data", ex);
+        }
+    }
+
+    @Override
+    public void updateCardInfoById(User user) throws ServiceException {
+        try {
+            userValidator.isValidUserId(user);
+            cardAccountValidator.isValidCardAccount(user.getCardAccount());
+            if (((UserDAO)userDAO).findById(user).getCardAccount().getId() != user.getCardAccount().getId()) {
+                throw new ServiceException("Invalid card data, user card mismatch with the entered card");
+            }
+            ((UserDAO)userDAO).updateCardInfoById(user);
+        } catch (DAOException ex) {
+            logger.error(ex);
+            throw new ServiceException("Error while updating card", ex);
+        } catch (ValidationException ex) {
+            logger.error(ex);
+            throw new ServiceException("Invalid data", ex);
         }
     }
 }

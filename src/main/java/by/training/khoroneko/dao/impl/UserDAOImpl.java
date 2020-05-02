@@ -52,6 +52,9 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
     private static final String UPDATE_USER_CARD_BY_ID =
             "UPDATE `user` SET `card_account_id`=? WHERE id=?";
 
+    private static final String UPDATE_CARD_NUMBER_BY_ID =
+            "UPDATE `card_account` SET `number`=? WHERE id=?";
+
     @Override
     public User findByEmailAndPassword(User user) throws DAOException {
         try (Connection connection = connectionPool.getConnection();
@@ -142,6 +145,17 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
     }
 
     @Override
+    public void updateCardInfoById(User user) throws DAOException {
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = buildUpdateCardNumberByIdStatement(connection, user)) {
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            logger.error(ex);
+            throw new DAOException("Error while updating card info", ex);
+        }
+    }
+
+    @Override
     protected PreparedStatement buildInsertStatement(Connection connection, User user) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER);
         int statementIndex = 0;
@@ -219,6 +233,14 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
         int statementIndex = 0;
         preparedStatement.setInt(++statementIndex, cardId);
         preparedStatement.setInt(++statementIndex, user.getId());
+        return preparedStatement;
+    }
+
+    protected PreparedStatement buildUpdateCardNumberByIdStatement(Connection connection, User user) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_CARD_NUMBER_BY_ID);
+        int statementIndex = 0;
+        preparedStatement.setString(++statementIndex, user.getCardAccount().getCardNumber());
+        preparedStatement.setInt(++statementIndex, user.getCardAccount().getId());
         return preparedStatement;
     }
 

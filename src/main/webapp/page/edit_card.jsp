@@ -79,11 +79,11 @@
                 <input type="hidden" class="form-control" id="id" name="userID" value="${user.id}">
             </div>
             <div class="form-group">
-                <input type="hidden" class="form-control" id="idCard" name="userID" value="${user.cardAccount.id}">
+                <input type="hidden" class="form-control" id="idCard" name="cardId" value="${user.cardAccount.id}">
             </div>
             <div class="form-group">
                 <label for="inputCardNumber">Card number</label>
-                <input type="text" class="form-control" id="inputCardNumber" name="cardNumber">
+                <input type="text" class="form-control" id="inputCardNumber" name="cardNumber" value="${user.cardAccount.cardNumber}">
             </div>
             <button type="submit" class="btn btn-outline-white btn-lg" name="command"
                     value="EDIT_CARD">Save Card
