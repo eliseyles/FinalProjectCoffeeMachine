@@ -7,5 +7,7 @@ import by.training.khoroneko.exception.ServiceException;
 import java.util.List;
 
 public interface OrderService {
+    void addOrder(Order order) throws ServiceException;
+
     List<Order> getAllOrdersByUserId(User user) throws ServiceException;
 }
