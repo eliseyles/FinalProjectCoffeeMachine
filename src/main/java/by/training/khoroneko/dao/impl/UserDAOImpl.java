@@ -4,15 +4,10 @@ import by.training.khoroneko.builder.CardAccountBuilder;
 import by.training.khoroneko.builder.UserBuilder;
 import by.training.khoroneko.dao.AbstractCommonDAO;
 import by.training.khoroneko.dao.UserDAO;
-import by.training.khoroneko.entity.CardAccount;
 import by.training.khoroneko.entity.User;
-import by.training.khoroneko.exception.ConnectionPoolException;
 import by.training.khoroneko.exception.DAOException;
-import by.training.khoroneko.factory.DAOFactory;
-import by.training.khoroneko.pool.ConnectionPool;
 import org.apache.log4j.Logger;
 
-import java.math.BigDecimal;
 import java.sql.*;
 
 public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
