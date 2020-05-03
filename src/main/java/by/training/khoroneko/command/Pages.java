@@ -16,7 +16,7 @@ public enum Pages {
     ADD_CARD_JSP("page/add_card.jsp"),
     EDIT_CARD_JSP("page/edit_card.jsp"),
     ADD_MONEY_JSP("page/add_money.jsp"),
-    ORDERS_JSP("page/orders.jsp");
+    CART_JSP("page/cart.jsp");
 
     private String value;
 

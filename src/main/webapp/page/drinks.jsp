@@ -54,7 +54,7 @@
                             <h6 class="card-title">${drink.price}</h6>
                             <form action="controller" method="post">
                                 <input type="hidden" name="drinkID" value="${drink.id}"/>
-                                <button type="submit" class="btn btn-sm">Buy</button>
+                                <button type="submit" class="btn btn-sm">Add to cart</button>
                             </form>
                         </div>
                     </div>

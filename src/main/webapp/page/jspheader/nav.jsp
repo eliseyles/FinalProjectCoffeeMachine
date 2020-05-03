@@ -33,8 +33,8 @@
                 </li>
                 <c:if test="${user != null}">
                     <li class="nav-item ">
-                        <a class="nav-link" href="controller?command=ORDERS_PAGE">
-                            Orders
+                        <a class="nav-link" href="controller?command=CART_PAGE">
+                            Cart
                         </a>
                     </li>
                 </c:if>

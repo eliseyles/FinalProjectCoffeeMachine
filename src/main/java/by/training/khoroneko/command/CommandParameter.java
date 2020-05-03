@@ -30,7 +30,7 @@ public enum CommandParameter {
     ADD_MONEY_PAGE(new AddMoneyPageCommand()),
     ADD_MONEY(new AddMoneyCommand()),
     DELETE_CARD(new DeleteCardCommand()),
-    ORDERS_PAGE(new OrdersPageCommand());
+    CART_PAGE(new CartPageCommand());
 
     Command command;
 
