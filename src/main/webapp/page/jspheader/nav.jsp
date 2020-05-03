@@ -31,6 +31,13 @@
                         Drinks
                     </a>
                 </li>
+                <c:if test="${user != null}">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="controller?command=ORDERS_PAGE">
+                            Orders
+                        </a>
+                    </li>
+                </c:if>
                 <c:if test="${user.role == 'ADMIN'}">
                     <li class="nav-item ">
                         <a class="nav-link" href="controller?command=USER_LIST">
