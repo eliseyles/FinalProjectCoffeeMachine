@@ -22,15 +22,15 @@ public class OrderDAOImpl extends AbstractCommonDAO<Order> implements OrderDAO {
     private Logger logger = Logger.getLogger(OrderDAOImpl.class);
 
     private static final String INSERT_ORDER =
-            "INSERT INTO `drink_shopping_cart` (`user_id`, `drink_id`) VALUES (?, ?)";
+            "INSERT INTO `drink_shopping_cart` (`user_id`, `drinks_id`) VALUES (?, ?)";
 
-    private static final String UPDATE_ORDER_BY_ID = "UPDATE `drink_shopping_cart` SET `drink_id`=? WHERE `id` = ?";
+    private static final String UPDATE_ORDER_BY_ID = "UPDATE `drink_shopping_cart` SET `drinks_id`=? WHERE `id` = ?";
 
     private static final String DELETE_ORDER_BY_ID = "DELETE FROM `drink_shopping_cart` WHERE `id` = ?";
 
     private static final String FIND_ALL_ORDERS =
             "SELECT `drink_shopping_cart`.`id`, `user_id`, `drinks_id`, `title`, `price`, `volume`" +
-                    "FROM `drink_shopping_cart` JOIN `drinks` ON `drink_shopping_cart`.`id`=`drinks`.`id`" +
+                    "FROM `drink_shopping_cart` JOIN `drinks` ON `drink_shopping_cart`.`drinks_id`=`drinks`.`id`" +
                     "JOIN `drink_size` ON `drinks`.`drink_size_id` = `drink_size`.`id`";
 
     private static final String FIND_ALL_ORDERS_BY_USER_ID =
@@ -96,7 +96,7 @@ public class OrderDAOImpl extends AbstractCommonDAO<Order> implements OrderDAO {
                         .setId(resultSet.getInt("user_id"))
                         .getResult())
                 .setDrink(new DrinkBuilder()
-                        .setId(resultSet.getInt("drink_id"))
+                        .setId(resultSet.getInt("drinks_id"))
                         .setTitle(resultSet.getString("title"))
                         .setPrice(resultSet.getBigDecimal("price"))
                         .setDrinkSize(resultSet.getString("volume"))
