@@ -10,4 +10,6 @@ public interface OrderService {
     void addOrder(Order order) throws ServiceException;
 
     List<Order> getAllOrdersByUserId(User user) throws ServiceException;
+
+    void deleteOrder(Order order) throws ServiceException;
 }

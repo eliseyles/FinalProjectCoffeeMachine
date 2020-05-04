@@ -27,7 +27,7 @@ public class OrderServiceImpl implements OrderService {
             orderDAO.create(order);
         } catch (DAOException ex) {
             logger.error(ex);
-            throw new ServiceException("Error while getting orders", ex);
+            throw new ServiceException("Error while adding order", ex);
         } catch (ValidationException ex) {
             logger.error(ex);
             throw new ServiceException("Invalid order data", ex);
@@ -41,6 +41,20 @@ public class OrderServiceImpl implements OrderService {
         } catch (DAOException ex) {
             logger.error(ex);
             throw new ServiceException("Error while getting orders", ex);
+        }
+    }
+
+    @Override
+    public void deleteOrder(Order order) throws ServiceException{
+        try {
+            orderValidation.isValidOrderId(order);
+            orderDAO.delete(order);
+        } catch (DAOException ex) {
+            logger.error(ex);
+            throw new ServiceException("Error while deleting order", ex);
+        } catch (ValidationException ex) {
+            logger.error(ex);
+            throw new ServiceException("Invalid order data", ex);
         }
     }
 }

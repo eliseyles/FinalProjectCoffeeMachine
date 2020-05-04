@@ -18,6 +18,11 @@ public class OrderValidation {
         isUserNotNull(order);
     }
 
+    public void isValidOrderId(Order order) throws ValidationException {
+        isNotNull(order);
+        isValidId(order);
+    }
+
     private void isNotNull(Order order) throws ValidationException {
         if (order == null) {
             throw new ValidationException("Invalid order, order is null");
@@ -37,7 +42,7 @@ public class OrderValidation {
     }
 
     private void isValidId(Order order) throws ValidationException {
-        if (order.getId() > 0) {
+        if (!(order.getId() > 0)) {
             throw new ValidationException("Invalid order id");
         }
     }

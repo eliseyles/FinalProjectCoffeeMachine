@@ -16,17 +16,8 @@
     <link href="css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     <link href="css/style.min.css" rel="stylesheet">
-    <style type="text/css">
-        /* Necessary for full page carousel*/
-        html,
-        body,
-        header,
-        .content {
-            /*height: 50%;*/
-            padding: 40px 50px 10px 50px;
-        }
+    <link href="css/cart.css" rel="stylesheet" type="text/css">
 
-    </style>
 </head>
 
 <body>
@@ -35,41 +26,82 @@
 <%@include file="jspheader/nav.jsp" %>
 <!-- Navbar -->
 
-<form class="content">
+<h1>Shopping Cart</h1>
+
+<div class="shopping-cart">
+
+    <div class="column-labels">
+        <label class="product-details">Product</label>
+        <label class="product-price">Price</label>
+<%--                    <label class="product-quantity">Quantity</label>--%>
+        <label class="product-removal">Remove</label>
+        <label class="product-line-price">Total</label>
+    </div>
 
     <c:if test="${empty orderList}">
         <h1>Your cart is empty</h1>
     </c:if>
 
-
     <c:forEach var="order" items="${orderList}">
-
-
-        <div class="card h-100 text-center">
-                <%--                    <img class="card-img-top">--%>
-
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-4">
-                        <h3 class="card-title"><strong>${order.drink.title}</strong></h3>
-                    </div>
-                    <div class="col-md-4">
-                        <h6 class="card-title">${order.drink.drinkSize}</h6>
-                    </div>
-                    <div class="col-md-4">
-                        <h6 class="card-title">${order.drink.price}</h6>
-                    </div>
-                </div>
+        <div class="product">
+            <div class="product-details">
+                <div class="product-title">${order.drink.title}</div>
+                <p>${order.drink.drinkSize}</p>
             </div>
-
+            <div class="product-price">${order.drink.price}</div>
+<%--                            <div class="product-quantity">--%>
+<%--                                <input type="number" value="1" min="1">--%>
+<%--                            </div>--%>
+            <div class="product-removal">
+                <form action="controller" method="post">
+                    <input type="hidden" name="drinkId" value="${order.id}">
+                    <button type="submit" class="remove-product" name="command" value="DELETE_DRINK_FROM_CART">
+                        Remove
+                    </button>
+                </form>
+            </div>
+            <div class="product-line-price">${order.drink.price}</div>
         </div>
-
     </c:forEach>
 
-    <%--    </div>--%>
+    <div class="totals">
+        <div class="totals-item">
+            <label>Total</label>
+            <div class="totals-value" id="cart-subtotal">0</div>
+        </div>
+        <%--            <div class="totals-item">--%>
+        <%--                <label>Tax (5%)</label>--%>
+        <%--                <div class="totals-value" id="cart-tax">3.60</div>--%>
+        <%--            </div>--%>
+        <%--            <div class="totals-item">--%>
+        <%--                <label>Shipping</label>--%>
+        <%--                <div class="totals-value" id="cart-shipping">15.00</div>--%>
+        <%--            </div>--%>
+<%--        <div class="totals-item totals-item-total">--%>
+<%--            <label>Grand Total</label>--%>
+<%--            <div class="totals-value" id="cart-total">0</div>--%>
+<%--        </div>--%>
+    </div>
 
+    <button class="checkout">Checkout</button>
 
-</form>
+</div>
 
+<!-- SCRIPTS -->
+<!-- JQuery -->
+<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="js/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="js/mdb.min.js"></script>
+<script type="text/javascript" src="js/cart.js"></script>
+<!-- Initializations -->
+<script type="text/javascript">
+    // Animations initialization
+    new WOW().init();
+</script>
+</body>
 </html>
 
