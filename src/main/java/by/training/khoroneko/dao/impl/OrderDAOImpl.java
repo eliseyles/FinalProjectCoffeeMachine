@@ -36,6 +36,16 @@ public class OrderDAOImpl extends AbstractCommonDAO<Order> implements OrderDAO {
     private static final String FIND_ALL_ORDERS_BY_USER_ID =
             FIND_ALL_ORDERS + "WHERE `user_id`=?";
 
+    private static final String INSERT_ORDER_IN_SALES =
+            "INSERT INTO `drink_sales` (`user_id`, `drinks_id`) VALUES (?, ?)";
+
+    private static final String UPDATE_SERVING_NUMBER_BY_ID =
+            "UPDATE `drinks` SET `serving_number` = `serving_number`-1 WHERE `id`=?";
+
+    private static final String UPDATE_USER_CARD_AMOUNT_BY_ID =
+            "UPDATE `card_account` SET `amount` = `amount`-? " +
+                    "WHERE `id`=(SELECT `card_account_id` FROM `user` WHERE `id`=?)";
+
     @Override
     public List<Order> findAllOrdersByUserId(User user) throws DAOException {
         try (Connection connection = connectionPool.getConnection();
@@ -49,6 +59,67 @@ public class OrderDAOImpl extends AbstractCommonDAO<Order> implements OrderDAO {
         } catch (SQLException ex) {
             logger.error(ex);
             throw new DAOException("Error while getting all orders by user id", ex);
+        }
+    }
+
+    @Override
+    public void checkoutCart(List<Order> cart) throws DAOException {
+        Connection connection = connectionPool.getConnection();
+        try {
+            connection.setAutoCommit(false);
+            connection.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);            for (Order order : cart) {
+                executeInsertOrderInSales(connection, order);
+                executeUpdateServingNumberById(connection, order);
+                executeDeleteById(connection, order);
+                executeUpdateUserCardAmountById(connection, order);
+            }
+            connection.commit();
+        } catch (SQLException ex) {
+            rollbackTransaction(connection);
+            logger.error(ex);
+            throw new DAOException("Error while checkouting cart", ex);
+        } finally {
+            closeConnection(connection);
+        }
+    }
+
+    private void executeInsertOrderInSales(Connection connection, Order order) throws SQLException {
+        PreparedStatement statement = null;
+        try {
+            statement = buildInsertOrderInSalesStatement(connection, order);
+            statement.executeUpdate();
+        } finally {
+            closeStatement(statement);
+        }
+    }
+
+    private void executeUpdateServingNumberById(Connection connection, Order order) throws SQLException {
+        PreparedStatement statement = null;
+        try {
+            statement = buildUpdateServingNumberByIdStatement(connection, order);
+            statement.executeUpdate();
+        } finally {
+            closeStatement(statement);
+        }
+    }
+
+    private void executeDeleteById(Connection connection, Order order) throws SQLException {
+        PreparedStatement statement = null;
+        try {
+            statement = buildDeleteById(connection, order);
+            statement.executeUpdate();
+        } finally {
+            closeStatement(statement);
+        }
+    }
+
+    private void executeUpdateUserCardAmountById(Connection connection, Order order) throws SQLException {
+        PreparedStatement statement = null;
+        try {
+            statement = buildUpdateUserCardAmountByIdStatement(connection, order);
+            statement.executeUpdate();
+        } finally {
+            closeStatement(statement);
         }
     }
 
@@ -85,6 +156,28 @@ public class OrderDAOImpl extends AbstractCommonDAO<Order> implements OrderDAO {
     protected PreparedStatement buildFindAllOrdersByUserIdStatement(Connection connection, User user) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_ORDERS_BY_USER_ID);
         preparedStatement.setInt(1, user.getId());
+        return preparedStatement;
+    }
+
+    protected PreparedStatement buildInsertOrderInSalesStatement(Connection connection, Order order) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(INSERT_ORDER_IN_SALES);
+        int statementIndex = 0;
+        preparedStatement.setInt(++statementIndex, order.getUser().getId());
+        preparedStatement.setInt(++statementIndex, order.getDrink().getId());
+        return preparedStatement;
+    }
+
+    protected PreparedStatement buildUpdateServingNumberByIdStatement(Connection connection, Order order) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SERVING_NUMBER_BY_ID);
+        preparedStatement.setInt(1, order.getDrink().getId());
+        return preparedStatement;
+    }
+
+    protected PreparedStatement buildUpdateUserCardAmountByIdStatement(Connection connection, Order order) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_CARD_AMOUNT_BY_ID);
+        int statementIndex = 0;
+        preparedStatement.setBigDecimal(++statementIndex, order.getDrink().getPrice());
+        preparedStatement.setInt(++statementIndex, order.getUser().getId());
         return preparedStatement;
     }
 

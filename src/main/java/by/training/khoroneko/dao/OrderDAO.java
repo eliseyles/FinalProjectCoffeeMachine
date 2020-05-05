@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface OrderDAO {
     List<Order> findAllOrdersByUserId(User user) throws DAOException;
+
+    void checkoutCart(List<Order> cart) throws DAOException;
 }

@@ -15,7 +15,8 @@ public enum JSPParameter {
     CARD_ID("cardId"),
     CARD_NUMBER("cardNumber"),
     CARD_AMOUNT("cardAmount"),
-    ADDING_CARD_AMOUNT("addingCardAmount");
+    ADDING_CARD_AMOUNT("addingCardAmount"),
+    ORDER_LIST("orderList");
 
     private String value;
 

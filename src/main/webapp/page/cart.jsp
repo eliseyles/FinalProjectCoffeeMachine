@@ -64,11 +64,11 @@
         </div>
     </c:forEach>
 
-    <div class="totals">
-        <div class="totals-item">
-            <label>Total</label>
-            <div class="totals-value" id="cart-subtotal">0</div>
-        </div>
+<%--    <div class="totals">--%>
+<%--        <div class="totals-item">--%>
+<%--            <label>Total</label>--%>
+<%--            <div class="totals-value" id="cart-subtotal">0</div>--%>
+<%--        </div>--%>
         <%--            <div class="totals-item">--%>
         <%--                <label>Tax (5%)</label>--%>
         <%--                <div class="totals-value" id="cart-tax">3.60</div>--%>
@@ -81,9 +81,12 @@
 <%--            <label>Grand Total</label>--%>
 <%--            <div class="totals-value" id="cart-total">0</div>--%>
 <%--        </div>--%>
-    </div>
+<%--    </div>--%>
+<%--    <input id="getTotalPrice" type="button" class="checkout" value="Get total">--%>
 
-    <button class="checkout">Checkout</button>
+    <form action="controller" method="post">
+        <button id="checkoutButton" type="submit" class="checkout" name="command" value="CHECKOUT_CART">Checkout</button>
+    </form>
 
 </div>
 
@@ -98,9 +101,8 @@
 <script type="text/javascript" src="js/mdb.min.js"></script>
 <script type="text/javascript" src="js/cart.js"></script>
 <!-- Initializations -->
-<script type="text/javascript">
-    // Animations initialization
-    new WOW().init();
+<script type="text/javascript">{
+    }
 </script>
 </body>
 </html>

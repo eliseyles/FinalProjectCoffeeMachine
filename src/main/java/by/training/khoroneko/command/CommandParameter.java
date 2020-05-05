@@ -32,7 +32,8 @@ public enum CommandParameter {
     DELETE_CARD(new DeleteCardCommand()),
     CART_PAGE(new CartPageCommand()),
     ADD_DRINK_TO_CART(new AddDrinkToCartCommand()),
-    DELETE_DRINK_FROM_CART(new DeleteDrinkFromCartCommand());
+    DELETE_DRINK_FROM_CART(new DeleteDrinkFromCartCommand()),
+    CHECKOUT_CART(new CheckoutCartCommand());
 
     Command command;
 

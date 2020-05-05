@@ -12,4 +12,6 @@ public interface OrderService {
     List<Order> getAllOrdersByUserId(User user) throws ServiceException;
 
     void deleteOrder(Order order) throws ServiceException;
+
+    void checkoutCart(User user) throws ServiceException;
 }
