@@ -1,5 +1,6 @@
 package by.training.khoroneko.dao.impl;
 
+import by.training.khoroneko.builder.CardAccountBuilder;
 import by.training.khoroneko.builder.UserBuilder;
 import by.training.khoroneko.dao.AbstractCommonDAO;
 import by.training.khoroneko.dao.UserDAO;
@@ -7,10 +8,7 @@ import by.training.khoroneko.entity.User;
 import by.training.khoroneko.exception.DAOException;
 import org.apache.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
 
@@ -25,26 +23,41 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
     private static final String DELETE_USER_BY_ID = "DELETE FROM `user` WHERE `id` = ?";
 
     private static final String FIND_ALL_USERS =
-            "SELECT `user`.`id`, `name`, `email`, `password`, `is_active`, `card_account_id`, `title` as `role_title` " +
-                    "FROM `user` join `role` on `user`.`role_id` = `role`.`id`";
+            "SELECT `user`.`id`, `name`, `email`, `password`, `is_active`," +
+                    " `card_account`.`id` as `card_id`, `number` as `card_number`, `amount` as `card_amount`," +
+                    " `title` as `role_title` " +
+                    "FROM `user` join `role` on `user`.`role_id` = `role`.`id`" +
+                    "left join `card_account` on `user`.`card_account_id` = `card_account`.`id`";
 
     private static final String FIND_USER_BY_EMAIL_AND_PASSWORD =
-            "SELECT `user`.`id`, `name`, `email`, `password`, `is_active`, `card_account_id`, `title` as `role_title` " +
-                    "FROM `user` join `role` on `user`.`role_id` = `role`.`id`" +
-                    "WHERE `email`=? AND `password`=?";
+            FIND_ALL_USERS + "WHERE `email`=? AND `password`=?";
 
     private static final String FIND_USER_BY_EMAIL =
-            "SELECT `user`.`id`, `name`, `email`, `password`, `is_active`, `card_account_id`, `title` as `role_title` " +
-                    "FROM `user` join `role` on `user`.`role_id` = `role`.`id`" +
-                    "WHERE `email`=?";
+            FIND_ALL_USERS + "WHERE `email`=?";
 
     private static final String FIND_USER_BY_ID =
-            "SELECT `user`.`id`, `name`, `email`, `password`, `is_active`, `card_account_id`, `title` as `role_title` " +
-                    "FROM `user` join `role` on `user`.`role_id` = `role`.`id`" +
-                    "WHERE `user`.`id`=?";
+            FIND_ALL_USERS + "WHERE `user`.`id`=?";
 
     private static final String UPDATE_USER_INFO_BY_ID =
             "UPDATE `user` SET `name`=?, `email`=?, `password`=? WHERE id=?";
+
+    private static final String INSERT_CARD =
+            "INSERT INTO `card_account` (`number`, `amount`) VALUES (?, ?)";
+
+    private static final String UPDATE_USER_CARD_BY_ID =
+            "UPDATE `user` SET `card_account_id`=? WHERE id=?";
+
+    private static final String UPDATE_CARD_NUMBER_BY_ID =
+            "UPDATE `card_account` SET `number`=? WHERE id=?";
+
+    private static final String UPDATE_CARD_AMOUNT_BY_ID =
+            "UPDATE `card_account` SET `amount`=? WHERE id=?";
+
+    private static final String DELETE_CARD_BY_ID =
+            "DELETE FROM `card_account` WHERE id=?";
+
+    private static final String DELETE_CARD_FROM_USER_BY_ID =
+            "UPDATE `user` SET `card_account_id`=null WHERE id=?";
 
     @Override
     public User findByEmailAndPassword(User user) throws DAOException {
@@ -102,6 +115,99 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
         } catch (SQLException ex) {
             logger.error(ex);
             throw new DAOException("Error while updating user info", ex);
+        }
+    }
+
+    @Override
+    public void attachCardToUserById(User user) throws DAOException {
+        Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        int id = 0;
+        try {
+            connection.setAutoCommit(false);
+            statement = buildAddCardStatement(connection, user);
+            statement.executeUpdate();
+            resultSet = statement.getGeneratedKeys();
+            if (resultSet.next()) {
+                id = resultSet.getInt(1);
+            }
+            statement = buildUpdateUserCardByIdStatement(
+                    connection, user, id);
+            statement.executeUpdate();
+            connection.commit();
+        } catch (SQLException ex) {
+            rollbackTransaction(connection);
+            logger.error(ex);
+            throw new DAOException("Error while adding card", ex);
+        } finally {
+            closeConnection(connection);
+            closeStatement(statement);
+            closeResultSet(resultSet);
+        }
+    }
+
+    @Override
+    public void updateCardInfoById(User user) throws DAOException {
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = buildUpdateCardNumberByIdStatement(connection, user)) {
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            logger.error(ex);
+            throw new DAOException("Error while updating card info", ex);
+        }
+    }
+
+    @Override
+    public void updateCardAmountById(User user) throws DAOException {
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = buildUpdateCardAmountByIdStatement(connection, user)) {
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            logger.error(ex);
+            throw new DAOException("Error while updating card amount info", ex);
+        }
+    }
+
+    @Override
+    public void deleteCardFromUserById(User user) throws DAOException {
+        Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            connection.setAutoCommit(false);
+            connection.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
+            excecuteDeleteCardFromUserById(connection, user);
+            excecuteDeleteCardById(connection, user);
+            connection.commit();
+        } catch (SQLException ex) {
+            rollbackTransaction(connection);
+            logger.error(ex);
+            throw new DAOException("Error while removing card", ex);
+        } finally {
+            closeConnection(connection);
+            closeStatement(statement);
+            closeResultSet(resultSet);
+        }
+    }
+
+    private void excecuteDeleteCardFromUserById(Connection connection, User user) throws SQLException {
+        PreparedStatement statement = null;
+        try {
+            statement = buildDeleteCardFromUserByIdStatement(connection, user);
+            statement.executeUpdate();
+        } finally {
+            closeStatement(statement);
+        }
+    }
+
+    private void excecuteDeleteCardById(Connection connection, User user) throws SQLException {
+        PreparedStatement statement = null;
+        try {
+            statement = buildDeleteCardByIdStatement(connection, user);
+            statement.executeUpdate();
+        } finally {
+            closeStatement(statement);
         }
     }
 
@@ -170,6 +276,50 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
         return preparedStatement;
     }
 
+    protected PreparedStatement buildAddCardStatement(Connection connection, User user) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(INSERT_CARD, Statement.RETURN_GENERATED_KEYS);
+        int statementIndex = 0;
+        preparedStatement.setString(++statementIndex, user.getCardAccount().getCardNumber());
+        preparedStatement.setBigDecimal(++statementIndex, user.getCardAccount().getAmount());
+        return preparedStatement;
+    }
+
+    protected PreparedStatement buildUpdateUserCardByIdStatement(Connection connection, User user, int cardId) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_CARD_BY_ID);
+        int statementIndex = 0;
+        preparedStatement.setInt(++statementIndex, cardId);
+        preparedStatement.setInt(++statementIndex, user.getId());
+        return preparedStatement;
+    }
+
+    protected PreparedStatement buildUpdateCardNumberByIdStatement(Connection connection, User user) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_CARD_NUMBER_BY_ID);
+        int statementIndex = 0;
+        preparedStatement.setString(++statementIndex, user.getCardAccount().getCardNumber());
+        preparedStatement.setInt(++statementIndex, user.getCardAccount().getId());
+        return preparedStatement;
+    }
+
+    protected PreparedStatement buildUpdateCardAmountByIdStatement(Connection connection, User user) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_CARD_AMOUNT_BY_ID);
+        int statementIndex = 0;
+        preparedStatement.setBigDecimal(++statementIndex, user.getCardAccount().getAmount());
+        preparedStatement.setInt(++statementIndex, user.getCardAccount().getId());
+        return preparedStatement;
+    }
+
+    protected PreparedStatement buildDeleteCardByIdStatement(Connection connection, User user) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(DELETE_CARD_BY_ID);
+        preparedStatement.setInt(1, user.getCardAccount().getId());
+        return preparedStatement;
+    }
+
+    protected PreparedStatement buildDeleteCardFromUserByIdStatement(Connection connection, User user) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(DELETE_CARD_FROM_USER_BY_ID);
+        preparedStatement.setInt(1, user.getId());
+        return preparedStatement;
+    }
+
     @Override
     protected User createEntityFromResultSet(ResultSet resultSet) throws SQLException {
         return new UserBuilder()
@@ -178,6 +328,11 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
                 .setEmail(resultSet.getString("email"))
                 .setPassword(resultSet.getString("password"))
                 .setActivity(resultSet.getBoolean("is_active"))
+                .setCardAccount(new CardAccountBuilder()
+                        .setId(resultSet.getInt("card_id"))
+                        .setCardNumber(resultSet.getString("card_number"))
+                        .setAmount(resultSet.getBigDecimal("card_amount"))
+                        .getResult())
                 .setRole(resultSet.getString("role_title"))
                 .getResult();
     }

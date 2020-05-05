@@ -11,4 +11,12 @@ public interface UserDAO {
     User findById(User user) throws DAOException;
 
     void updateUserInfoById(User user) throws DAOException;
+
+    void attachCardToUserById(User user) throws DAOException;
+
+    void updateCardInfoById(User user) throws DAOException;
+
+    void updateCardAmountById(User user) throws DAOException;
+
+    void deleteCardFromUserById(User user) throws DAOException;
 }

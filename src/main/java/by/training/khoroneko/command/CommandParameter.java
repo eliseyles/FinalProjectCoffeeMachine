@@ -22,7 +22,18 @@ public enum CommandParameter {
     ADD_SERVINGS(new AddServingsCommand()),
     USER_PROFILE(new UserProfilePageCommand()),
     EDIT_PROFILE_PAGE(new EditProfilePageCommand()),
-    EDIT_USER_PROFILE(new EditUserProfileCommand());
+    EDIT_USER_PROFILE(new EditUserProfileCommand()),
+    ADD_CARD_PAGE(new AddCardPageCommand()),
+    ADD_CARD(new AddCardCommand()),
+    EDIT_CARD_PAGE(new EditCardPageCommand()),
+    EDIT_CARD(new EditCardCommand()),
+    ADD_MONEY_PAGE(new AddMoneyPageCommand()),
+    ADD_MONEY(new AddMoneyCommand()),
+    DELETE_CARD(new DeleteCardCommand()),
+    CART_PAGE(new CartPageCommand()),
+    ADD_DRINK_TO_CART(new AddDrinkToCartCommand()),
+    DELETE_DRINK_FROM_CART(new DeleteDrinkFromCartCommand()),
+    CHECKOUT_CART(new CheckoutCartCommand());
 
     Command command;
 

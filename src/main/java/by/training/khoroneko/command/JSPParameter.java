@@ -11,7 +11,12 @@ public enum JSPParameter {
     DRINK_VOLUME("drinkVolume"),
     DRINK_PRICE("drinkPrice"),
     DRINK_SERVING_NUMBER("servingNumber"),
-    DRINK_ID("drinkId");
+    DRINK_ID("drinkId"),
+    CARD_ID("cardId"),
+    CARD_NUMBER("cardNumber"),
+    CARD_AMOUNT("cardAmount"),
+    ADDING_CARD_AMOUNT("addingCardAmount"),
+    ORDER_LIST("orderList");
 
     private String value;
 

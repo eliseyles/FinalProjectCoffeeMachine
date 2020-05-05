@@ -8,9 +8,11 @@ import by.training.khoroneko.exception.ServiceException;
 import by.training.khoroneko.exception.ValidationException;
 import by.training.khoroneko.factory.DAOFactory;
 import by.training.khoroneko.service.UserService;
+import by.training.khoroneko.validation.CardAccountValidator;
 import by.training.khoroneko.validation.UserValidator;
 import org.apache.log4j.Logger;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
@@ -18,6 +20,7 @@ public class UserServiceImpl implements UserService {
     private Logger logger = Logger.getLogger(UserServiceImpl.class);
     private AbstractCommonDAO<User> userDAO = DAOFactory.INSTANCE.getUserDAO();
     private UserValidator userValidator = new UserValidator();
+    private CardAccountValidator cardAccountValidator = new CardAccountValidator();
 
     @Override
     public User register(User user) throws ServiceException {
@@ -125,6 +128,77 @@ public class UserServiceImpl implements UserService {
         } catch (ValidationException ex) {
             logger.error(ex);
             throw new ServiceException("Invalid user data", ex);
+        }
+    }
+
+    @Override
+    public void attachCardToUserById(User user) throws ServiceException {
+        try {
+            userValidator.isValidUserId(user);
+            cardAccountValidator.isValidCardAccountData(user.getCardAccount());
+            ((UserDAO)userDAO).attachCardToUserById(user);
+        } catch (DAOException ex) {
+            logger.error(ex);
+            throw new ServiceException("Error while attaching card", ex);
+        } catch (ValidationException ex) {
+            logger.error(ex);
+            throw new ServiceException("Invalid data", ex);
+        }
+    }
+
+    @Override
+    public void updateCardInfoById(User user) throws ServiceException {
+        try {
+            userValidator.isValidUserId(user);
+            cardAccountValidator.isValidCardAccountIdAndNumber(user.getCardAccount());
+            if (((UserDAO)userDAO).findById(user).getCardAccount().getId() != user.getCardAccount().getId()) {
+                throw new ServiceException("Invalid card data, user card mismatch with the entered card");
+            }
+            ((UserDAO)userDAO).updateCardInfoById(user);
+        } catch (DAOException ex) {
+            logger.error(ex);
+            throw new ServiceException("Error while updating card", ex);
+        } catch (ValidationException ex) {
+            logger.error(ex);
+            throw new ServiceException("Invalid data", ex);
+        }
+    }
+
+    @Override
+    public void updateCardAmountById(User user) throws ServiceException {
+        try {
+            userValidator.isValidUserId(user);
+            cardAccountValidator.isValidCardAccountIdAndAmount(user.getCardAccount());
+            if (((UserDAO)userDAO).findById(user).getCardAccount().getId() != user.getCardAccount().getId()) {
+                throw new ServiceException("Invalid card data, user card mismatch with the entered card");
+            }
+            BigDecimal currentAmount = ((UserDAO)userDAO).findById(user).getCardAccount().getAmount();
+            user.getCardAccount().setAmount(currentAmount.add(user.getCardAccount().getAmount()));
+            ((UserDAO)userDAO).updateCardAmountById(user);
+        } catch (DAOException ex) {
+            logger.error(ex);
+            throw new ServiceException("Error while updating card amount", ex);
+        } catch (ValidationException ex) {
+            logger.error(ex);
+            throw new ServiceException("Invalid data", ex);
+        }
+    }
+
+    @Override
+    public void deleteCardFromUserById(User user) throws ServiceException {
+        try {
+            userValidator.isValidUserId(user);
+            cardAccountValidator.isValidCardAccountId(user.getCardAccount());
+            if (((UserDAO)userDAO).findById(user).getCardAccount().getId() != user.getCardAccount().getId()) {
+                throw new ServiceException("Invalid card data, user card mismatch with the entered card");
+            }
+            ((UserDAO)userDAO).deleteCardFromUserById(user);
+        } catch (DAOException ex) {
+            logger.error(ex);
+            throw new ServiceException("Error while deleting card", ex);
+        } catch (ValidationException ex) {
+            logger.error(ex);
+            throw new ServiceException("Invalid data", ex);
         }
     }
 }

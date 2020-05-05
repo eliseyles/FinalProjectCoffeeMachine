@@ -6,7 +6,8 @@ public enum Attribute {
     USER("user"),
     USER_LIST("userList"),
     DRINK_LIST("drinkList"),
-    DRINK("drink");
+    DRINK("drink"),
+    ORDER_LIST("orderList");
 
     private String value;
 

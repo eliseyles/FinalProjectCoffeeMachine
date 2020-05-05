@@ -5,21 +5,29 @@ import by.training.khoroneko.entity.CardAccount;
 import java.math.BigDecimal;
 
 public class CardAccountBuilder {
-    private CardAccount cardAccount;
+    private int id;
+    private String cardNumber;
+    private BigDecimal amount;
 
-    public CardAccountBuilder(CardAccount cardAccount) {
-        this.cardAccount = cardAccount;
+    public CardAccountBuilder() {
     }
 
-    public void setId(int id) {
-        cardAccount.setId(id);
+    public CardAccountBuilder setId(int id) {
+        this.id = id;
+        return this;
     }
 
-    public void setCardNumber(String number) {
-        cardAccount.setCardNumber(number);
+    public CardAccountBuilder setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+        return this;
     }
 
-    public void setAmount(BigDecimal amount) {
-        cardAccount.setAmount(amount);
+    public CardAccountBuilder setAmount(BigDecimal amount) {
+        this.amount = amount;
+        return this;
+    }
+
+    public CardAccount getResult() {
+        return new CardAccount(id, cardNumber, amount);
     }
 }
