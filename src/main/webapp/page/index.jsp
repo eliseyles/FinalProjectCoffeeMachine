@@ -66,7 +66,7 @@
     </video>
 
 <%--    <div class="content">--%>
-<%--        <form action="controller" method="post">--%>
+<%--        <form action="coffee_machine" method="post">--%>
 <%--            <div class="col-sm-10">--%>
 <%--                <button type="submit" class="btn btn-outline-white btn-lg" name="command"--%>
 <%--                        value="REGISTRATION">--%>
@@ -80,7 +80,7 @@
 
 <%--                --%>
 <%--    <div class="content">--%>
-<%--        <form action="controller" method="post" enctype='multipart/form-data'>--%>
+<%--        <form action="coffee_machine" method="post" enctype='multipart/form-data'>--%>
 
 <%--            <div class="container white-text mt-4 wow fadeIn">--%>
 

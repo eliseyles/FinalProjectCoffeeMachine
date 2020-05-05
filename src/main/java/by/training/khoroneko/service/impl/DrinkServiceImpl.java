@@ -86,7 +86,7 @@ public class DrinkServiceImpl implements DrinkService {
     public Drink findById(Drink drink) throws ServiceException {
         try {
             drinkValidator.isValidDrinkId(drink);
-            return ((DrinkDAO)drinkDAO).findById(drink);
+            return ((DrinkDAO) drinkDAO).findById(drink);
         } catch (DAOException ex) {
             logger.error(ex);
             throw new ServiceException("Error while finding drink by id", ex);

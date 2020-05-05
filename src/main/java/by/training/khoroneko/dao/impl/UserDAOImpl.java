@@ -62,12 +62,11 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
     @Override
     public User findByEmailAndPassword(User user) throws DAOException {
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = buildFindByEmailAndPassword(connection, user);
+             PreparedStatement statement = buildFindByEmailAndPasswordStatement(connection, user);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 return createEntityFromResultSet(resultSet);
             }
-//            todo change to return optional
             return null;
         } catch (SQLException ex) {
             logger.error(ex);
@@ -78,12 +77,11 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
     @Override
     public User findByEmail(User user) throws DAOException {
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = buildFindByEmail(connection, user);
+             PreparedStatement statement = buildFindByEmailStatement(connection, user);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 return createEntityFromResultSet(resultSet);
             }
-//            todo change to return optional
             return null;
         } catch (SQLException ex) {
             logger.error(ex);
@@ -94,12 +92,11 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
     @Override
     public User findById(User user) throws DAOException {
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = buildFindById(connection, user);
+             PreparedStatement statement = buildFindByIdStatement(connection, user);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 return createEntityFromResultSet(resultSet);
             }
-//            todo change to return optional
             return null;
         } catch (SQLException ex) {
             logger.error(ex);
@@ -110,7 +107,7 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
     @Override
     public void updateUserInfoById(User user) throws DAOException {
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = buildUpdateUserInfoById(connection, user)) {
+             PreparedStatement statement = buildUpdateUserInfoByIdStatement(connection, user)) {
             statement.executeUpdate();
         } catch (SQLException ex) {
             logger.error(ex);
@@ -122,19 +119,10 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
     public void attachCardToUserById(User user) throws DAOException {
         Connection connection = connectionPool.getConnection();
         PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        int id = 0;
+
         try {
             connection.setAutoCommit(false);
-            statement = buildAddCardStatement(connection, user);
-            statement.executeUpdate();
-            resultSet = statement.getGeneratedKeys();
-            if (resultSet.next()) {
-                id = resultSet.getInt(1);
-            }
-            statement = buildUpdateUserCardByIdStatement(
-                    connection, user, id);
-            statement.executeUpdate();
+            executeUpdateUserCardById(connection, user, executeAddCard(connection, user));
             connection.commit();
         } catch (SQLException ex) {
             rollbackTransaction(connection);
@@ -143,7 +131,33 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
         } finally {
             closeConnection(connection);
             closeStatement(statement);
+        }
+    }
+
+    private int executeAddCard(Connection connection, User user) throws SQLException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = buildAddCardStatement(connection, user);
+            statement.executeUpdate();
+            resultSet = statement.getGeneratedKeys();
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+            return 0;
+        } finally {
+            closeStatement(statement);
             closeResultSet(resultSet);
+        }
+    }
+
+    private void executeUpdateUserCardById(Connection connection, User user, int id) throws SQLException {
+        PreparedStatement statement = null;
+        try {
+            statement = buildUpdateUserCardByIdStatement(connection, user, id);
+            statement.executeUpdate();
+        } finally {
+            closeStatement(statement);
         }
     }
 
@@ -177,8 +191,8 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
         try {
             connection.setAutoCommit(false);
             connection.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
-            excecuteDeleteCardFromUserById(connection, user);
-            excecuteDeleteCardById(connection, user);
+            executeDeleteCardFromUserById(connection, user);
+            executeDeleteCardById(connection, user);
             connection.commit();
         } catch (SQLException ex) {
             rollbackTransaction(connection);
@@ -191,7 +205,7 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
         }
     }
 
-    private void excecuteDeleteCardFromUserById(Connection connection, User user) throws SQLException {
+    private void executeDeleteCardFromUserById(Connection connection, User user) throws SQLException {
         PreparedStatement statement = null;
         try {
             statement = buildDeleteCardFromUserByIdStatement(connection, user);
@@ -201,7 +215,7 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
         }
     }
 
-    private void excecuteDeleteCardById(Connection connection, User user) throws SQLException {
+    private void executeDeleteCardById(Connection connection, User user) throws SQLException {
         PreparedStatement statement = null;
         try {
             statement = buildDeleteCardByIdStatement(connection, user);
@@ -224,7 +238,7 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
     }
 
     @Override
-    protected PreparedStatement buildUpdateByID(Connection connection, User user) throws SQLException {
+    protected PreparedStatement buildUpdateByIDStatement(Connection connection, User user) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_BY_ID);
         int statementIndex = 0;
         preparedStatement.setBoolean(++statementIndex, user.isActivity());
@@ -233,18 +247,18 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
     }
 
     @Override
-    protected PreparedStatement buildDeleteById(Connection connection, User user) throws SQLException {
+    protected PreparedStatement buildDeleteByIdStatement(Connection connection, User user) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER_BY_ID);
         preparedStatement.setInt(1, user.getId());
         return preparedStatement;
     }
 
     @Override
-    protected PreparedStatement buildFindAll(Connection connection) throws SQLException {
+    protected PreparedStatement buildFindAllStatement(Connection connection) throws SQLException {
         return connection.prepareStatement(FIND_ALL_USERS);
     }
 
-    protected PreparedStatement buildFindByEmailAndPassword(Connection connection, User user) throws SQLException {
+    protected PreparedStatement buildFindByEmailAndPasswordStatement(Connection connection, User user) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_EMAIL_AND_PASSWORD);
         int statementIndex = 0;
         preparedStatement.setString(++statementIndex, user.getEmail());
@@ -252,21 +266,21 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
         return preparedStatement;
     }
 
-    protected PreparedStatement buildFindByEmail(Connection connection, User user) throws SQLException {
+    protected PreparedStatement buildFindByEmailStatement(Connection connection, User user) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_EMAIL);
         int statementIndex = 0;
         preparedStatement.setString(++statementIndex, user.getEmail());
         return preparedStatement;
     }
 
-    protected PreparedStatement buildFindById(Connection connection, User user) throws SQLException {
+    protected PreparedStatement buildFindByIdStatement(Connection connection, User user) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_ID);
         int statementIndex = 0;
         preparedStatement.setInt(++statementIndex, user.getId());
         return preparedStatement;
     }
 
-    protected PreparedStatement buildUpdateUserInfoById(Connection connection, User user) throws SQLException {
+    protected PreparedStatement buildUpdateUserInfoByIdStatement(Connection connection, User user) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_INFO_BY_ID);
         int statementIndex = 0;
         preparedStatement.setString(++statementIndex, user.getName());

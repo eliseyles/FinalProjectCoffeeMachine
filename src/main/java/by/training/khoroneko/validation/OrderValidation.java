@@ -7,6 +7,8 @@ import java.util.List;
 
 public class OrderValidation {
 
+    private static final int MIN_ID = 1;
+
     public void isValidOrder(Order order) throws ValidationException {
         isNotNull(order);
         isDrinkNotNull(order);
@@ -60,13 +62,13 @@ public class OrderValidation {
     }
 
     private void isValidUserId(Order order) throws ValidationException {
-        if (order.getUser().getId() < 1) {
+        if (order.getUser().getId() < MIN_ID) {
             throw new ValidationException("Invalid user id");
         }
     }
 
     private void isValidId(Order order) throws ValidationException {
-        if (!(order.getId() > 0)) {
+        if ((order.getId() < MIN_ID)) {
             throw new ValidationException("Invalid order id");
         }
     }

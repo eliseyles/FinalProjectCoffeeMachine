@@ -24,9 +24,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User register(User user) throws ServiceException {
-        if (user == null) {
-            throw new ServiceException("Invalid user, user is null");
-        }
         try {
             userValidator.isValidUser(user);
             if (((UserDAO) userDAO).findByEmail(user) == null) {
@@ -46,9 +43,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void update(User user) throws ServiceException {
-        if (user == null) {
-            throw new ServiceException("Invalid user, user is null");
-        }
         try {
             userValidator.isValidUserId(user);
             userDAO.update(user);
@@ -63,9 +57,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(User user) throws ServiceException {
-        if (user == null) {
-            throw new ServiceException("Invalid user, user is null");
-        }
         try {
             userValidator.isValidUser(user);
             userDAO.delete(user);
@@ -115,9 +106,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUserInfoById(User user) throws ServiceException {
-        if (user == null) {
-            throw new ServiceException("Invalid user, user is null");
-        }
         try {
             userValidator.isValidUserId(user);
             userValidator.isValidUser(user);

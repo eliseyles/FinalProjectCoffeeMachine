@@ -52,7 +52,7 @@
                         <h5 class="card-title">${drink.title}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">${drink.drinkSize}</h6>
                         <h6 class="card-title">${drink.price}</h6>
-                        <form action="controller" method="post">
+                        <form action="coffee_machine" method="post">
                             <input type="hidden" name="drinkId" value="${drink.id}"/>
                             <button type="submit" class="btn btn-sm" name="command" value="ADD_DRINK_TO_CART">
                                 Add to cart

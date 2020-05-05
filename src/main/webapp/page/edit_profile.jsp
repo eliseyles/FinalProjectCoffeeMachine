@@ -67,7 +67,7 @@
     <div class="card-body text-white  py-5 px-5 my-5">
 
 
-        <form class="brown" action="controller" method="post">
+        <form class="brown" action="coffee_machine" method="post">
             <c:if test="${not empty errorMessage}">
                 <div class="text-center text-warning">
                     <label class="text">
@@ -77,7 +77,7 @@
                 </div>
             </c:if>
             <div class="form-group">
-                <input type="hidden" class="form-control" id="id" name="userID" value="${user.id}">
+                <input type="hidden" class="form-control" id="id" name="userId" value="${user.id}">
             </div>
             <div class="form-group">
                 <label for="inputName">Name</label>

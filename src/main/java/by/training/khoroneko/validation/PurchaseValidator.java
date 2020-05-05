@@ -11,6 +11,7 @@ import java.util.List;
 public class PurchaseValidator {
 
     private static final BigDecimal MIN_CARD_AMOUNT = new BigDecimal(0);
+    private static final int MIN_SERVING_NUMBER = 0;
 
     public void isValidPurchase(List<Order> cart, List<Drink> drinks, User user) throws ValidationException {
         isValidCardAccount(user);
@@ -34,7 +35,7 @@ public class PurchaseValidator {
 
     private void isEnoughServingNumber(List<Drink> drinks) throws ValidationException {
         for (Drink drink : drinks) {
-            if (drink.getServingNumber() < 0) {
+            if (drink.getServingNumber() < MIN_SERVING_NUMBER) {
                 throw new ValidationException("Not enough serving number of" + drink.getId() + " to get purchase");
             }
         }

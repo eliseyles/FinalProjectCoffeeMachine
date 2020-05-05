@@ -3,7 +3,7 @@ package by.training.khoroneko.command;
 public enum JSPParameter {
     COMMAND("command"),
     REGISTER("register"),
-    USER_ID("userID"),
+    USER_ID("userId"),
     USER_NAME("userName"),
     USER_EMAIL("userEmail"),
     USER_PASSWORD("userPassword"),

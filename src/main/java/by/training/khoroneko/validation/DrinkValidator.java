@@ -7,7 +7,10 @@ import java.math.BigDecimal;
 
 public class DrinkValidator {
 
+    private static final String DRINK_TITLE_REGEX = "^[a-zA-Z]{1,40}$";
     private static final BigDecimal MIN_PRICE = new BigDecimal(0);
+    private static final int MIN_ID = 1;
+    private static final int MIN_SERVING_NUMBER = 0;
 
     public void isValidDrink(Drink drink) throws ValidationException {
         isNotNull(drink);
@@ -42,7 +45,7 @@ public class DrinkValidator {
     }
 
     private void isValidTitle(Drink drink) throws ValidationException {
-        if (!drink.getTitle().matches("^[a-zA-Z]{1,40}$")) {
+        if (!drink.getTitle().matches(DRINK_TITLE_REGEX)) {
             throw new ValidationException("Invalid drink title");
         }
     }
@@ -54,13 +57,13 @@ public class DrinkValidator {
     }
 
     private void isValidId(Drink drink) throws ValidationException {
-        if (drink.getId() < 0) {
+        if (drink.getId() < MIN_ID) {
             throw new ValidationException("Invalid drink id");
         }
     }
 
     private void isValidServingNumber(Drink drink) throws ValidationException {
-        if (drink.getServingNumber() < 0) {
+        if (drink.getServingNumber() < MIN_SERVING_NUMBER) {
             throw new ValidationException("Invalid drink serving number");
         }
     }

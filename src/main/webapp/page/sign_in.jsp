@@ -1,16 +1,9 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Елисей
-  Date: 3/29/2020
-  Time: 8:55 PM
-  To change this template use File | Settings | File Templates.
---%>
 <!DOCTYPE html>
 <html lang="en">
 
 <html>
 <head>
-    <title>Registration</title>
+    <title>Sign In</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -42,8 +35,8 @@
             /*background: ;*/
             padding: 60px 120px 80px 120px;
             /*text-align: center;*/
-            -webkit-box-shadow: 2px 2px 3px rgba(0,0,0,0.1);
-            box-shadow: 2px 2px 3px rgba(0,0,0,0.1);
+            -webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
+            box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
         }
 
         @media (min-width: 800px) and (max-width: 850px) {
@@ -51,24 +44,6 @@
                 background: #1C2331 !important;
             }
         }
-
-        .content {
-            position: fixed;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            color: #f1f1f1;
-            width: 100%;
-            padding: 20px;
-        }
-
-
-        .modal{
-            /*padding: 50px;*/
-            background: #ff3d00;
-            position: fixed; top: 50%; left: 50%;
-        }
-
-
     </style>
 </head>
 <body>
@@ -79,32 +54,30 @@
     <!-- Content -->
     <div class="card-body text-white  py-5 px-5 my-5">
 
-
         <form class="brown" action="coffee_machine" method="post">
             <c:if test="${not empty errorMessage}">
-                <div class="text-center text-warning">
-                    <label class="text">
+            <div class="text-center text-warning">
+                <label class="text">
                         ${errorMessage}
-                            <%--                    <fmt:message key="${error}"/>--%>
-                    </label>
-                </div>
+                        <%--                    <fmt:message key="${error}"/>--%>
+                </label>
+            </div>
             </c:if>
-            <div class="form-group">
-                <label for="inputName">Name</label>
-                <input type="text" class="form-control" id="inputName" name="userName">
-            </div>
-            <div class="form-group">
-                <label for="inputEmail">Email address</label>
-                <input type="email" class="form-control" id="inputEmail" name="userEmail" aria-describedby="emailHelp">
-                <small id="emailHelp" class="form-text  text-white">We'll never share your email with anyone else.</small>
-            </div>
-            <div class="form-group">
-                <label for="inputPassword">Password</label>
-                <input type="password" class="form-control" id="inputPassword" name="userPassword">
-            </div>
-            <button type="submit" class="btn btn-outline-white btn-lg" name="command"
-                    value="REGISTER">Submit</button>
-        </form>
+            <form class="brown" action="coffee_machine" method="post">
+                <div class="form-group">
+                    <label for="inputEmail">Email address</label>
+                    <input type="email" class="form-control" id="inputEmail" name="userEmail"
+                           aria-describedby="emailHelp">
+                </div>
+
+                <div class="form-group">
+                    <label for="inputPassword">Password</label>
+                    <input type="password" class="form-control" id="inputPassword" name="userPassword">
+                </div>
+                <button type="submit" class="btn btn-outline-white btn-lg" name="command"
+                        value="SIGN_IN">Sign In
+                </button>
+            </form>
     </div>
     <!-- Content -->
 </section>

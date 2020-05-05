@@ -27,7 +27,7 @@
 
 <div class="shift">
     <div class="container emp-profile">
-        <form action="controller" method="get">
+        <form action="coffee_machine" method="get">
             <div class="row">
                 <div class="col-md-4">
                 </div>
