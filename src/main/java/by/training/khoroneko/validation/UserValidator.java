@@ -5,6 +5,11 @@ import by.training.khoroneko.exception.ValidationException;
 
 public class UserValidator {
 
+    private static final String USER_NAME_REGEX = "^[a-zA-Z]{5,20}$";
+    private static final String EMAIL_REGEX = "^[A-Za-z0-9+_]+@(.+)$";
+    private static final String PASSWORD_REGEX = "^[a-zA-Z0-9]{8,20}$";
+    private static final int MIN_ID = 1;
+
     public void isValidUser(User user) throws ValidationException {
         isNotNull(user);
         isValidName(user);
@@ -30,25 +35,25 @@ public class UserValidator {
     }
 
     private void isValidName(User user) throws ValidationException {
-        if (!user.getName().matches("^[a-zA-Z]{5,20}$")) {
+        if (!user.getName().matches(USER_NAME_REGEX)) {
             throw new ValidationException("Invalid user name");
         }
     }
 
     private void isValidEmail(User user) throws ValidationException {
-        if (!user.getEmail().matches("^[A-Za-z0-9+_]+@(.+)$")) {
+        if (!user.getEmail().matches(EMAIL_REGEX)) {
             throw new ValidationException("Invalid user email");
         }
     }
 
     private void isValidPassword(User user) throws ValidationException {
-        if (!user.getPassword().matches("^[a-zA-Z0-9]{8,20}$")) {
+        if (!user.getPassword().matches(PASSWORD_REGEX)) {
             throw new ValidationException("Invalid user password");
         }
     }
 
     private void isValidId(User user) throws ValidationException {
-        if (user.getId() <= 0) {
+        if (user.getId() < MIN_ID) {
             throw new ValidationException("Invalid user id");
         }
     }
