@@ -34,6 +34,12 @@ public class Controller extends HttpServlet {
     }
 
     @Override
+    public void destroy() {
+        super.destroy();
+        ConnectionPool.INSTANCE.destroyPool();
+    }
+
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         processRequest(req, resp);
     }
