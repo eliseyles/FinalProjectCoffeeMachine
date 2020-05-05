@@ -6,7 +6,7 @@ import by.training.khoroneko.command.Pages;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class AddDrinkCommand implements Command {
+public class AddDrinkPageCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         return Pages.DRINK_ADDING_JSP.getValue();

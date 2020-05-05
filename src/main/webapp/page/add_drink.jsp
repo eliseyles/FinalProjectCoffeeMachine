@@ -109,7 +109,7 @@
                 <input type="text" class="form-control" id="inputNumber" name="servingNumber">
             </div>
             <button type="submit" class="btn btn-outline-white btn-lg" name="command"
-                    value="ADD">Add
+                    value="ADD_DRINK">Add
             </button>
         </form>
     </div>

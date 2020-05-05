@@ -11,8 +11,7 @@ import by.training.khoroneko.factory.ServiceFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
-//todo rename
-public class AddCommand implements Command {
+public class AddDrinkCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {

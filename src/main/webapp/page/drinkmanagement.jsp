@@ -65,7 +65,7 @@
 <div class="card text-center">
     <div class="card-body">
         <form action="controller" method="post">
-            <button type="submit" class="btn" name="command" value="ADD_DRINK">Add drink</button>
+            <button type="submit" class="btn" name="command" value="ADD_DRINK_PAGE">Add drink</button>
         </form>
     </div>
 </div>
