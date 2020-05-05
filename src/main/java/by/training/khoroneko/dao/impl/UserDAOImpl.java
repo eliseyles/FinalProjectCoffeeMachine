@@ -176,11 +176,9 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
         ResultSet resultSet = null;
         try {
             connection.setAutoCommit(false);
-            statement = buildDeleteCardFromUserByIdStatement(connection, user);
-            statement.executeUpdate();
-
-            statement = buildDeleteCardByIdStatement(connection, user);
-            statement.executeUpdate();
+            connection.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
+            excecuteDeleteCardFromUserById(connection, user);
+            excecuteDeleteCardById(connection, user);
             connection.commit();
         } catch (SQLException ex) {
             rollbackTransaction(connection);
@@ -190,6 +188,26 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
             closeConnection(connection);
             closeStatement(statement);
             closeResultSet(resultSet);
+        }
+    }
+
+    private void excecuteDeleteCardFromUserById(Connection connection, User user) throws SQLException {
+        PreparedStatement statement = null;
+        try {
+            statement = buildDeleteCardFromUserByIdStatement(connection, user);
+            statement.executeUpdate();
+        } finally {
+            closeStatement(statement);
+        }
+    }
+
+    private void excecuteDeleteCardById(Connection connection, User user) throws SQLException {
+        PreparedStatement statement = null;
+        try {
+            statement = buildDeleteCardByIdStatement(connection, user);
+            statement.executeUpdate();
+        } finally {
+            closeStatement(statement);
         }
     }
 

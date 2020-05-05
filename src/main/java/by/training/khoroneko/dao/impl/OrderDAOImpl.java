@@ -67,7 +67,8 @@ public class OrderDAOImpl extends AbstractCommonDAO<Order> implements OrderDAO {
         Connection connection = connectionPool.getConnection();
         try {
             connection.setAutoCommit(false);
-            connection.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);            for (Order order : cart) {
+            connection.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
+            for (Order order : cart) {
                 executeInsertOrderInSales(connection, order);
                 executeUpdateServingNumberById(connection, order);
                 executeDeleteById(connection, order);
