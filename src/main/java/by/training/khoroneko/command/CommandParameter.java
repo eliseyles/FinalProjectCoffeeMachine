@@ -24,24 +24,29 @@ import by.training.khoroneko.command.redirect.user.*;
 
 public enum CommandParameter {
     INDEX_PAGE(new IndexPageCommand()),
+    DRINK_LIST(new DrinkListCommand()),
+
     REGISTRATION_PAGE(new RegistrationPageCommand()),
     REGISTER(new RegisterCommand()),
-    SIGN_IN(new SignInCommand()),
     SIGN_IN_PAGE(new SignInPageCommand()),
+    SIGN_IN(new SignInCommand()),
     SIGN_OUT(new SignOutCommand()),
+
     USER_LIST(new UserListCommand()),
     USER_EDIT(new UserEditCommand()),
     BLOCK_USER(new BlockUserCommand()),
     UNBLOCK_USER(new UnblockUserCommand()),
-    DRINK_LIST(new DrinkListCommand()),
+
     DRINK_MANAGEMENT(new DrinkManagementCommand()),
     ADD_DRINK_PAGE(new AddDrinkPageCommand()),
     ADD_DRINK(new AddDrinkCommand()),
     ADD_SERVINGS_PAGE(new AddServingsPageCommand()),
     ADD_SERVINGS(new AddServingsCommand()),
+
     USER_PROFILE(new UserProfilePageCommand()),
     EDIT_PROFILE_PAGE(new EditProfilePageCommand()),
     EDIT_USER_PROFILE(new EditUserProfileCommand()),
+
     ADD_CARD_PAGE(new AddCardPageCommand()),
     ADD_CARD(new AddCardCommand()),
     EDIT_CARD_PAGE(new EditCardPageCommand()),
@@ -49,6 +54,7 @@ public enum CommandParameter {
     ADD_MONEY_PAGE(new AddMoneyPageCommand()),
     ADD_MONEY(new AddMoneyCommand()),
     DELETE_CARD(new DeleteCardCommand()),
+
     CART_PAGE(new CartPageCommand()),
     ADD_DRINK_TO_CART(new AddDrinkToCartCommand()),
     DELETE_DRINK_FROM_CART(new DeleteDrinkFromCartCommand()),
