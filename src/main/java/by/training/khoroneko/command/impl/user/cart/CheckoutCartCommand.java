@@ -1,4 +1,4 @@
-package by.training.khoroneko.command.impl;
+package by.training.khoroneko.command.impl.user.cart;
 
 import by.training.khoroneko.builder.UserBuilder;
 import by.training.khoroneko.command.Attribute;

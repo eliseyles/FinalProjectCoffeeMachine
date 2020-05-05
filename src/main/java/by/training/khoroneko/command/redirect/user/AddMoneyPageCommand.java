@@ -1,4 +1,4 @@
-package by.training.khoroneko.command.redirect;
+package by.training.khoroneko.command.redirect.user;
 
 import by.training.khoroneko.command.Command;
 import by.training.khoroneko.command.Pages;

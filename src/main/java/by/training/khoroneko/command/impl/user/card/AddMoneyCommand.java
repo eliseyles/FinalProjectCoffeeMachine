@@ -1,4 +1,4 @@
-package by.training.khoroneko.command.impl;
+package by.training.khoroneko.command.impl.user.card;
 
 import by.training.khoroneko.builder.CardAccountBuilder;
 import by.training.khoroneko.builder.UserBuilder;

@@ -1,14 +1,16 @@
-package by.training.khoroneko.command.redirect;
+package by.training.khoroneko.command.impl.user;
 
+import by.training.khoroneko.command.Attribute;
 import by.training.khoroneko.command.Command;
 import by.training.khoroneko.command.Pages;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class AddCardPageCommand implements Command {
+public class SignOutCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        return Pages.ADD_CARD_JSP.getValue();
+        request.getSession().removeAttribute(Attribute.USER.getValue());
+        return Pages.INDEX_JSP.getValue();
     }
 }

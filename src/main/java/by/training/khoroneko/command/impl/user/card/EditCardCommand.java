@@ -1,7 +1,6 @@
-package by.training.khoroneko.command.impl;
+package by.training.khoroneko.command.impl.user.card;
 
 import by.training.khoroneko.builder.CardAccountBuilder;
-import by.training.khoroneko.builder.DrinkBuilder;
 import by.training.khoroneko.builder.UserBuilder;
 import by.training.khoroneko.command.Attribute;
 import by.training.khoroneko.command.Command;
@@ -14,9 +13,8 @@ import by.training.khoroneko.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.math.BigDecimal;
 
-public class AddCardCommand implements Command {
+public class EditCardCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         UserService userService = ServiceFactory.INSTANCE.getUserService();
@@ -25,11 +23,11 @@ public class AddCardCommand implements Command {
                     .setId(Integer.parseInt(request.getParameter(JSPParameter.USER_ID.getValue())))
                     .setCardAccount(
                             new CardAccountBuilder()
-                            .setCardNumber(request.getParameter(JSPParameter.CARD_NUMBER.getValue()))
-                            .setAmount(BigDecimal.valueOf(Double.parseDouble(request.getParameter(JSPParameter.CARD_AMOUNT.getValue()))))
-                            .getResult())
+                                    .setId(Integer.parseInt(request.getParameter(JSPParameter.CARD_ID.getValue())))
+                                    .setCardNumber(request.getParameter(JSPParameter.CARD_NUMBER.getValue()))
+                                    .getResult())
                     .getResult();
-            userService.attachCardToUserById(user);
+            userService.updateCardInfoById(user);
             request.getSession().setAttribute(Attribute.USER.getValue(),
                     userService.findById(new UserBuilder()
                             .setId(Integer.parseInt(request.getParameter(JSPParameter.USER_ID.getValue())))
@@ -37,7 +35,7 @@ public class AddCardCommand implements Command {
             return Pages.USER_PROFILE_JSP.getValue();
         } catch (ServiceException ex) {
             request.setAttribute(Attribute.ERROR_MASSAGE.getValue(), ex.getMessage());
-            return Pages.ADD_CARD_JSP.getValue();
+            return Pages.EDIT_CARD_JSP.getValue();
         }
     }
 }

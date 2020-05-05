@@ -1,7 +1,26 @@
 package by.training.khoroneko.command;
 
 import by.training.khoroneko.command.impl.*;
+import by.training.khoroneko.command.impl.admin.drinks.AddCommand;
+import by.training.khoroneko.command.impl.admin.drinks.AddServingsCommand;
+import by.training.khoroneko.command.impl.admin.drinks.AddServingsPageCommand;
+import by.training.khoroneko.command.impl.admin.drinks.DrinkManagementCommand;
+import by.training.khoroneko.command.impl.admin.users.BlockUserCommand;
+import by.training.khoroneko.command.impl.admin.users.UnblockUserCommand;
+import by.training.khoroneko.command.impl.admin.users.UserEditCommand;
+import by.training.khoroneko.command.impl.admin.users.UserListCommand;
+import by.training.khoroneko.command.impl.user.*;
+import by.training.khoroneko.command.impl.user.card.AddCardCommand;
+import by.training.khoroneko.command.impl.user.card.AddMoneyCommand;
+import by.training.khoroneko.command.impl.user.card.DeleteCardCommand;
+import by.training.khoroneko.command.impl.user.card.EditCardCommand;
+import by.training.khoroneko.command.impl.user.cart.AddDrinkToCartCommand;
+import by.training.khoroneko.command.impl.user.cart.CartPageCommand;
+import by.training.khoroneko.command.impl.user.cart.CheckoutCartCommand;
+import by.training.khoroneko.command.impl.user.cart.DeleteDrinkFromCartCommand;
 import by.training.khoroneko.command.redirect.*;
+import by.training.khoroneko.command.redirect.admin.AddDrinkCommand;
+import by.training.khoroneko.command.redirect.user.*;
 
 public enum CommandParameter {
     INDEX_PAGE(new IndexPageCommand()),

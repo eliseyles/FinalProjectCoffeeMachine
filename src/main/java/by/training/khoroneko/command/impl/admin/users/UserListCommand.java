@@ -1,4 +1,4 @@
-package by.training.khoroneko.command.impl;
+package by.training.khoroneko.command.impl.admin.users;
 
 import by.training.khoroneko.command.Attribute;
 import by.training.khoroneko.command.Command;

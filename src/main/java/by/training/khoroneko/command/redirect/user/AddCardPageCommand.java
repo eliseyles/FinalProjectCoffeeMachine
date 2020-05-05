@@ -1,4 +1,4 @@
-package by.training.khoroneko.command.redirect;
+package by.training.khoroneko.command.redirect.user;
 
 import by.training.khoroneko.command.Command;
 import by.training.khoroneko.command.Pages;
@@ -6,9 +6,9 @@ import by.training.khoroneko.command.Pages;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class AddDrinkCommand implements Command {
+public class AddCardPageCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        return Pages.DRINK_ADDING_JSP.getValue();
+        return Pages.ADD_CARD_JSP.getValue();
     }
 }

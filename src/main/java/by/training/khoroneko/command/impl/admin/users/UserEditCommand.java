@@ -1,4 +1,4 @@
-package by.training.khoroneko.command.impl;
+package by.training.khoroneko.command.impl.admin.users;
 
 import by.training.khoroneko.builder.UserBuilder;
 import by.training.khoroneko.command.Attribute;
@@ -7,22 +7,15 @@ import by.training.khoroneko.command.JSPParameter;
 import by.training.khoroneko.command.Pages;
 import by.training.khoroneko.exception.ServiceException;
 import by.training.khoroneko.factory.ServiceFactory;
-import by.training.khoroneko.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class BlockUserCommand implements Command {
-    private UserService userService = ServiceFactory.INSTANCE.getUserService();
-
+public class UserEditCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
-            userService.update(new UserBuilder()
-                    .setId(Integer.parseInt(request.getParameter(JSPParameter.USER_ID.getValue())))
-                    .setActivity(false)
-                    .getResult());
-            request.setAttribute(Attribute.USER_PROFILE.getValue(), userService
+            request.setAttribute(Attribute.USER_PROFILE.getValue(), ServiceFactory.INSTANCE.getUserService()
                     .findById(new UserBuilder()
                             .setId(Integer.parseInt(request.getParameter(JSPParameter.USER_ID.getValue())))
                             .getResult()));
@@ -31,5 +24,6 @@ public class BlockUserCommand implements Command {
             request.setAttribute(Attribute.ERROR_MASSAGE.getValue(), ex.getMessage());
             return Pages.ERROR_JSP.getValue();
         }
+
     }
 }

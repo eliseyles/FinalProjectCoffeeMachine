@@ -1,4 +1,4 @@
-package by.training.khoroneko.command.impl;
+package by.training.khoroneko.command.impl.user.cart;
 
 import by.training.khoroneko.builder.DrinkBuilder;
 import by.training.khoroneko.builder.OrderBuilder;
