@@ -107,7 +107,7 @@ public class OrderDAOImpl extends AbstractCommonDAO<Order> implements OrderDAO {
     private void executeDeleteById(Connection connection, Order order) throws SQLException {
         PreparedStatement statement = null;
         try {
-            statement = buildDeleteById(connection, order);
+            statement = buildDeleteByIdStatement(connection, order);
             statement.executeUpdate();
         } finally {
             closeStatement(statement);
@@ -134,7 +134,7 @@ public class OrderDAOImpl extends AbstractCommonDAO<Order> implements OrderDAO {
     }
 
     @Override
-    protected PreparedStatement buildUpdateByID(Connection connection, Order order) throws SQLException {
+    protected PreparedStatement buildUpdateByIDStatement(Connection connection, Order order) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_ORDER_BY_ID);
         int statementIndex = 0;
         preparedStatement.setInt(++statementIndex, order.getDrink().getId());
@@ -143,14 +143,14 @@ public class OrderDAOImpl extends AbstractCommonDAO<Order> implements OrderDAO {
     }
 
     @Override
-    protected PreparedStatement buildDeleteById(Connection connection, Order order) throws SQLException {
+    protected PreparedStatement buildDeleteByIdStatement(Connection connection, Order order) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(DELETE_ORDER_BY_ID);
         preparedStatement.setInt(1, order.getId());
         return preparedStatement;
     }
 
     @Override
-    protected PreparedStatement buildFindAll(Connection connection) throws SQLException {
+    protected PreparedStatement buildFindAllStatement(Connection connection) throws SQLException {
         return connection.prepareStatement(FIND_ALL_ORDERS);
     }
 

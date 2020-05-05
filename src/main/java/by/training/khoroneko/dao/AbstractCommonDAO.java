@@ -28,7 +28,7 @@ public abstract class AbstractCommonDAO<T> implements CommonDAO<T> {
     @Override
     public void update(T element) throws DAOException {
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = buildUpdateByID(connection, element)) {
+             PreparedStatement statement = buildUpdateByIDStatement(connection, element)) {
             statement.executeUpdate();
         } catch (SQLException ex) {
             logger.error(ex);
@@ -39,7 +39,7 @@ public abstract class AbstractCommonDAO<T> implements CommonDAO<T> {
     @Override
     public void delete(T element) throws DAOException {
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = buildDeleteById(connection, element)) {
+             PreparedStatement statement = buildDeleteByIdStatement(connection, element)) {
             statement.executeUpdate();
         } catch (SQLException ex) {
             logger.error(ex);
@@ -50,7 +50,7 @@ public abstract class AbstractCommonDAO<T> implements CommonDAO<T> {
     @Override
     public List<T> getAll() throws DAOException {
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = buildFindAll(connection);
+             PreparedStatement statement = buildFindAllStatement(connection);
              ResultSet resultSet = statement.executeQuery()) {
             List<T> result = new ArrayList<>();
             while (resultSet.next()) {
@@ -86,7 +86,7 @@ public abstract class AbstractCommonDAO<T> implements CommonDAO<T> {
     protected void closeConnection(Connection connection) {
         if (connection != null) {
             try {
-                ((ProxyConnection)connection).close();
+                ((ProxyConnection) connection).close();
             } catch (ClassCastException ex) {
                 logger.error("Invalid connection", ex);
             }
@@ -105,11 +105,11 @@ public abstract class AbstractCommonDAO<T> implements CommonDAO<T> {
 
     protected abstract PreparedStatement buildInsertStatement(Connection connection, T element) throws SQLException;
 
-    protected abstract PreparedStatement buildUpdateByID(Connection connection, T element) throws SQLException;
+    protected abstract PreparedStatement buildUpdateByIDStatement(Connection connection, T element) throws SQLException;
 
-    protected abstract PreparedStatement buildDeleteById(Connection connection, T element) throws SQLException;
+    protected abstract PreparedStatement buildDeleteByIdStatement(Connection connection, T element) throws SQLException;
 
-    protected abstract PreparedStatement buildFindAll(Connection connection) throws SQLException;
+    protected abstract PreparedStatement buildFindAllStatement(Connection connection) throws SQLException;
 
     protected abstract T createEntityFromResultSet(ResultSet resultSet) throws SQLException;
 }
