@@ -53,7 +53,7 @@
 <%--                                <input type="number" value="1" min="1">--%>
 <%--                            </div>--%>
             <div class="product-removal">
-                <form action="controller" method="post">
+                <form action="coffee_machine" method="post">
                     <input type="hidden" name="drinkId" value="${order.id}">
                     <button type="submit" class="remove-product" name="command" value="DELETE_DRINK_FROM_CART">
                         Remove
@@ -84,7 +84,7 @@
 <%--    </div>--%>
 <%--    <input id="getTotalPrice" type="button" class="checkout" value="Get total">--%>
 
-    <form action="controller" method="post">
+    <form action="coffee_machine" method="post">
         <button id="checkoutButton" type="submit" class="checkout" name="command" value="CHECKOUT_CART">Checkout</button>
     </form>
 

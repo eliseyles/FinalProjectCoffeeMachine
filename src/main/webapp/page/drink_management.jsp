@@ -84,7 +84,7 @@
             <tbody>
             <c:forEach var="drink" items="${drinkList}">
                 <tr>
-                    <form action="controller" method="post">
+                    <form action="coffee_machine" method="post">
                         <input type="hidden" name="drinkId" value="${drink.id}"/>
                         <td>${drink.title}</td>
                         <td>${drink.drinkSize}</td>

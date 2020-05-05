@@ -5,7 +5,7 @@
 <%--        <div class="bd-example">--%>
 <%--            <ul class="nav nav-pills">--%>
 <%--                <li class="nav-item active">--%>
-<%--                    <a class="nav-link" href="controller?command=INDEX_PAGE">Home</a>--%>
+<%--                    <a class="nav-link" href="coffee_machine?command=INDEX_PAGE">Home</a>--%>
 <%--                </li>--%>
 <%--            </ul>--%>
 <%--        </div>--%>
@@ -16,36 +16,36 @@
     <div class="container">
 
         <!-- Brand -->
-        <a class="navbar-brand text-white" href="controller?command=INDEX_PAGE">
+        <a class="navbar-brand text-white" href="coffee_machine?command=INDEX_PAGE">
             <strong>Coffee machine</strong>
         </a>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item ">
-                    <a class="nav-link" href="controller?command=INDEX_PAGE">
+                    <a class="nav-link" href="coffee_machine?command=INDEX_PAGE">
                         Home
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="controller?command=DRINK_LIST">
+                    <a class="nav-link" href="coffee_machine?command=DRINK_LIST">
                         Drinks
                     </a>
                 </li>
                 <c:if test="${user != null}">
                     <li class="nav-item ">
-                        <a class="nav-link" href="controller?command=CART_PAGE">
+                        <a class="nav-link" href="coffee_machine?command=CART_PAGE">
                             Cart
                         </a>
                     </li>
                 </c:if>
                 <c:if test="${user.role == 'ADMIN'}">
                     <li class="nav-item ">
-                        <a class="nav-link" href="controller?command=USER_LIST">
+                        <a class="nav-link" href="coffee_machine?command=USER_LIST">
                             User List
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="controller?command=DRINK_MANAGEMENT">
+                        <a class="nav-link" href="coffee_machine?command=DRINK_MANAGEMENT">
                             Drink Management
                         </a>
                     </li>
@@ -54,14 +54,14 @@
             <ul class="navbar-nav ml-md-auto">
                 <c:if test="${user != null}">
                     <li class="nav-item">
-                        <a class="nav-link" href="controller?command=USER_PROFILE">
+                        <a class="nav-link" href="coffee_machine?command=USER_PROFILE">
                                 ${user.name}
                         </a>
                     </li>
 
 
                     <li class="nav-item">
-                        <a class="nav-link btn-outline-white mr-1 ml-1" href="controller?command=SIGN_OUT">
+                        <a class="nav-link btn-outline-white mr-1 ml-1" href="coffee_machine?command=SIGN_OUT">
                             Sign Out
                         </a>
                     </li>
@@ -70,12 +70,12 @@
 
                 <c:if test="${user == null}">
                     <li class="nav-item">
-                        <a class="nav-link btn-outline-white mr-1 ml-1" href="controller?command=SIGN_IN_PAGE">
+                        <a class="nav-link btn-outline-white mr-1 ml-1" href="coffee_machine?command=SIGN_IN_PAGE">
                             Sign In
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn-outline-white mr-1 ml-1" href="controller?command=REGISTRATION_PAGE">
+                        <a class="nav-link btn-outline-white mr-1 ml-1" href="coffee_machine?command=REGISTRATION_PAGE">
                             Sign Up
                         </a>
                     </li>

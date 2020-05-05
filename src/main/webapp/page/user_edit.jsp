@@ -42,7 +42,7 @@
     <h1>Role: ${userProfile.role}</h1>
     <c:if test="${userProfile.activity.equals(true)}">
         <td>
-            <form action="controller" method="POST">
+            <form action="coffee_machine" method="POST">
                 <input type="hidden" id="BlockUserID" name="userId" value="${userProfile.id}">
                 <button type="submit" name="command" value="BLOCK_USER"
                         class="btn btn-outline-danger">
@@ -54,7 +54,7 @@
 
     <c:if test="${!userProfile.activity.equals(true)}">
         <td>
-            <form action="controller" method="POST">
+            <form action="coffee_machine" method="POST">
                 <input type="hidden" id="UnblockUserID" name="userId" value="${userProfile.id}">
                 <button type="submit" name="command" value="UNBLOCK_USER"
                         class="btn btn-outline-success">

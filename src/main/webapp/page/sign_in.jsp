@@ -54,7 +54,7 @@
     <!-- Content -->
     <div class="card-body text-white  py-5 px-5 my-5">
 
-        <form class="brown" action="controller" method="post">
+        <form class="brown" action="coffee_machine" method="post">
             <c:if test="${not empty errorMessage}">
             <div class="text-center text-warning">
                 <label class="text">
@@ -63,7 +63,7 @@
                 </label>
             </div>
             </c:if>
-            <form class="brown" action="controller" method="post">
+            <form class="brown" action="coffee_machine" method="post">
                 <div class="form-group">
                     <label for="inputEmail">Email address</label>
                     <input type="email" class="form-control" id="inputEmail" name="userEmail"

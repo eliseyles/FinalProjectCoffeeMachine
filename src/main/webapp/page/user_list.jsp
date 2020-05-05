@@ -73,7 +73,7 @@
             <tbody>
             <c:forEach var="user" items="${userList}">
                 <tr>
-                    <form action="controller" method="post">
+                    <form action="coffee_machine" method="post">
                         <input type="hidden" name="userId" value="${user.id}"/>
                         <td>${user.name}</td>
                         <td>${user.role}</td>
