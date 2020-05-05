@@ -87,7 +87,7 @@
             </div>
 
             <div class="form-group">
-                <input type="hidden" class="form-control" id="userId" name="userID" value="${user.id}">
+                <input type="hidden" class="form-control" id="userId" name="userId" value="${user.id}">
             </div>
             <div class="form-group">
                 <input type="hidden" class="form-control" id="cardId" name="cardId" value="${user.cardAccount.id}">

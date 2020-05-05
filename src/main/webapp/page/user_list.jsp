@@ -74,7 +74,7 @@
             <c:forEach var="user" items="${userList}">
                 <tr>
                     <form action="controller" method="post">
-                        <input type="hidden" name="userID" value="${user.id}"/>
+                        <input type="hidden" name="userId" value="${user.id}"/>
                         <td>${user.name}</td>
                         <td>${user.role}</td>
                         <td>${user.activity}</td>

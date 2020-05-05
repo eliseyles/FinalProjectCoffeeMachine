@@ -43,7 +43,7 @@
     <c:if test="${userProfile.activity.equals(true)}">
         <td>
             <form action="controller" method="POST">
-                <input type="hidden" id="BlockUserID" name="userID" value="${userProfile.id}">
+                <input type="hidden" id="BlockUserID" name="userId" value="${userProfile.id}">
                 <button type="submit" name="command" value="BLOCK_USER"
                         class="btn btn-outline-danger">
                     Block user
@@ -55,7 +55,7 @@
     <c:if test="${!userProfile.activity.equals(true)}">
         <td>
             <form action="controller" method="POST">
-                <input type="hidden" id="UnblockUserID" name="userID" value="${userProfile.id}">
+                <input type="hidden" id="UnblockUserID" name="userId" value="${userProfile.id}">
                 <button type="submit" name="command" value="UNBLOCK_USER"
                         class="btn btn-outline-success">
                     Unblock user

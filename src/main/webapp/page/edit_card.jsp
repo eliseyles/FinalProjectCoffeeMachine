@@ -76,7 +76,7 @@
                 </div>
             </c:if>
             <div class="form-group">
-                <input type="hidden" class="form-control" id="id" name="userID" value="${user.id}">
+                <input type="hidden" class="form-control" id="id" name="userId" value="${user.id}">
             </div>
             <div class="form-group">
                 <input type="hidden" class="form-control" id="idCard" name="cardId" value="${user.cardAccount.id}">

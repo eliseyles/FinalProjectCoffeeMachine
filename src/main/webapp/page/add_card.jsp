@@ -83,7 +83,7 @@
             </div>
 
             <div class="form-group">
-                <input type="hidden" class="form-control" id="userId" name="userID" value="${user.id}">
+                <input type="hidden" class="form-control" id="userId" name="userId" value="${user.id}">
             </div>
 
             <button type="submit" class="btn btn-outline-white btn-lg" name="command" value="ADD_CARD">
