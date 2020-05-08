@@ -22,7 +22,7 @@
     </head>
 <body>
 <!-- Navbar -->
-<%@include file="jspheader/nav.jsp" %>
+<%@include file="../jspheader/nav.jsp" %>
 <!-- Navbar -->
 
 <div class="shift">

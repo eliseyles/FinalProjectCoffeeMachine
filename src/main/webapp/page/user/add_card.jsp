@@ -49,7 +49,7 @@
     </style>
 </head>
 <body>
-<%@include file="jspheader/nav.jsp" %>
+<%@include file="../jspheader/nav.jsp" %>
 
 <section class="view card brown wow fadeIn" id="intro">
 

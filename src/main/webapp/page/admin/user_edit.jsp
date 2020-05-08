@@ -38,7 +38,7 @@
     </head>
 <body>
 <!-- Navbar -->
-<%@include file="jspheader/nav.jsp" %>
+<%@include file="../jspheader/nav.jsp" %>
 <!-- Navbar -->
 <form>
     <h5>Name: ${userProfile.name}</h5>

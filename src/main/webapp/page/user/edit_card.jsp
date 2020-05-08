@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <title>Add drink</title>
+    <title>Edit Profile</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,19 +55,10 @@
         }
 
 
-        .modal {
-            /*padding: 50px;*/
-            background: #ff3d00;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-        }
-
-
     </style>
 </head>
 <body>
-<%@include file="jspheader/nav.jsp" %>
+<%@include file="../jspheader/nav.jsp" %>
 
 <section class="view card brown wow fadeIn" id="intro">
 
@@ -85,22 +76,24 @@
                 </div>
             </c:if>
             <div class="form-group">
-                <label>Drink title: ${drink.title}</label>
+                <input type="hidden" class="form-control" id="id" name="userId" value="${user.id}">
             </div>
             <div class="form-group">
-                <label>Volume: ${drink.drinkSize}</label>
+                <input type="hidden" class="form-control" id="idCard" name="cardId" value="${user.cardAccount.id}">
             </div>
             <div class="form-group">
-                <label>Price: ${drink.price}</label>
+                <label for="inputCardNumber">Card number</label>
+                <input type="text" class="form-control" id="inputCardNumber" name="cardNumber"
+                       value="${user.cardAccount.cardNumber}">
             </div>
-            <div class="form-group">
-                <input type="hidden" name="drinkId" value="${drink.id}"/>
-                <label for="inputNumber">Servings number</label>
-                <input type="text" class="form-control" id="inputNumber" name="servingNumber">
+            <div class="row">
+                <button type="submit" class="btn btn-outline-white btn-lg" name="command"
+                        value="EDIT_CARD">Save Card
+                </button>
+                <button type="submit" class="btn btn-outline-danger btn-lg" name="command"
+                        value="DELETE_CARD">Delete Card
+                </button>
             </div>
-            <button type="submit" class="btn btn-outline-white btn-lg" name="command"
-                    value="ADD_SERVINGS">Add
-            </button>
         </form>
     </div>
     <!-- Content -->
