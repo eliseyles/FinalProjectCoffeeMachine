@@ -13,6 +13,10 @@
         <filter-name>UserCheckingToAddDrinkFilter</filter-name>
         <url-pattern>/coffee_machine</url-pattern>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>PageRedirectSecurityFilter</filter-name>
+        <url-pattern>/page/*</url-pattern>
+    </filter-mapping>
     
     <welcome-file-list>
         <welcome-file>page/index.jsp</welcome-file>
