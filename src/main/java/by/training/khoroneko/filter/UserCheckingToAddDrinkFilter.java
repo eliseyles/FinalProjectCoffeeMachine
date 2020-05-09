@@ -23,7 +23,7 @@ public class UserCheckingToAddDrinkFilter implements Filter {
         HttpSession session = req.getSession();
 
         User user = (User) session.getAttribute(Attribute.USER.getValue());
-        Command command = new CommandFactory().getCommand(req.getParameter(JSPParameter.COMMAND.getValue()));
+        Command command = CommandFactory.INSTANCE.getCommand(req.getParameter(JSPParameter.COMMAND.getValue()));
         if (command.equals(CommandParameter.ADD_DRINK_TO_CART.getCommand())) {
             if (user == null) {
                 req.getRequestDispatcher(Pages.SIGN_IN_JSP.getValue()).forward(req, resp);

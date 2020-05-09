@@ -20,7 +20,7 @@ import java.io.IOException;
 
 public class Controller extends HttpServlet {
     private Logger logger = Logger.getLogger(Controller.class);
-    private static final CommandFactory COMMAND_FACTORY = new CommandFactory();
+    private static final CommandFactory COMMAND_FACTORY = CommandFactory.INSTANCE;
 
     @Override
     public void init() throws ServletException {

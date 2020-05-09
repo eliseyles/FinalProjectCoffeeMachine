@@ -14,8 +14,7 @@ import java.io.IOException;
 
 @WebFilter(filterName = "CardCheckingFilter", urlPatterns = {"/coffee_machine"})
 public class CardCheckingFilter implements Filter {
-    public void destroy() {
-    }
+
 
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain) throws IOException, ServletException {
@@ -24,7 +23,7 @@ public class CardCheckingFilter implements Filter {
         HttpSession session = req.getSession();
 
         User user = (User) session.getAttribute(Attribute.USER.getValue());
-        Command command = new CommandFactory().getCommand(req.getParameter(JSPParameter.COMMAND.getValue()));
+        Command command = CommandFactory.INSTANCE.getCommand(req.getParameter(JSPParameter.COMMAND.getValue()));
         if (command.equals(CommandParameter.CHECKOUT_CART.getCommand())) {
             if (user.getCardAccount().getCardNumber() == null) {
                 req.getRequestDispatcher(Pages.ADD_CARD_JSP.getValue()).forward(req, resp);
@@ -34,6 +33,4 @@ public class CardCheckingFilter implements Filter {
         chain.doFilter(request, response);
     }
 
-    public void init(FilterConfig fConfig) throws ServletException {
-    }
 }
