@@ -19,6 +19,10 @@
         <url-pattern>/coffee_machine</url-pattern>
     </filter-mapping>
     <filter-mapping>
+        <filter-name>AdminSessionFilter</filter-name>
+        <url-pattern>/coffee_machine</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
         <filter-name>PageRedirectSecurityFilter</filter-name>
         <url-pattern>/page/*</url-pattern>
     </filter-mapping>
