@@ -7,6 +7,10 @@
 
 
     <filter-mapping>
+        <filter-name>CommandCheckingFilter</filter-name>
+        <url-pattern>/coffee_machine</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
         <filter-name>CardCheckingFilter</filter-name>
         <url-pattern>/coffee_machine</url-pattern>
     </filter-mapping>
