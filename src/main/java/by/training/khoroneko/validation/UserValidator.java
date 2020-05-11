@@ -17,6 +17,12 @@ public class UserValidator {
         isValidPassword(user);
     }
 
+    public void isValidUserWithoutPassword(User user) throws ValidationException {
+        isNotNull(user);
+        isValidName(user);
+        isValidEmail(user);
+    }
+
     public void isValidEmailAndPassword(User user) throws ValidationException {
         isNotNull(user);
         isValidEmail(user);

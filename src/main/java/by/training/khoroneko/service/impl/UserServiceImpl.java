@@ -10,6 +10,7 @@ import by.training.khoroneko.factory.DAOFactory;
 import by.training.khoroneko.service.UserService;
 import by.training.khoroneko.validation.CardAccountValidator;
 import by.training.khoroneko.validation.UserValidator;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
@@ -23,12 +24,12 @@ public class UserServiceImpl implements UserService {
     private CardAccountValidator cardAccountValidator = new CardAccountValidator();
 
     @Override
-    public User register(User user) throws ServiceException {
+    public void register(User user) throws ServiceException {
         try {
             userValidator.isValidUser(user);
+            user.setPassword(DigestUtils.sha1Hex(user.getPassword()));
             if (((UserDAO) userDAO).findByEmail(user) == null) {
                 userDAO.create(user);
-                return user;
             } else {
                 throw new ServiceException("Email is already taken");
             }
@@ -72,7 +73,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAll() throws ServiceException {
         try {
-            return userDAO.getAll();
+            List<User> users = userDAO.getAll();
+            for (User user : users) {
+                user.setPassword(null);
+            }
+            return users;
         } catch (DAOException ex) {
             throw new ServiceException("Error while getting all users", ex);
         }
@@ -82,7 +87,13 @@ public class UserServiceImpl implements UserService {
     public User signIn(User user) throws ServiceException {
         try {
             userValidator.isValidEmailAndPassword(user);
-            return ((UserDAO) userDAO).findByEmailAndPassword(user);
+            user.setPassword(DigestUtils.sha1Hex(user.getPassword()));
+            User userFromDB = ((UserDAO) userDAO).findByEmailAndPassword(user);
+            if (userFromDB == null) {
+                throw new ServiceException("Incorrect username or password");
+            }
+            userFromDB.setPassword(null);
+            return userFromDB;
         } catch (DAOException ex) {
             throw new ServiceException("Error while sign in", ex);
         } catch (ValidationException ex) {
@@ -94,7 +105,9 @@ public class UserServiceImpl implements UserService {
     public User findById(User user) throws ServiceException {
         try {
             userValidator.isValidUserId(user);
-            return ((UserDAO) userDAO).findById(user);
+            User userFromDB = ((UserDAO) userDAO).findById(user);
+            userFromDB.setPassword(null);
+            return userFromDB;
         } catch (DAOException ex) {
             logger.error(ex);
             throw new ServiceException("Error while getting user by id", ex);
@@ -108,8 +121,14 @@ public class UserServiceImpl implements UserService {
     public void updateUserInfoById(User user) throws ServiceException {
         try {
             userValidator.isValidUserId(user);
-            userValidator.isValidUser(user);
-            ((UserDAO)userDAO).updateUserInfoById(user);
+            if (user.getPassword().equals("")) {
+                userValidator.isValidUserWithoutPassword(user);
+                user.setPassword(((UserDAO) userDAO).findById(user).getPassword());
+            } else {
+                userValidator.isValidUser(user);
+                user.setPassword(DigestUtils.sha1Hex(user.getPassword()));
+            }
+            ((UserDAO) userDAO).updateUserInfoById(user);
         } catch (DAOException ex) {
             logger.error(ex);
             throw new ServiceException("Error while updating user info", ex);
@@ -124,7 +143,7 @@ public class UserServiceImpl implements UserService {
         try {
             userValidator.isValidUserId(user);
             cardAccountValidator.isValidCardAccountData(user.getCardAccount());
-            ((UserDAO)userDAO).attachCardToUserById(user);
+            ((UserDAO) userDAO).attachCardToUserById(user);
         } catch (DAOException ex) {
             logger.error(ex);
             throw new ServiceException("Error while attaching card", ex);
@@ -139,10 +158,10 @@ public class UserServiceImpl implements UserService {
         try {
             userValidator.isValidUserId(user);
             cardAccountValidator.isValidCardAccountIdAndNumber(user.getCardAccount());
-            if (((UserDAO)userDAO).findById(user).getCardAccount().getId() != user.getCardAccount().getId()) {
+            if (((UserDAO) userDAO).findById(user).getCardAccount().getId() != user.getCardAccount().getId()) {
                 throw new ServiceException("Invalid card data, user card mismatch with the entered card");
             }
-            ((UserDAO)userDAO).updateCardInfoById(user);
+            ((UserDAO) userDAO).updateCardInfoById(user);
         } catch (DAOException ex) {
             logger.error(ex);
             throw new ServiceException("Error while updating card", ex);
@@ -157,12 +176,12 @@ public class UserServiceImpl implements UserService {
         try {
             userValidator.isValidUserId(user);
             cardAccountValidator.isValidCardAccountIdAndAmount(user.getCardAccount());
-            if (((UserDAO)userDAO).findById(user).getCardAccount().getId() != user.getCardAccount().getId()) {
+            if (((UserDAO) userDAO).findById(user).getCardAccount().getId() != user.getCardAccount().getId()) {
                 throw new ServiceException("Invalid card data, user card mismatch with the entered card");
             }
-            BigDecimal currentAmount = ((UserDAO)userDAO).findById(user).getCardAccount().getAmount();
+            BigDecimal currentAmount = ((UserDAO) userDAO).findById(user).getCardAccount().getAmount();
             user.getCardAccount().setAmount(currentAmount.add(user.getCardAccount().getAmount()));
-            ((UserDAO)userDAO).updateCardAmountById(user);
+            ((UserDAO) userDAO).updateCardAmountById(user);
         } catch (DAOException ex) {
             logger.error(ex);
             throw new ServiceException("Error while updating card amount", ex);
@@ -177,10 +196,10 @@ public class UserServiceImpl implements UserService {
         try {
             userValidator.isValidUserId(user);
             cardAccountValidator.isValidCardAccountId(user.getCardAccount());
-            if (((UserDAO)userDAO).findById(user).getCardAccount().getId() != user.getCardAccount().getId()) {
+            if (((UserDAO) userDAO).findById(user).getCardAccount().getId() != user.getCardAccount().getId()) {
                 throw new ServiceException("Invalid card data, user card mismatch with the entered card");
             }
-            ((UserDAO)userDAO).deleteCardFromUserById(user);
+            ((UserDAO) userDAO).deleteCardFromUserById(user);
         } catch (DAOException ex) {
             logger.error(ex);
             throw new ServiceException("Error while deleting card", ex);

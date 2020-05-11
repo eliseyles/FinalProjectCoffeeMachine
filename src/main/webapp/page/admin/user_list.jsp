@@ -41,14 +41,11 @@
             padding: 20px;
         }
 
-        .form-table {
+        form {
             width: 60%;
-            margin: 10px auto;
+            margin: 60px auto;
             /*background: ;*/
-        }
-
-        form{
-            padding: 60px 50px 15px 50px;
+            padding: 60px 120px 80px 120px;
         }
 
     </style>
@@ -57,41 +54,32 @@
 <body>
 
 <!-- Navbar -->
-<%@include file="jspheader/nav.jsp" %>
+<%@include file="../jspheader/nav.jsp" %>
 <!-- Navbar -->
 
 
 <%--<div class="view">--%>
-<div class="card text-center">
-    <div class="card-body">
-        <form action="coffee_machine" method="post">
-            <button type="submit" class="btn" name="command" value="ADD_DRINK_PAGE">Add drink</button>
-        </form>
-    </div>
-</div>
-<form class="form-table">
+<form>
     <div>
         <table class="table">
             <thead class="thead ">
             <tr>
-                <th scope="col">Title</th>
-                <th scope="col">Volume</th>
-                <th scope="col">Price</th>
-                <th scope="col">ServingNumber</th>
+                <th scope="col">User name</th>
+                <th scope="col">User role</th>
+                <th scope="col">Activity</th>
             </tr>
             </thead>
 
             <tbody>
-            <c:forEach var="drink" items="${drinkList}">
+            <c:forEach var="user" items="${userList}">
                 <tr>
                     <form action="coffee_machine" method="post">
-                        <input type="hidden" name="drinkId" value="${drink.id}"/>
-                        <td>${drink.title}</td>
-                        <td>${drink.drinkSize}</td>
-                        <td>${drink.price}</td>
-                        <td>${drink.servingNumber}</td>
+                        <input type="hidden" name="userId" value="${user.id}"/>
+                        <td>${user.name}</td>
+                        <td>${user.role}</td>
+                        <td>${user.activity}</td>
                         <td>
-                            <button type="submit" class="btn" name="command" value="ADD_SERVINGS_PAGE">Add servings</button>
+                            <button type="submit" class="btn" name="command" value="USER_EDIT">Edit user</button>
                         </td>
                     </form>
                 </tr>

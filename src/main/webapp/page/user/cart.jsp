@@ -23,7 +23,7 @@
 <body>
 
 <!-- Navbar -->
-<%@include file="jspheader/nav.jsp" %>
+<%@include file="../jspheader/nav.jsp" %>
 <!-- Navbar -->
 
 <h1>Shopping Cart</h1>

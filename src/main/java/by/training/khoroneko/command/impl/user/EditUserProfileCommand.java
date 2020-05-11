@@ -20,15 +20,11 @@ public class EditUserProfileCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
-//            todo add password hashing
-            String password = request.getParameter(JSPParameter.USER_PASSWORD.getValue()).equals("")
-                    ? ((User)request.getSession().getAttribute(Attribute.USER.getValue())).getPassword()
-                    : request.getParameter(JSPParameter.USER_PASSWORD.getValue());
             userService.updateUserInfoById(new UserBuilder()
                     .setId(Integer.parseInt(request.getParameter(JSPParameter.USER_ID.getValue())))
                     .setName(request.getParameter(JSPParameter.USER_NAME.getValue()))
                     .setEmail(request.getParameter(JSPParameter.USER_EMAIL.getValue()))
-                    .setPassword(password)
+                    .setPassword(request.getParameter(JSPParameter.USER_PASSWORD.getValue()))
                     .getResult());
             request.getSession().setAttribute(Attribute.USER.getValue(), userService.findById(new UserBuilder()
                     .setId(Integer.parseInt(request.getParameter(JSPParameter.USER_ID.getValue())))

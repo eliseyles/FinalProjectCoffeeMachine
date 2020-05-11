@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <html>
 <head>
-    <title>Edit Profile</title>
+    <title>Add drink</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -36,8 +35,8 @@
             /*background: ;*/
             padding: 60px 120px 80px 120px;
             /*text-align: center;*/
-            -webkit-box-shadow: 2px 2px 3px rgba(0,0,0,0.1);
-            box-shadow: 2px 2px 3px rgba(0,0,0,0.1);
+            -webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
+            box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
         }
 
         @media (min-width: 800px) and (max-width: 850px) {
@@ -56,10 +55,19 @@
         }
 
 
+        .modal {
+            /*padding: 50px;*/
+            background: #ff3d00;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+        }
+
+
     </style>
 </head>
 <body>
-<%@include file="jspheader/nav.jsp" %>
+<%@include file="../jspheader/nav.jsp" %>
 
 <section class="view card brown wow fadeIn" id="intro">
 
@@ -77,22 +85,22 @@
                 </div>
             </c:if>
             <div class="form-group">
-                <input type="hidden" class="form-control" id="id" name="userId" value="${user.id}">
+                <label>Drink title: ${drink.title}</label>
             </div>
             <div class="form-group">
-                <label for="inputName">Name</label>
-                <input type="text" class="form-control" id="inputName" name="userName" value="${user.name}">
+                <label>Volume: ${drink.drinkSize}</label>
             </div>
             <div class="form-group">
-                <label for="inputEmail">Email address</label>
-                <input type="email" class="form-control" id="inputEmail" name="userEmail" value="${user.email}">
+                <label>Price: ${drink.price}</label>
             </div>
             <div class="form-group">
-                <label for="inputPassword">Password</label>
-                <input type="password" class="form-control" id="inputPassword" name="userPassword">
+                <input type="hidden" name="drinkId" value="${drink.id}"/>
+                <label for="inputNumber">Servings number</label>
+                <input type="text" class="form-control" id="inputNumber" name="servingNumber">
             </div>
             <button type="submit" class="btn btn-outline-white btn-lg" name="command"
-                    value="EDIT_USER_PROFILE">Submit</button>
+                    value="ADD_SERVINGS">Add
+            </button>
         </form>
     </div>
     <!-- Content -->
