@@ -202,5 +202,5 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 insert into `role` values (null, "USER"), (null, "ADMIN"), (null, "GUEST");
-insert into `user` value (null, "admin", "horoneko00@gmail.com", "1234567890", 1, null, 2);
+insert into `user` value (null, "admin", "horoneko00@gmail.com", "01b307acba4f54f55aafc33bb06bbbf6ca803e9a", 1, null, 2);
 insert into `drink_size` values (null, "SMALL"), (null, "MEDIUM"), (null, "LARGE");

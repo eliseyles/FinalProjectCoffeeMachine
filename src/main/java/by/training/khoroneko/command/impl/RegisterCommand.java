@@ -16,7 +16,6 @@ public class RegisterCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
-//            todo add password hashing
             ServiceFactory.INSTANCE.getUserService().register(new UserBuilder()
                     .setName(request.getParameter(JSPParameter.USER_NAME.getValue()))
                     .setEmail(request.getParameter(JSPParameter.USER_EMAIL.getValue()))

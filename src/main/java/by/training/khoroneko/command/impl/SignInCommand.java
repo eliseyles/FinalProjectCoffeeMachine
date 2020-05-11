@@ -15,7 +15,6 @@ public class SignInCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
-//            todo add password hashing
             request.getSession().setAttribute(Attribute.USER.getValue(),
                     ServiceFactory.INSTANCE.getUserService()
                             .signIn(new UserBuilder()
