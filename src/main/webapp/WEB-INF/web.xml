@@ -5,6 +5,7 @@
          id="WebApp_ID" version="3.0">
     <display-name>FinalProjectCoffeeMachine</display-name>
 
+
     <filter-mapping>
         <filter-name>CardCheckingFilter</filter-name>
         <url-pattern>/coffee_machine</url-pattern>
@@ -14,12 +15,18 @@
         <url-pattern>/coffee_machine</url-pattern>
     </filter-mapping>
     <filter-mapping>
+        <filter-name>UserSessionFilter</filter-name>
+        <url-pattern>/coffee_machine</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
         <filter-name>PageRedirectSecurityFilter</filter-name>
         <url-pattern>/page/*</url-pattern>
     </filter-mapping>
+
+
     
     <welcome-file-list>
-        <welcome-file>page/index.jsp</welcome-file>
+        <welcome-file>/page/index.jsp</welcome-file>
     </welcome-file-list>
 
     <error-page>
