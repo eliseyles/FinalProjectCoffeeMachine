@@ -24,13 +24,12 @@ public class UserServiceImpl implements UserService {
     private CardAccountValidator cardAccountValidator = new CardAccountValidator();
 
     @Override
-    public User register(User user) throws ServiceException {
+    public void register(User user) throws ServiceException {
         try {
             userValidator.isValidUser(user);
             user.setPassword(DigestUtils.sha1Hex(user.getPassword()));
             if (((UserDAO) userDAO).findByEmail(user) == null) {
                 userDAO.create(user);
-                return user;
             } else {
                 throw new ServiceException("Email is already taken");
             }
@@ -74,7 +73,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAll() throws ServiceException {
         try {
-            return userDAO.getAll();
+            List<User> users = userDAO.getAll();
+            for (User user : users) {
+                user.setPassword(null);
+            }
+            return users;
         } catch (DAOException ex) {
             throw new ServiceException("Error while getting all users", ex);
         }
@@ -89,6 +92,7 @@ public class UserServiceImpl implements UserService {
             if (userFromDB == null) {
                 throw new ServiceException("Incorrect username or password");
             }
+            userFromDB.setPassword(null);
             return userFromDB;
         } catch (DAOException ex) {
             throw new ServiceException("Error while sign in", ex);
@@ -101,7 +105,9 @@ public class UserServiceImpl implements UserService {
     public User findById(User user) throws ServiceException {
         try {
             userValidator.isValidUserId(user);
-            return ((UserDAO) userDAO).findById(user);
+            User userFromDB = ((UserDAO) userDAO).findById(user);
+            userFromDB.setPassword(null);
+            return userFromDB;
         } catch (DAOException ex) {
             logger.error(ex);
             throw new ServiceException("Error while getting user by id", ex);
