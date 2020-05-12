@@ -4,7 +4,12 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          id="WebApp_ID" version="3.0">
     <display-name>FinalProjectCoffeeMachine</display-name>
-
+    <jsp-config>
+        <taglib>
+            <taglib-uri>customtags</taglib-uri>
+            <taglib-location>/WEB-INF/tld/copyright.tld</taglib-location>
+        </taglib>
+    </jsp-config>
 
     <filter-mapping>
         <filter-name>CommandCheckingFilter</filter-name>

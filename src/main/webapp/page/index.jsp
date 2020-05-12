@@ -1,4 +1,5 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="customtags" %>
 <fmt:setBundle basename="content"/>
 
 <!DOCTYPE html>
@@ -32,13 +33,11 @@
             }
         }
 
-        .content {
-            position: fixed;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            color: #f1f1f1;
-            width: 100%;
-            padding: 20px;
+        footer{
+            display: block;
+            text-align: center;
+            background-color: #3c2a1e;
+            color: white;
         }
 
     </style>
@@ -168,6 +167,10 @@
 <%--    // Animations initialization--%>
 <%--    new WOW().init();--%>
 <%--</script>--%>
+<footer>
+    <ctg:copyrightTag/>
+</footer>
+
 </body>
 
 </html>
