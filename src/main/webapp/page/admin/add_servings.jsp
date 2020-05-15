@@ -1,13 +1,21 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="customtags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<c:if test="${not empty sessionScope.language}">
+    <fmt:setLocale value="${sessionScope.language}"/>
+</c:if>
+<fmt:setBundle basename="locale"/>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
-<html lang="en">
 
 <html>
 <head>
-    <title>Add drink</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title><fmt:message key="title"/></title>
+    <title><fmt:message key="add_servings.title"/></title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <!-- Bootstrap core CSS -->
@@ -85,21 +93,22 @@
                 </div>
             </c:if>
             <div class="form-group">
-                <label>Drink title: ${drink.title}</label>
+                <label><fmt:message key="add_servings.drink_title"/>: ${drink.title}</label>
             </div>
             <div class="form-group">
-                <label>Volume: ${drink.drinkSize}</label>
+                <label><fmt:message key="add_servings.volume"/>: <fmt:message key="add_servings.${drink.drinkSize}"/></label>
             </div>
             <div class="form-group">
-                <label>Price: ${drink.price}</label>
+                <label><fmt:message key="add_servings.price"/>: ${drink.price}</label>
             </div>
             <div class="form-group">
                 <input type="hidden" name="drinkId" value="${drink.id}"/>
-                <label for="inputNumber">Servings number</label>
+                <label for="inputNumber"><fmt:message key="add_servings.servings_number"/></label>
                 <input type="text" class="form-control" id="inputNumber" name="servingNumber">
             </div>
             <button type="submit" class="btn btn-outline-white btn-lg" name="command"
-                    value="ADD_SERVINGS">Add
+                    value="ADD_SERVINGS">
+                <fmt:message key="add_servings.add"/>
             </button>
         </form>
     </div>

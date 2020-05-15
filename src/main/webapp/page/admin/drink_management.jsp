@@ -1,13 +1,20 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="customtags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<c:if test="${not empty sessionScope.language}">
+    <fmt:setLocale value="${sessionScope.language}"/>
+</c:if>
+<fmt:setBundle basename="locale"/>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
-<html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title><fmt:message key="title"/></title>
+    <title><fmt:message key="drink_management.title"/></title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <!-- Bootstrap core CSS -->
@@ -65,7 +72,9 @@
 <div class="card text-center">
     <div class="card-body">
         <form action="coffee_machine" method="post">
-            <button type="submit" class="btn" name="command" value="ADD_DRINK_PAGE">Add drink</button>
+            <button type="submit" class="btn" name="command" value="ADD_DRINK_PAGE">
+                <fmt:message key="drink_management.add_drink"/>
+            </button>
         </form>
     </div>
 </div>
@@ -74,10 +83,10 @@
         <table class="table">
             <thead class="thead ">
             <tr>
-                <th scope="col">Title</th>
-                <th scope="col">Volume</th>
-                <th scope="col">Price</th>
-                <th scope="col">ServingNumber</th>
+                <th scope="col"><fmt:message key="drink_management.drink_title"/></th>
+                <th scope="col"><fmt:message key="drink_management.volume"/></th>
+                <th scope="col"><fmt:message key="drink_management.price"/></th>
+                <th scope="col"><fmt:message key="drink_management.servings_number"/></th>
             </tr>
             </thead>
 
@@ -87,11 +96,13 @@
                     <form action="coffee_machine" method="post">
                         <input type="hidden" name="drinkId" value="${drink.id}"/>
                         <td>${drink.title}</td>
-                        <td>${drink.drinkSize}</td>
+                        <td><fmt:message key="drink_management.${drink.drinkSize}"/></td>
                         <td>${drink.price}</td>
                         <td>${drink.servingNumber}</td>
                         <td>
-                            <button type="submit" class="btn" name="command" value="ADD_SERVINGS_PAGE">Add servings</button>
+                            <button type="submit" class="btn" name="command" value="ADD_SERVINGS_PAGE">
+                                <fmt:message key="drink_management.add_servings"/>
+                            </button>
                         </td>
                     </form>
                 </tr>

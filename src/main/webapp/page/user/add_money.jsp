@@ -1,9 +1,18 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="customtags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<c:if test="${not empty sessionScope.language}">
+    <fmt:setLocale value="${sessionScope.language}"/>
+</c:if>
+<fmt:setBundle basename="locale"/>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
-<html lang="en">
 
 <html>
 <head>
-    <title>Add money</title>
+    <title><fmt:message key="add_money.title"/></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -67,16 +76,16 @@
                 </div>
             </c:if>
             <div class="form-group">
-                <label for="cardNumber">Card number</label>
+                <label for="cardNumber"><fmt:message key="add_money.number"/></label>
                 <p id="cardNumber">${user.cardAccount.cardNumber}</p>
             </div>
             <div class="form-group">
-                <label for="currentAmount">Card number</label>
+                <label for="currentAmount"><fmt:message key="add_money.amount"/></label>
                 <p id="currentAmount">${user.cardAccount.amount}</p>
             </div>
 
             <div class="form-group">
-                <label for="cardAmount">Adding amount</label>
+                <label for="cardAmount"><fmt:message key="add_money.adding_amount"/></label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroupPrepend">$</span>
@@ -94,7 +103,7 @@
             </div>
 
             <button type="submit" class="btn btn-outline-white btn-lg" name="command" value="ADD_MONEY">
-                Add Money
+                <fmt:message key="add_money.add"/>
             </button>
         </form>
     </div>

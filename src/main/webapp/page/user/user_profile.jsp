@@ -1,25 +1,31 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="customtags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<c:if test="${not empty sessionScope.language}">
+    <fmt:setLocale value="${sessionScope.language}"/>
+</c:if>
+<fmt:setBundle basename="locale"/>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+<!DOCTYPE html>
 <html>
 <head>
-    <!DOCTYPE html>
-    <html lang="en">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title><fmt:message key="user_profile.title"/></title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="css/style.min.css" rel="stylesheet">
+    <link href="css/profile_style.css" rel="stylesheet" type="text/css">
 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title><fmt:message key="title"/></title>
-        <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-        <!-- Bootstrap core CSS -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <!-- Material Design Bootstrap -->
-        <link href="css/mdb.min.css" rel="stylesheet">
-        <!-- Your custom styles (optional) -->
-        <link href="css/style.min.css" rel="stylesheet">
-        <link href="css/profile_style.css" rel="stylesheet" type="text/css">
-
-    </head>
+</head>
 <body>
 <!-- Navbar -->
 <%@include file="../jspheader/nav.jsp" %>
@@ -42,19 +48,19 @@
                             <li class="nav-item">
                                 <a class="nav-link active" id="home-tab" data-toggle="tab" data-target="#about"
                                    role="tab"
-                                   href=""><label>About</label></a>
+                                   href=""><label><fmt:message key="user_profile.about"/></label></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="profile-tab" data-toggle="tab" data-target="#history" href=""
                                    role="tab">
-                                    <label>Order History</label></a>
+                                    <label><fmt:message key="user_profile.order_history"/></label></a>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <button type="submit" name="command" value="EDIT_PROFILE_PAGE" class="btn profile-edit-btn">
-                        Edit Profile
+                        <fmt:message key="user_profile.edit_profile"/>
                     </button>
                 </div>
             </div>
@@ -71,7 +77,7 @@
                         <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="home-tab">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label>Name</label>
+                                    <label><fmt:message key="user_profile.name"/></label>
                                 </div>
                                 <div class="col-md-6">
                                     <p>${user.name}</p>
@@ -79,7 +85,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label>Email</label>
+                                    <label><fmt:message key="user_profile.email"/></label>
                                 </div>
                                 <div class="col-md-6">
                                     <p>${user.email}</p>
@@ -87,14 +93,14 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label>Card number</label>
+                                    <label><fmt:message key="user_profile.card_number"/></label>
                                 </div>
                                 <div class="col-md-6">
                                     <c:if test="${user.cardAccount == null or user.cardAccount.cardNumber == null}">
-                                        <p>Card is not attached yet</p>
+                                        <p><fmt:message key="user_profile.empty_card"/></p>
                                         <button type="submit" name="command" value="ADD_CARD_PAGE"
                                                 class="btn profile-edit-btn">
-                                            Attach Card
+                                            <fmt:message key="user_profile.attach"/>
                                         </button>
                                     </c:if>
                                     <c:if test="${user.cardAccount != null or user.cardAccount.cardNumber != null}">
@@ -105,17 +111,17 @@
                             <c:if test="${user.cardAccount != null and user.cardAccount.cardNumber != null}">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label>Card amount</label>
+                                        <label><fmt:message key="user_profile.amount"/></label>
                                     </div>
                                     <div class="col-md-6">
                                         <p>${user.cardAccount.amount}</p>
                                         <button type="submit" name="command" value="EDIT_CARD_PAGE"
                                                 class="btn profile-edit-btn">
-                                            Edit Card
+                                            <fmt:message key="user_profile.edit_card"/>
                                         </button>
                                         <button type="submit" name="command" value="ADD_MONEY_PAGE"
                                                 class="btn profile-edit-btn">
-                                            Add Money
+                                            <fmt:message key="user_profile.add_money"/>
                                         </button>
                                     </div>
                                 </div>
@@ -125,7 +131,7 @@
 
                         <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="profile-tab">
                             <c:if test="${history == null}">
-                                <p>Оrder list is empty</p>
+                                <p><fmt:message key="user_profile.empty_history"/></p>
                             </c:if>
                             <c:if test="${history != null}">
                                 <div class="row">

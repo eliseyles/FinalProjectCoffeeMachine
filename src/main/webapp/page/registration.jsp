@@ -1,20 +1,21 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Елисей
-  Date: 3/29/2020
-  Time: 8:55 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="customtags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<c:if test="${not empty sessionScope.language}">
+    <fmt:setLocale value="${sessionScope.language}"/>
+</c:if>
+<fmt:setBundle basename="locale"/>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
-<html lang="en">
 
 <html>
 <head>
-    <title>Registration</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title><fmt:message key="title"/></title>
+    <title><fmt:message key="registration.title"/></title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <!-- Bootstrap core CSS -->
@@ -42,8 +43,8 @@
             /*background: ;*/
             padding: 60px 120px 80px 120px;
             /*text-align: center;*/
-            -webkit-box-shadow: 2px 2px 3px rgba(0,0,0,0.1);
-            box-shadow: 2px 2px 3px rgba(0,0,0,0.1);
+            -webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
+            box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
         }
 
         @media (min-width: 800px) and (max-width: 850px) {
@@ -62,10 +63,12 @@
         }
 
 
-        .modal{
+        .modal {
             /*padding: 50px;*/
             background: #ff3d00;
-            position: fixed; top: 50%; left: 50%;
+            position: fixed;
+            top: 50%;
+            left: 50%;
         }
 
 
@@ -84,26 +87,30 @@
             <c:if test="${not empty errorMessage}">
                 <div class="text-center text-warning">
                     <label class="text">
-                        ${errorMessage}
+                            ${errorMessage}
                             <%--                    <fmt:message key="${error}"/>--%>
                     </label>
                 </div>
             </c:if>
             <div class="form-group">
-                <label for="inputName">Name</label>
+                <label for="inputName"><fmt:message key="registration.name"/></label>
                 <input type="text" class="form-control" id="inputName" name="userName">
             </div>
             <div class="form-group">
-                <label for="inputEmail">Email address</label>
+                <label for="inputEmail"><fmt:message key="registration.email"/></label>
                 <input type="email" class="form-control" id="inputEmail" name="userEmail" aria-describedby="emailHelp">
-                <small id="emailHelp" class="form-text  text-white">We'll never share your email with anyone else.</small>
+                <small id="emailHelp" class="form-text  text-white">
+                    <fmt:message key="registration.email_help"/>
+                </small>
             </div>
             <div class="form-group">
-                <label for="inputPassword">Password</label>
+                <label for="inputPassword"><fmt:message key="registration.password"/></label>
                 <input type="password" class="form-control" id="inputPassword" name="userPassword">
             </div>
             <button type="submit" class="btn btn-outline-white btn-lg" name="command"
-                    value="REGISTER">Submit</button>
+                    value="REGISTER">
+                <fmt:message key="registration.create"/>
+            </button>
         </form>
     </div>
     <!-- Content -->

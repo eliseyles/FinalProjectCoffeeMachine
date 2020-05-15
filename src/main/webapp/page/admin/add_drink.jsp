@@ -1,13 +1,21 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="customtags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<c:if test="${not empty sessionScope.language}">
+    <fmt:setLocale value="${sessionScope.language}"/>
+</c:if>
+<fmt:setBundle basename="locale"/>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
-<html lang="en">
 
 <html>
 <head>
-    <title>Add drink</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title><fmt:message key="title"/></title>
+    <title><fmt:message key="add_drink.title"/></title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <!-- Bootstrap core CSS -->
@@ -85,18 +93,18 @@
                 </div>
             </c:if>
             <div class="form-group">
-                <label for="inputTitle">Drink title</label>
+                <label for="inputTitle"><fmt:message key="add_drink.drink_title"/></label>
                 <input type="text" class="form-control" id="inputTitle" name="drinkTitle">
             </div>
             <div class="form-group">
                 <select class="form-control" name="drinkVolume">
-                    <option value="LARGE">Large</option>
-                    <option value="MEDIUM">Medium</option>
-                    <option value="SMALL">Small</option>
+                    <option value="LARGE"><fmt:message key="add_drink.large"/></option>
+                    <option value="MEDIUM"><fmt:message key="add_drink.medium"/></option>
+                    <option value="SMALL"><fmt:message key="add_drink.small"/></option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="price">Price</label>
+                <label for="price"><fmt:message key="add_drink.price"/></label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroupPrepend">$</span>
@@ -105,11 +113,12 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputNumber">Servings number</label>
+                <label for="inputNumber"><fmt:message key="add_drink.servings_number"/></label>
                 <input type="text" class="form-control" id="inputNumber" name="servingNumber">
             </div>
             <button type="submit" class="btn btn-outline-white btn-lg" name="command"
-                    value="ADD_DRINK">Add
+                    value="ADD_DRINK">
+                <fmt:message key="add_drink.add"/>
             </button>
         </form>
     </div>
