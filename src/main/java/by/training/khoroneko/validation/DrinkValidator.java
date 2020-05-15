@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 public class DrinkValidator {
 
-    private static final String DRINK_TITLE_REGEX = "^[a-zA-Z]{1,40}$";
+    private static final String DRINK_TITLE_REGEX = "^[a-zA-Zа-яА-Я]{1,40}$";
     private static final BigDecimal MIN_PRICE = new BigDecimal(0);
     private static final int MIN_ID = 1;
     private static final int MIN_SERVING_NUMBER = 0;
