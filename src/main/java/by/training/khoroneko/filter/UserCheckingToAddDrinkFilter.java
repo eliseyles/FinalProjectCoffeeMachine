@@ -28,6 +28,7 @@ public class UserCheckingToAddDrinkFilter implements Filter {
                 return;
             }
         }
+//        todo order filter
         chain.doFilter(request, response);
     }
 }
