@@ -109,12 +109,16 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroupPrepend">$</span>
                     </div>
-                    <input type="text" class="form-control" id="price" aria-describedby="inputGroupPrepend" name="drinkPrice">
+                    <input type="text" class="form-control" id="price" aria-describedby="inputGroupPrepend" name="drinkPrice"
+                           pattern="[0-9]+([\.,][0-9]{2})?"
+                           title="<fmt:message key="add_drink.money_validation"/>">
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputNumber"><fmt:message key="add_drink.servings_number"/></label>
-                <input type="text" class="form-control" id="inputNumber" name="servingNumber">
+                <input type="text" class="form-control" id="inputNumber" name="servingNumber"
+                       pattern="[0-9]{1,}"
+                       title="<fmt:message key="add_drink.servings_validation"/>">
             </div>
             <button type="submit" class="btn btn-outline-white btn-lg" name="command"
                     value="ADD_DRINK">

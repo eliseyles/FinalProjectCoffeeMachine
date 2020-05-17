@@ -91,7 +91,8 @@
                         <span class="input-group-text" id="inputGroupPrepend">$</span>
                     </div>
                     <input type="text" class="form-control" id="cardAmount" aria-describedby="inputGroupPrepend"
-                           name="addingCardAmount">
+                           name="addingCardAmount" pattern="[0-9]+([\.,][0-9]{2})?"
+                           title="<fmt:message key="add_money.validation"/>">
                 </div>
             </div>
 

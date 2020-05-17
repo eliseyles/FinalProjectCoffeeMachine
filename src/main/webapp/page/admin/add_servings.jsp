@@ -104,7 +104,9 @@
             <div class="form-group">
                 <input type="hidden" name="drinkId" value="${drink.id}"/>
                 <label for="inputNumber"><fmt:message key="add_servings.servings_number"/></label>
-                <input type="text" class="form-control" id="inputNumber" name="servingNumber">
+                <input type="text" class="form-control" id="inputNumber" name="servingNumber"
+                       pattern="[0-9]{1,}"
+                       title="<fmt:message key="add_servings.servings_validation"/>">
             </div>
             <button type="submit" class="btn btn-outline-white btn-lg" name="command"
                     value="ADD_SERVINGS">
