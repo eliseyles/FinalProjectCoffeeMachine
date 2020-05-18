@@ -58,7 +58,7 @@ public class OrderDAOImpl extends AbstractCommonDAO<Order> implements OrderDAO {
             return result;
         } catch (SQLException ex) {
             logger.error(ex);
-            throw new DAOException("Error while getting all orders by user id", ex);
+            throw new DAOException(ex);
         }
     }
 
@@ -78,7 +78,7 @@ public class OrderDAOImpl extends AbstractCommonDAO<Order> implements OrderDAO {
         } catch (SQLException ex) {
             rollbackTransaction(connection);
             logger.error(ex);
-            throw new DAOException("Error while checkouting cart", ex);
+            throw new DAOException(ex);
         } finally {
             closeConnection(connection);
         }

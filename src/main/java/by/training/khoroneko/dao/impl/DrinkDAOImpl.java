@@ -45,7 +45,7 @@ public class DrinkDAOImpl extends AbstractCommonDAO<Drink> implements DrinkDAO {
             return null;
         } catch (SQLException ex) {
             logger.error(ex);
-            throw new DAOException("Error while getting drink by id", ex);
+            throw new DAOException(ex);
         }
     }
 
@@ -60,7 +60,7 @@ public class DrinkDAOImpl extends AbstractCommonDAO<Drink> implements DrinkDAO {
             return null;
         } catch (SQLException ex) {
             logger.error(ex);
-            throw new DAOException("Error while getting drink by id", ex);
+            throw new DAOException(ex);
         }
     }
 
