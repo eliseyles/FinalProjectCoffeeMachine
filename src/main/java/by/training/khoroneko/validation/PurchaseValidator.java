@@ -3,6 +3,7 @@ package by.training.khoroneko.validation;
 import by.training.khoroneko.entity.Drink;
 import by.training.khoroneko.entity.Order;
 import by.training.khoroneko.entity.User;
+import by.training.khoroneko.exception.ExceptionsValue;
 import by.training.khoroneko.exception.ValidationException;
 
 import java.math.BigDecimal;
@@ -21,7 +22,7 @@ public class PurchaseValidator {
 
     private void isEnoughUserMoneyAmount(User user, BigDecimal cartAmount) throws ValidationException {
         if (user.getCardAccount().getAmount().subtract(cartAmount).compareTo(MIN_CARD_AMOUNT) < 0) {
-            throw new ValidationException("Not enough money to get purchase");
+            throw new ValidationException(ExceptionsValue.NOT_ENOUGH_MONEY.toString());
         }
     }
 
@@ -36,7 +37,7 @@ public class PurchaseValidator {
     private void isEnoughServingNumber(List<Drink> drinks) throws ValidationException {
         for (Drink drink : drinks) {
             if (drink.getServingNumber() < MIN_SERVING_NUMBER) {
-                throw new ValidationException("Not enough serving number of" + drink.getId() + " to get purchase");
+                throw new ValidationException(ExceptionsValue.NOT_ENOUGH_SERVING_NUMBER.toString());
             }
         }
     }
@@ -55,7 +56,7 @@ public class PurchaseValidator {
 
     private void isValidCardAccount(User user) throws ValidationException {
         if (user.getCardAccount().getCardNumber() == null) {
-            throw new ValidationException("No attached card");
+            throw new ValidationException(ExceptionsValue.NO_ATTACHED_CARD.toString());
         }
     }
 }

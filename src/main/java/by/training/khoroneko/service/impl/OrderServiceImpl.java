@@ -7,6 +7,7 @@ import by.training.khoroneko.entity.Drink;
 import by.training.khoroneko.entity.Order;
 import by.training.khoroneko.entity.User;
 import by.training.khoroneko.exception.DAOException;
+import by.training.khoroneko.exception.ExceptionsValue;
 import by.training.khoroneko.exception.ServiceException;
 import by.training.khoroneko.exception.ValidationException;
 import by.training.khoroneko.factory.DAOFactory;
@@ -32,11 +33,11 @@ public class OrderServiceImpl implements OrderService {
             orderValidation.isValidOrderData(order);
             orderDAO.create(order);
         } catch (DAOException ex) {
-            logger.error(ex);
-            throw new ServiceException("Error while adding order", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ExceptionsValue.SERVER_ERROR.toString(), ex);
         } catch (ValidationException ex) {
-            logger.error(ex);
-            throw new ServiceException("Invalid order data", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ex.getMessage(), ex);
         }
     }
 
@@ -45,8 +46,8 @@ public class OrderServiceImpl implements OrderService {
         try {
             return ((OrderDAO) orderDAO).findAllOrdersByUserId(user);
         } catch (DAOException ex) {
-            logger.error(ex);
-            throw new ServiceException("Error while getting orders", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ExceptionsValue.SERVER_ERROR.toString(), ex);
         }
     }
 
@@ -56,11 +57,11 @@ public class OrderServiceImpl implements OrderService {
             orderValidation.isValidOrderId(order);
             orderDAO.delete(order);
         } catch (DAOException ex) {
-            logger.error(ex);
-            throw new ServiceException("Error while deleting order", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ExceptionsValue.SERVER_ERROR.toString(), ex);
         } catch (ValidationException ex) {
-            logger.error(ex);
-            throw new ServiceException("Invalid order data", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ex.getMessage(), ex);
         }
     }
 
@@ -73,11 +74,11 @@ public class OrderServiceImpl implements OrderService {
             purchaseValidator.isValidPurchase(cart, drinks, user);
             ((OrderDAO) orderDAO).checkoutCart(cart);
         } catch (DAOException ex) {
-            logger.error(ex);
-            throw new ServiceException("Error while checkouting cart", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ExceptionsValue.SERVER_ERROR.toString(), ex);
         } catch (ValidationException ex) {
-            logger.error(ex);
-            throw new ServiceException("Invalid data", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ex.getMessage(), ex);
         }
     }
 }

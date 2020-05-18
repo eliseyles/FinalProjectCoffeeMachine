@@ -1,14 +1,21 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="customtags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<c:if test="${not empty sessionScope.language}">
+    <fmt:setLocale value="${sessionScope.language}"/>
+</c:if>
+<fmt:setBundle basename="locale"/>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
-<html lang="en">
 
 <html>
 <head>
-    <title>Edit Profile</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title><fmt:message key="title"/></title>
+    <title><fmt:message key="edit_profile.title"/></title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <!-- Bootstrap core CSS -->
@@ -71,8 +78,7 @@
             <c:if test="${not empty errorMessage}">
                 <div class="text-center text-warning">
                     <label class="text">
-                            ${errorMessage}
-                            <%--                    <fmt:message key="${error}"/>--%>
+                        <fmt:message key="${errorMessage}"/>
                     </label>
                 </div>
             </c:if>
@@ -80,19 +86,19 @@
                 <input type="hidden" class="form-control" id="id" name="userId" value="${user.id}">
             </div>
             <div class="form-group">
-                <label for="inputName">Name</label>
+                <label for="inputName"><fmt:message key="edit_profile.name"/></label>
                 <input type="text" class="form-control" id="inputName" name="userName" value="${user.name}">
             </div>
             <div class="form-group">
-                <label for="inputEmail">Email address</label>
+                <label for="inputEmail"><fmt:message key="edit_profile.email"/></label>
                 <input type="email" class="form-control" id="inputEmail" name="userEmail" value="${user.email}">
             </div>
             <div class="form-group">
-                <label for="inputPassword">Password</label>
+                <label for="inputPassword"><fmt:message key="edit_profile.password"/></label>
                 <input type="password" class="form-control" id="inputPassword" name="userPassword">
             </div>
             <button type="submit" class="btn btn-outline-white btn-lg" name="command"
-                    value="EDIT_USER_PROFILE">Submit</button>
+                    value="EDIT_USER_PROFILE"><fmt:message key="edit_profile.save"/></button>
         </form>
     </div>
     <!-- Content -->

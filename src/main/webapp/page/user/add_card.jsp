@@ -1,13 +1,21 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="customtags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<c:if test="${not empty sessionScope.language}">
+    <fmt:setLocale value="${sessionScope.language}"/>
+</c:if>
+<fmt:setBundle basename="locale"/>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
-<html lang="en">
 
 <html>
 <head>
-    <title>Add card</title>
+    <title><fmt:message key="add_card.title"/></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <%--    <title><fmt:message key="title"/></title>--%>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <!-- Bootstrap core CSS -->
@@ -61,24 +69,24 @@
             <c:if test="${not empty errorMessage}">
                 <div class="text-center text-warning">
                     <label class="text">
-                            ${errorMessage}
-                            <%--                    <fmt:message key="${error}"/>--%>
+                        <fmt:message key="${errorMessage}"/>
                     </label>
                 </div>
             </c:if>
             <div class="form-group">
-                <label for="inputCardNumber">Card number</label>
+                <label for="inputCardNumber"><fmt:message key="add_card.number"/></label>
                 <input type="text" class="form-control" id="inputCardNumber" name="cardNumber">
             </div>
 
             <div class="form-group">
-                <label for="cardAmount">Amount</label>
+                <label for="cardAmount"><fmt:message key="add_card.amount"/></label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroupPrepend">$</span>
                     </div>
                     <input type="text" class="form-control" id="cardAmount" aria-describedby="inputGroupPrepend"
-                           name="cardAmount">
+                           name="cardAmount" pattern="[0-9]+([\.,][0-9]{2})?"
+                           title="<fmt:message key="add_card.validation"/>"/>
                 </div>
             </div>
 
@@ -87,7 +95,7 @@
             </div>
 
             <button type="submit" class="btn btn-outline-white btn-lg" name="command" value="ADD_CARD">
-                Add Card
+                <fmt:message key="add_card.add"/>
             </button>
         </form>
     </div>

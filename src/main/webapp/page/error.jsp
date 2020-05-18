@@ -1,11 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="customtags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<c:if test="${not empty sessionScope.language}">
+    <fmt:setLocale value="${sessionScope.language}"/>
+</c:if>
+<fmt:setBundle basename="locale"/>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+<!DOCTYPE html>
+<html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Error</title>
+    <title><fmt:message key="error.title"/></title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <!-- Bootstrap core CSS -->
@@ -54,8 +63,8 @@
                 <!-- Mask & flexbox options-->
                 <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
 
-                    <h1 class="h3 mb-3">something goes wrong</h1>
-                    <h1 class="h3 mb-3">${errorMessage}</h1>
+                    <h1 class="h3 mb-3"><fmt:message key="error.message"/></h1>
+                    <h1 class="h3 mb-3"><fmt:message key="${errorMessage}"/></h1>
 
                 </div>
 

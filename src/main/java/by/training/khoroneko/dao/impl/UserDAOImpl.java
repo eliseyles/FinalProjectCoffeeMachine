@@ -70,7 +70,7 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
             return null;
         } catch (SQLException ex) {
             logger.error(ex);
-            throw new DAOException("Error while getting user by email and password", ex);
+            throw new DAOException(ex);
         }
     }
 
@@ -85,7 +85,7 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
             return null;
         } catch (SQLException ex) {
             logger.error(ex);
-            throw new DAOException("Error while getting user by email", ex);
+            throw new DAOException(ex);
         }
     }
 
@@ -100,7 +100,7 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
             return null;
         } catch (SQLException ex) {
             logger.error(ex);
-            throw new DAOException("Error while getting user by id", ex);
+            throw new DAOException(ex);
         }
     }
 
@@ -111,7 +111,7 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
             statement.executeUpdate();
         } catch (SQLException ex) {
             logger.error(ex);
-            throw new DAOException("Error while updating user info", ex);
+            throw new DAOException(ex);
         }
     }
 
@@ -127,7 +127,7 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
         } catch (SQLException ex) {
             rollbackTransaction(connection);
             logger.error(ex);
-            throw new DAOException("Error while adding card", ex);
+            throw new DAOException(ex);
         } finally {
             closeConnection(connection);
             closeStatement(statement);
@@ -168,7 +168,7 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
             statement.executeUpdate();
         } catch (SQLException ex) {
             logger.error(ex);
-            throw new DAOException("Error while updating card info", ex);
+            throw new DAOException(ex);
         }
     }
 
@@ -179,7 +179,7 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
             statement.executeUpdate();
         } catch (SQLException ex) {
             logger.error(ex);
-            throw new DAOException("Error while updating card amount info", ex);
+            throw new DAOException(ex);
         }
     }
 
@@ -197,7 +197,7 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
         } catch (SQLException ex) {
             rollbackTransaction(connection);
             logger.error(ex);
-            throw new DAOException("Error while removing card", ex);
+            throw new DAOException(ex);
         } finally {
             closeConnection(connection);
             closeStatement(statement);

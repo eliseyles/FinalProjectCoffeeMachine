@@ -1,6 +1,7 @@
 package by.training.khoroneko.validation;
 
 import by.training.khoroneko.entity.CardAccount;
+import by.training.khoroneko.exception.ExceptionsValue;
 import by.training.khoroneko.exception.ValidationException;
 
 import java.math.BigDecimal;
@@ -36,25 +37,25 @@ public class CardAccountValidator {
 
     private void isNotNull(CardAccount cardAccount) throws ValidationException {
         if (cardAccount == null) {
-            throw new ValidationException("Card account is null");
+            throw new ValidationException(ExceptionsValue.NULL_CARD.toString());
         }
     }
 
     private void isValidId(CardAccount cardAccount) throws ValidationException {
         if (cardAccount.getId() < MIN_ID) {
-            throw new ValidationException("Card account id invalid");
+            throw new ValidationException(ExceptionsValue.INVALID_CARD_ID.toString());
         }
     }
 
     private void isValidNumber(CardAccount cardAccount) throws ValidationException {
         if (!cardAccount.getCardNumber().matches(CARD_NUMBER_REGEX)) {
-            throw new ValidationException("Invalid card number");
+            throw new ValidationException(ExceptionsValue.INVALID_CARD_NUMBER.toString());
         }
     }
 
     private void isValidAmount(CardAccount cardAccount) throws ValidationException {
         if (cardAccount.getAmount().compareTo(MIN_AMOUNT) < 1) {
-            throw new ValidationException("Invalid amount");
+            throw new ValidationException(ExceptionsValue.INVALID_AMOUNT.toString());
         }
     }
 }

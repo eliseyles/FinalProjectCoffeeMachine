@@ -1,13 +1,20 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="customtags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<c:if test="${not empty sessionScope.language}">
+    <fmt:setLocale value="${sessionScope.language}"/>
+</c:if>
+<fmt:setBundle basename="locale"/>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
-<html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title><fmt:message key="title"/></title>
+    <title><fmt:message key="user_list.title"/></title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <!-- Bootstrap core CSS -->
@@ -64,9 +71,9 @@
         <table class="table">
             <thead class="thead ">
             <tr>
-                <th scope="col">User name</th>
-                <th scope="col">User role</th>
-                <th scope="col">Activity</th>
+                <th scope="col"><fmt:message key="user_list.name"/></th>
+                <th scope="col"><fmt:message key="user_list.role"/></th>
+                <th scope="col"><fmt:message key="user_list.activity"/></th>
             </tr>
             </thead>
 
@@ -77,9 +84,11 @@
                         <input type="hidden" name="userId" value="${user.id}"/>
                         <td>${user.name}</td>
                         <td>${user.role}</td>
-                        <td>${user.activity}</td>
+                        <td><fmt:message key="user_list.${user.activity}"/></td>
                         <td>
-                            <button type="submit" class="btn" name="command" value="USER_EDIT">Edit user</button>
+                            <button type="submit" class="btn" name="command" value="USER_EDIT">
+                                <fmt:message key="user_list.edit_user"/>
+                            </button>
                         </td>
                     </form>
                 </tr>

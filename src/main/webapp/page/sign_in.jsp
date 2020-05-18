@@ -1,13 +1,22 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="customtags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<c:if test="${not empty sessionScope.language}">
+    <fmt:setLocale value="${sessionScope.language}"/>
+</c:if>
+<fmt:setBundle basename="locale"/>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
-<html lang="en">
 
 <html>
 <head>
-    <title>Sign In</title>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title><fmt:message key="title"/></title>
+    <title><fmt:message key="sign_in.title"/></title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <!-- Bootstrap core CSS -->
@@ -29,7 +38,7 @@
             background-size: cover;
         }
 
-        form {
+        .form-act {
             width: 60%;
             margin: 60px auto;
             /*background: ;*/
@@ -54,28 +63,28 @@
     <!-- Content -->
     <div class="card-body text-white  py-5 px-5 my-5">
 
-        <form class="brown" action="coffee_machine" method="post">
+        <form class="form-act brown" action="coffee_machine" method="post">
             <c:if test="${not empty errorMessage}">
             <div class="text-center text-warning">
                 <label class="text">
-                        ${errorMessage}
-                        <%--                    <fmt:message key="${error}"/>--%>
+                    <fmt:message key="${errorMessage}"/>
                 </label>
             </div>
             </c:if>
             <form class="brown" action="coffee_machine" method="post">
                 <div class="form-group">
-                    <label for="inputEmail">Email address</label>
+                    <label for="inputEmail"><fmt:message key="sign_in.email"/></label>
                     <input type="email" class="form-control" id="inputEmail" name="userEmail"
                            aria-describedby="emailHelp">
                 </div>
 
                 <div class="form-group">
-                    <label for="inputPassword">Password</label>
+                    <label for="inputPassword"><fmt:message key="sign_in.password"/></label>
                     <input type="password" class="form-control" id="inputPassword" name="userPassword">
                 </div>
                 <button type="submit" class="btn btn-outline-white btn-lg" name="command"
-                        value="SIGN_IN">Sign In
+                        value="SIGN_IN">
+                    <fmt:message key="sign_in.enter"/>
                 </button>
             </form>
     </div>
