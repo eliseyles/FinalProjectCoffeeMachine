@@ -44,9 +44,9 @@
 <%@include file="jspheader/nav.jsp" %>
 <!-- Navbar -->
 
-<h1>500</h1>
+<h1>404</h1>
 <%--<h2>Unexpected Error <b>:(</b></h2>--%>
-<h2 class="h3 mb-3"><fmt:message key="error.message500"/></h2>
+<h2 class="h3 mb-3"><fmt:message key="error.message404"/></h2>
 <div class="gears">
     <div class="gear one">
         <div class="bar"></div>
