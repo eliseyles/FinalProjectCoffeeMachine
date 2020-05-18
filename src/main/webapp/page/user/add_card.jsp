@@ -69,8 +69,7 @@
             <c:if test="${not empty errorMessage}">
                 <div class="text-center text-warning">
                     <label class="text">
-                            ${errorMessage}
-                            <%--                    <fmt:message key="${error}"/>--%>
+                        <fmt:message key="${errorMessage}"/>
                     </label>
                 </div>
             </c:if>

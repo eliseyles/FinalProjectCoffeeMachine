@@ -96,6 +96,14 @@
         </button>
     </form>
 
+    <c:if test="${not empty errorMessage}">
+        <div class="text-center text-warning">
+            <label class="text">
+                <fmt:message key="${errorMessage}"/>
+            </label>
+        </div>
+    </c:if>
+
 </div>
 
 <!-- SCRIPTS -->

@@ -1,6 +1,7 @@
 package by.training.khoroneko.validation;
 
 import by.training.khoroneko.entity.Order;
+import by.training.khoroneko.exception.ExceptionsValue;
 import by.training.khoroneko.exception.ValidationException;
 
 import java.util.List;
@@ -39,37 +40,37 @@ public class OrderValidation {
 
     private void isNotNull(Order order) throws ValidationException {
         if (order == null) {
-            throw new ValidationException("Invalid order, order is null");
+            throw new ValidationException(ExceptionsValue.NULL_ORDER.toString());
         }
     }
 
     private void isDrinkNotNull(Order order) throws ValidationException {
         if (order.getDrink() == null) {
-            throw new ValidationException("Invalid drink, drink is null");
+            throw new ValidationException(ExceptionsValue.INVALID_ORDER_DRINK.toString());
         }
     }
 
     private void isValidDrinkId(Order order) throws ValidationException {
         if (order.getDrink().getId() < 1) {
-            throw new ValidationException("Invalid drink id");
+            throw new ValidationException(ExceptionsValue.INVALID_ORDER_DRINK_ID.toString());
         }
     }
 
     private void isUserNotNull(Order order) throws ValidationException {
         if (order.getUser() == null) {
-            throw new ValidationException("Invalid user, user is null");
+            throw new ValidationException(ExceptionsValue.INVALID_ORDER_USER.toString());
         }
     }
 
     private void isValidUserId(Order order) throws ValidationException {
         if (order.getUser().getId() < MIN_ID) {
-            throw new ValidationException("Invalid user id");
+            throw new ValidationException(ExceptionsValue.INVALID_ORDER_USER_ID.toString());
         }
     }
 
     private void isValidId(Order order) throws ValidationException {
         if ((order.getId() < MIN_ID)) {
-            throw new ValidationException("Invalid order id");
+            throw new ValidationException(ExceptionsValue.INVALID_ORDER_ID.toString());
         }
     }
 }

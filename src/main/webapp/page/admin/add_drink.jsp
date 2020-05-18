@@ -87,8 +87,7 @@
             <c:if test="${not empty errorMessage}">
                 <div class="text-center text-warning">
                     <label class="text">
-                            ${errorMessage}
-                            <%--                    <fmt:message key="${error}"/>--%>
+                        <fmt:message key="${errorMessage}"/>
                     </label>
                 </div>
             </c:if>
@@ -109,7 +108,8 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroupPrepend">$</span>
                     </div>
-                    <input type="text" class="form-control" id="price" aria-describedby="inputGroupPrepend" name="drinkPrice"
+                    <input type="text" class="form-control" id="price" aria-describedby="inputGroupPrepend"
+                           name="drinkPrice"
                            pattern="[0-9]+([\.,][0-9]{2})?"
                            title="<fmt:message key="add_drink.money_validation"/>">
                 </div>

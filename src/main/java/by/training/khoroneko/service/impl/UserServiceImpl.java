@@ -4,6 +4,7 @@ import by.training.khoroneko.dao.AbstractCommonDAO;
 import by.training.khoroneko.dao.UserDAO;
 import by.training.khoroneko.entity.User;
 import by.training.khoroneko.exception.DAOException;
+import by.training.khoroneko.exception.ExceptionsValue;
 import by.training.khoroneko.exception.ServiceException;
 import by.training.khoroneko.exception.ValidationException;
 import by.training.khoroneko.factory.DAOFactory;
@@ -31,14 +32,14 @@ public class UserServiceImpl implements UserService {
             if (((UserDAO) userDAO).findByEmail(user) == null) {
                 userDAO.create(user);
             } else {
-                throw new ServiceException("Email is already taken");
+                throw new ServiceException(ExceptionsValue.BOOKED_EMAIL.toString());
             }
         } catch (DAOException ex) {
-            logger.error(ex);
-            throw new ServiceException("Error while adding user", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ExceptionsValue.SERVER_ERROR.toString(), ex);
         } catch (ValidationException ex) {
-            logger.error(ex);
-            throw new ServiceException("Invalid user data", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ex.getMessage(), ex);
         }
     }
 
@@ -48,11 +49,11 @@ public class UserServiceImpl implements UserService {
             userValidator.isValidUserId(user);
             userDAO.update(user);
         } catch (DAOException ex) {
-            logger.error(ex);
-            throw new ServiceException("Error while updating user", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ExceptionsValue.SERVER_ERROR.toString(), ex);
         } catch (ValidationException ex) {
-            logger.error(ex);
-            throw new ServiceException("Invalid user data", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ex.getMessage(), ex);
         }
     }
 
@@ -62,11 +63,11 @@ public class UserServiceImpl implements UserService {
             userValidator.isValidUser(user);
             userDAO.delete(user);
         } catch (DAOException ex) {
-            logger.error(ex);
-            throw new ServiceException("Error while deleting user", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ExceptionsValue.SERVER_ERROR.toString(), ex);
         } catch (ValidationException ex) {
-            logger.error(ex);
-            throw new ServiceException("Invalid user data", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ex.getMessage(), ex);
         }
     }
 
@@ -79,7 +80,7 @@ public class UserServiceImpl implements UserService {
             }
             return users;
         } catch (DAOException ex) {
-            throw new ServiceException("Error while getting all users", ex);
+            throw new ServiceException(ExceptionsValue.SERVER_ERROR.toString(), ex);
         }
     }
 
@@ -90,14 +91,17 @@ public class UserServiceImpl implements UserService {
             user.setPassword(DigestUtils.sha1Hex(user.getPassword()));
             User userFromDB = ((UserDAO) userDAO).findByEmailAndPassword(user);
             if (userFromDB == null) {
-                throw new ServiceException("Incorrect username or password");
+                logger.error(ExceptionsValue.INCORRECT_SIGN_IN_DATA.toString());
+                throw new ServiceException(ExceptionsValue.INCORRECT_SIGN_IN_DATA.toString());
             }
             userFromDB.setPassword(null);
             return userFromDB;
         } catch (DAOException ex) {
-            throw new ServiceException("Error while sign in", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ExceptionsValue.SERVER_ERROR.toString(), ex);
         } catch (ValidationException ex) {
-            throw new ServiceException("Invalid user data", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ex.getMessage(), ex);
         }
     }
 
@@ -109,11 +113,11 @@ public class UserServiceImpl implements UserService {
             userFromDB.setPassword(null);
             return userFromDB;
         } catch (DAOException ex) {
-            logger.error(ex);
-            throw new ServiceException("Error while getting user by id", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ExceptionsValue.SERVER_ERROR.toString(), ex);
         } catch (ValidationException ex) {
-            logger.error(ex);
-            throw new ServiceException("Invalid user data", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ex.getMessage(), ex);
         }
     }
 
@@ -130,11 +134,11 @@ public class UserServiceImpl implements UserService {
             }
             ((UserDAO) userDAO).updateUserInfoById(user);
         } catch (DAOException ex) {
-            logger.error(ex);
-            throw new ServiceException("Error while updating user info", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ExceptionsValue.SERVER_ERROR.toString(), ex);
         } catch (ValidationException ex) {
-            logger.error(ex);
-            throw new ServiceException("Invalid user data", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ex.getMessage(), ex);
         }
     }
 
@@ -145,11 +149,11 @@ public class UserServiceImpl implements UserService {
             cardAccountValidator.isValidCardAccountData(user.getCardAccount());
             ((UserDAO) userDAO).attachCardToUserById(user);
         } catch (DAOException ex) {
-            logger.error(ex);
-            throw new ServiceException("Error while attaching card", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ExceptionsValue.SERVER_ERROR.toString(), ex);
         } catch (ValidationException ex) {
-            logger.error(ex);
-            throw new ServiceException("Invalid data", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ex.getMessage(), ex);
         }
     }
 
@@ -159,15 +163,16 @@ public class UserServiceImpl implements UserService {
             userValidator.isValidUserId(user);
             cardAccountValidator.isValidCardAccountIdAndNumber(user.getCardAccount());
             if (((UserDAO) userDAO).findById(user).getCardAccount().getId() != user.getCardAccount().getId()) {
-                throw new ServiceException("Invalid card data, user card mismatch with the entered card");
+                logger.error(ExceptionsValue.USER_CARD_MISMATCHING_EXCEPTION.toString());
+                throw new ServiceException(ExceptionsValue.USER_CARD_MISMATCHING_EXCEPTION.toString());
             }
             ((UserDAO) userDAO).updateCardInfoById(user);
         } catch (DAOException ex) {
-            logger.error(ex);
-            throw new ServiceException("Error while updating card", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ExceptionsValue.SERVER_ERROR.toString(), ex);
         } catch (ValidationException ex) {
-            logger.error(ex);
-            throw new ServiceException("Invalid data", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ex.getMessage(), ex);
         }
     }
 
@@ -177,17 +182,18 @@ public class UserServiceImpl implements UserService {
             userValidator.isValidUserId(user);
             cardAccountValidator.isValidCardAccountIdAndAmount(user.getCardAccount());
             if (((UserDAO) userDAO).findById(user).getCardAccount().getId() != user.getCardAccount().getId()) {
-                throw new ServiceException("Invalid card data, user card mismatch with the entered card");
+                logger.error(ExceptionsValue.USER_CARD_MISMATCHING_EXCEPTION.toString());
+                throw new ServiceException(ExceptionsValue.USER_CARD_MISMATCHING_EXCEPTION.toString());
             }
             BigDecimal currentAmount = ((UserDAO) userDAO).findById(user).getCardAccount().getAmount();
             user.getCardAccount().setAmount(currentAmount.add(user.getCardAccount().getAmount()));
             ((UserDAO) userDAO).updateCardAmountById(user);
         } catch (DAOException ex) {
-            logger.error(ex);
-            throw new ServiceException("Error while updating card amount", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ExceptionsValue.SERVER_ERROR.toString(), ex);
         } catch (ValidationException ex) {
-            logger.error(ex);
-            throw new ServiceException("Invalid data", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ex.getMessage(), ex);
         }
     }
 
@@ -197,15 +203,16 @@ public class UserServiceImpl implements UserService {
             userValidator.isValidUserId(user);
             cardAccountValidator.isValidCardAccountId(user.getCardAccount());
             if (((UserDAO) userDAO).findById(user).getCardAccount().getId() != user.getCardAccount().getId()) {
-                throw new ServiceException("Invalid card data, user card mismatch with the entered card");
+                logger.error(ExceptionsValue.USER_CARD_MISMATCHING_EXCEPTION.toString());
+                throw new ServiceException(ExceptionsValue.USER_CARD_MISMATCHING_EXCEPTION.toString());
             }
             ((UserDAO) userDAO).deleteCardFromUserById(user);
         } catch (DAOException ex) {
-            logger.error(ex);
-            throw new ServiceException("Error while deleting card", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ExceptionsValue.SERVER_ERROR.toString(), ex);
         } catch (ValidationException ex) {
-            logger.error(ex);
-            throw new ServiceException("Invalid data", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ex.getMessage(), ex);
         }
     }
 }

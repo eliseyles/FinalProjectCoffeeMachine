@@ -4,6 +4,7 @@ import by.training.khoroneko.dao.AbstractCommonDAO;
 import by.training.khoroneko.dao.DrinkDAO;
 import by.training.khoroneko.entity.Drink;
 import by.training.khoroneko.exception.DAOException;
+import by.training.khoroneko.exception.ExceptionsValue;
 import by.training.khoroneko.exception.ServiceException;
 import by.training.khoroneko.exception.ValidationException;
 import by.training.khoroneko.factory.DAOFactory;
@@ -31,11 +32,11 @@ public class DrinkServiceImpl implements DrinkService {
                 update(drink);
             }
         } catch (DAOException ex) {
-            logger.error(ex);
-            throw new ServiceException("Error while adding drink", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ExceptionsValue.SERVER_ERROR.toString(), ex);
         } catch (ValidationException ex) {
-            logger.error(ex);
-            throw new ServiceException("Invalid drink data", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ex.getMessage(), ex);
         }
     }
 
@@ -45,17 +46,18 @@ public class DrinkServiceImpl implements DrinkService {
             drinkValidator.isValidIdAndServingNumber(drink);
             Drink existDrink = ((DrinkDAO) drinkDAO).findById(drink);
             if (existDrink == null) {
-                throw new ServiceException("Finding drink doesn't exist");
+                logger.error(ExceptionsValue.NOT_EXIST_DRINK.toString());
+                throw new ServiceException(ExceptionsValue.NOT_EXIST_DRINK.toString());
             } else {
                 drink.setServingNumber(drink.getServingNumber() + existDrink.getServingNumber());
                 drinkDAO.update(drink);
             }
         } catch (DAOException ex) {
-            logger.error(ex);
-            throw new ServiceException("Error while adding drink", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ExceptionsValue.SERVER_ERROR.toString(), ex);
         } catch (ValidationException ex) {
-            logger.error(ex);
-            throw new ServiceException("Invalid drink data", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ex.getMessage(), ex);
         }
     }
 
@@ -65,11 +67,11 @@ public class DrinkServiceImpl implements DrinkService {
             drinkValidator.isValidDrinkId(drink);
             drinkDAO.delete(drink);
         } catch (DAOException ex) {
-            logger.error(ex);
-            throw new ServiceException("Error while deleting drink", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ExceptionsValue.SERVER_ERROR.toString(), ex);
         } catch (ValidationException ex) {
-            logger.error(ex);
-            throw new ServiceException("Invalid drink data", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ex.getMessage(), ex);
         }
     }
 
@@ -78,7 +80,8 @@ public class DrinkServiceImpl implements DrinkService {
         try {
             return drinkDAO.getAll();
         } catch (DAOException ex) {
-            throw new ServiceException("Error while getting all drinks", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ExceptionsValue.SERVER_ERROR.toString(), ex);
         }
     }
 
@@ -88,11 +91,11 @@ public class DrinkServiceImpl implements DrinkService {
             drinkValidator.isValidDrinkId(drink);
             return ((DrinkDAO) drinkDAO).findById(drink);
         } catch (DAOException ex) {
-            logger.error(ex);
-            throw new ServiceException("Error while finding drink by id", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ExceptionsValue.SERVER_ERROR.toString(), ex);
         } catch (ValidationException ex) {
-            logger.error(ex);
-            throw new ServiceException("Invalid drink data", ex);
+            logger.error(ex.getMessage(), ex);
+            throw new ServiceException(ex.getMessage(), ex);
         }
     }
 }
