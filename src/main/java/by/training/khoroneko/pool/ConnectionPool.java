@@ -60,19 +60,7 @@ public enum ConnectionPool {
     public Connection getConnection() {
         ProxyConnection connection = null;
         try {
-            connection = availableConnections.take();
-            usedConnections.add(connection);
-        } catch (InterruptedException ex) {
-            logger.error(ex);
-            Thread.currentThread().interrupt();
-        }
-        return connection;
-    }
-
-    public Connection getConnection(long waitingTimeInSecond) {
-        ProxyConnection connection = null;
-        try {
-            connection = availableConnections.poll(waitingTimeInSecond, TimeUnit.SECONDS);
+            connection = availableConnections.poll(60, TimeUnit.SECONDS);
             usedConnections.add(connection);
         } catch (InterruptedException ex) {
             logger.error(ex);
