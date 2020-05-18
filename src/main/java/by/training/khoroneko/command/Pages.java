@@ -3,7 +3,7 @@ package by.training.khoroneko.command;
 public enum Pages {
     INDEX_JSP("page/index.jsp"),
     REGISTRATION_JSR("page/registration.jsp"),
-    ERROR_JSP("page/error.jsp"),
+    ERROR_500_JSP("page/error500.jsp"),
     SIGN_IN_JSP("page/sign_in.jsp"),
     DRINK_LIST_JSP("page/drinks.jsp"),
 

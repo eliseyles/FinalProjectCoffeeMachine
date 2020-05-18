@@ -29,7 +29,7 @@ public class UnblockUserCommand implements Command {
             return Pages.USER_EDIT_JSP.getValue();
         } catch (ServiceException ex) {
             request.setAttribute(Attribute.ERROR_MASSAGE.getValue(), ex.getMessage());
-            return Pages.ERROR_JSP.getValue();
+            return Pages.ERROR_500_JSP.getValue();
         }
     }
 }

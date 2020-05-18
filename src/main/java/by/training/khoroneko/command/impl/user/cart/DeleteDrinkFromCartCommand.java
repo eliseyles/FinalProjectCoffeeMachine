@@ -1,6 +1,5 @@
 package by.training.khoroneko.command.impl.user.cart;
 
-import by.training.khoroneko.builder.DrinkBuilder;
 import by.training.khoroneko.builder.OrderBuilder;
 import by.training.khoroneko.command.Attribute;
 import by.training.khoroneko.command.Command;
@@ -32,7 +31,7 @@ public class DeleteDrinkFromCartCommand implements Command {
 
         } catch (ServiceException ex) {
             request.setAttribute(Attribute.ERROR_MASSAGE.getValue(), ex.getMessage());
-            return Pages.ERROR_JSP.getValue();
+            return Pages.ERROR_500_JSP.getValue();
         }
     }
 }

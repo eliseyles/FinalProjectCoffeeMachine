@@ -23,6 +23,7 @@
     <link href="css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     <link href="css/style.min.css" rel="stylesheet">
+    <link href="css/500style.css" rel="stylesheet">
     <style type="text/css">
         /* Necessary for full page carousel*/
         html,
@@ -33,48 +34,39 @@
 
         }
 
-        @media (min-width: 800px) and (max-width: 850px) {
-            .navbar:not(.top-nav-collapse) {
-                background: #1C2331 !important;
-            }
-        }
-
-        .carousel {
-            background-color: rgba(170, 0, 88, 0.6);
-        }
     </style>
 </head>
+<body class="loading">
 
-<body>
+
 
 <!-- Navbar -->
 <%@include file="jspheader/nav.jsp" %>
 <!-- Navbar -->
 
-<!--Carousel Wrapper-->
-<div id="carousel-example-1z" class="carousel slide carousel-fade">
-
-    <!--Slides-->
-    <div class="carousel-inner" role="listbox">
-
-        <%--        <!--First slide-->--%>
-        <div class="carousel-item active">
-            <div class="view">
-                <!-- Mask & flexbox options-->
-                <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
-
-                    <h1 class="h3 mb-3"><fmt:message key="error.message"/></h1>
-                    <h1 class="h3 mb-3"><fmt:message key="${errorMessage}"/></h1>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
+<h1>500</h1>
+<%--<h2>Unexpected Error <b>:(</b></h2>--%>
+<h2 class="h3 mb-3"><fmt:message key="error.message"/></h2>
+<div class="gears">
+    <div class="gear one">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+    <div class="gear two">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+    <div class="gear three">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
     </div>
 </div>
+<%--<script src="https://code.jquery.com/jquery-1.10.2.js"></script>--%>
+<script src="js/main.js" type="text/javascript"></script>
+
 
 <!--/.Footer-->
 
@@ -92,6 +84,6 @@
     // Animations initialization
     new WOW().init();
 </script>
-</body>
+</>
 
 </html>
