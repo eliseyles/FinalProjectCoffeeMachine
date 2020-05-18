@@ -24,7 +24,7 @@
         <url-pattern>/coffee_machine</url-pattern>
     </filter-mapping>
     <filter-mapping>
-        <filter-name>UserCheckingToAddDrinkFilter</filter-name>
+        <filter-name>OrderFilter</filter-name>
         <url-pattern>/coffee_machine</url-pattern>
     </filter-mapping>
     <filter-mapping>
