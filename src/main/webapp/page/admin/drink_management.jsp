@@ -54,7 +54,7 @@
             /*background: ;*/
         }
 
-        form{
+        form {
             padding: 60px 50px 15px 50px;
         }
 
@@ -93,18 +93,19 @@
             <tbody>
             <c:forEach var="drink" items="${drinkList}">
                 <tr>
-                    <form action="coffee_machine" method="post">
-                        <input type="hidden" name="drinkId" value="${drink.id}"/>
-                        <td>${drink.title}</td>
-                        <td><fmt:message key="drink_management.${drink.drinkSize}"/></td>
-                        <td>${drink.price}</td>
-                        <td>${drink.servingNumber}</td>
-                        <td>
+                    <td>${drink.title}</td>
+                    <td><fmt:message key="drink_management.${drink.drinkSize}"/></td>
+                    <td>${drink.price}</td>
+                    <td>${drink.servingNumber}</td>
+                    <td>
+                        <form action="coffee_machine" method="get">
+                            <input type="hidden" name="drinkId" value="${drink.id}"/>
                             <button type="submit" class="btn" name="command" value="ADD_SERVINGS_PAGE">
                                 <fmt:message key="drink_management.add_servings"/>
                             </button>
-                        </td>
-                    </form>
+                        </form>
+                    </td>
+
                 </tr>
             </c:forEach>
             </tbody>
