@@ -21,7 +21,7 @@ public class UserEditCommand implements Command {
                             .getResult()));
             return Pages.USER_EDIT_JSP.getValue();
         } catch (ServiceException ex) {
-            request.setAttribute(Attribute.ERROR_MASSAGE.getValue(), ex.getMessage());
+            request.setAttribute(Attribute.ERROR_MESSAGE.getValue(), ex.getMessage());
             return Pages.ERROR_500_JSP.getValue();
         }
 

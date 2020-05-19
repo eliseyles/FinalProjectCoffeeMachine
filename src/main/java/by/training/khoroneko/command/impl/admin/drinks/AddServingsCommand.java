@@ -23,7 +23,7 @@ public class AddServingsCommand implements Command {
             request.setAttribute(Attribute.DRINK_LIST.getValue(), ServiceFactory.INSTANCE.getDrinkService().getAll());
             return Pages.DRINK_MANAGEMENT_JSP.getValue();
         } catch (ServiceException ex) {
-            request.setAttribute(Attribute.ERROR_MASSAGE.getValue(), ex.getMessage());
+            request.setAttribute(Attribute.ERROR_MESSAGE.getValue(), ex.getMessage());
             return Pages.ERROR_500_JSP.getValue();
         }
     }

@@ -25,7 +25,7 @@ public class RegisterCommand implements Command {
                     .getResult());
             return Pages.INDEX_JSP.getValue();
         } catch (ServiceException ex) {
-            request.setAttribute(Attribute.ERROR_MASSAGE.getValue(), ex.getMessage());
+            request.setAttribute(Attribute.ERROR_MESSAGE.getValue(), ex.getMessage());
             return Pages.REGISTRATION_JSR.getValue();
         }
     }

@@ -51,7 +51,7 @@ public class Controller extends HttpServlet {
         if (next.equals(Pages.ERROR_500_JSP.getCommandName())) {
             resp.sendError(Integer.parseInt(next));
         } else {
-            if (req.getAttribute(Attribute.ERROR_MASSAGE.getValue()) != null) {
+            if (req.getAttribute(Attribute.ERROR_MESSAGE.getValue()) != null) {
                 req.getRequestDispatcher(nextPage).forward(req, resp);
             } else {
                 resp.sendRedirect(String.format(URL, req.getContextPath(), req.getServletPath(), next));

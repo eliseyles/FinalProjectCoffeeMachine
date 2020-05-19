@@ -1,7 +1,6 @@
 package by.training.khoroneko.command.impl.user.card;
 
 import by.training.khoroneko.builder.CardAccountBuilder;
-import by.training.khoroneko.builder.DrinkBuilder;
 import by.training.khoroneko.builder.UserBuilder;
 import by.training.khoroneko.command.Attribute;
 import by.training.khoroneko.command.Command;
@@ -36,7 +35,7 @@ public class AddCardCommand implements Command {
                             .getResult()));
             return Pages.USER_PROFILE_JSP.getValue();
         } catch (ServiceException ex) {
-            request.setAttribute(Attribute.ERROR_MASSAGE.getValue(), ex.getMessage());
+            request.setAttribute(Attribute.ERROR_MESSAGE.getValue(), ex.getMessage());
             return Pages.ADD_CARD_JSP.getValue();
         }
     }
