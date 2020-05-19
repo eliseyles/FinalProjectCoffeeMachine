@@ -71,14 +71,14 @@
 <%--<div class="view">--%>
 <div class="card text-center">
     <div class="card-body">
-        <form action="coffee_machine" method="post">
+        <form action="coffee_machine" method="get">
             <button type="submit" class="btn" name="command" value="ADD_DRINK_PAGE">
                 <fmt:message key="drink_management.add_drink"/>
             </button>
         </form>
     </div>
 </div>
-<form class="form-table">
+<div class="form-table">
     <div>
         <table class="table">
             <thead class="thead ">
@@ -111,7 +111,7 @@
         </table>
     </div>
 
-</form>
+</div>
 
 
 <%--</div>--%>
