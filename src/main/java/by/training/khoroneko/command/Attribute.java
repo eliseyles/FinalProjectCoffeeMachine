@@ -9,7 +9,8 @@ public enum Attribute {
     DRINK("drink"),
     ORDER_LIST("orderList"),
     LOCALE("locale"),
-    LANGUAGE("language");
+    LANGUAGE("language"),
+    HISTORY("history");
 
     private String value;
 
