@@ -6,6 +6,7 @@ public enum ExceptionsValue {
     INVALID_USER_EMAIL("Invalid user email"),
     INVALID_USER_PASSWORD("Invalid user password"),
     INVALID_USER_ID("Invalid user id"),
+    BLOCKED_USER("User was blocked by admin"),
 
     NULL_CARD("Card account is null"),
     INVALID_CARD_ID("Card account id invalid"),

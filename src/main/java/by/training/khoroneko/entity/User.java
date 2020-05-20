@@ -56,7 +56,7 @@ public class User {
         this.password = password;
     }
 
-    public boolean isActivity() {
+    public boolean getActivity() {
         return activity;
     }
 
