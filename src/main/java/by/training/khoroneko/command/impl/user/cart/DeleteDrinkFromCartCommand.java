@@ -26,7 +26,7 @@ public class DeleteDrinkFromCartCommand implements Command {
 
             User user = (User)request.getSession().getAttribute(Attribute.USER.getValue());
             List<Order> orderList = ServiceFactory.INSTANCE.getOrderService().getAllOrdersByUserId(user);
-            request.setAttribute(Attribute.ORDER_LIST.getValue(), orderList);
+            request.getSession().setAttribute(Attribute.ORDER_LIST.getValue(), orderList);
             return Pages.CART_JSP.getValue();
 
         } catch (ServiceException ex) {
