@@ -75,7 +75,7 @@
             </c:if>
             <div class="form-group">
                 <label for="inputCardNumber"><fmt:message key="add_card.number"/></label>
-                <input type="text" class="form-control" id="inputCardNumber" name="cardNumber">
+                <input type="text" class="form-control" id="inputCardNumber" name="cardNumber" required>
             </div>
 
             <div class="form-group">
@@ -86,7 +86,7 @@
                     </div>
                     <input type="text" class="form-control" id="cardAmount" aria-describedby="inputGroupPrepend"
                            name="cardAmount" pattern="[0-9]+([\.,][0-9]{2})?"
-                           title="<fmt:message key="add_card.validation"/>"/>
+                           title="<fmt:message key="add_card.validation"/>" required>
                 </div>
             </div>
 

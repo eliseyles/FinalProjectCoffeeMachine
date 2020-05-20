@@ -87,11 +87,11 @@
             </div>
             <div class="form-group">
                 <label for="inputName"><fmt:message key="edit_profile.name"/></label>
-                <input type="text" class="form-control" id="inputName" name="userName" value="${user.name}">
+                <input type="text" class="form-control" id="inputName" name="userName" value="${user.name}" required>
             </div>
             <div class="form-group">
                 <label for="inputEmail"><fmt:message key="edit_profile.email"/></label>
-                <input type="email" class="form-control" id="inputEmail" name="userEmail" value="${user.email}">
+                <input type="email" class="form-control" id="inputEmail" name="userEmail" value="${user.email}" required>
             </div>
             <div class="form-group">
                 <label for="inputPassword"><fmt:message key="edit_profile.password"/></label>

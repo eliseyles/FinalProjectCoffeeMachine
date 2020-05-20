@@ -91,7 +91,7 @@
             <div class="form-group">
                 <label for="inputCardNumber"><fmt:message key="edit_card.number"/></label>
                 <input type="text" class="form-control" id="inputCardNumber" name="cardNumber"
-                       value="${user.cardAccount.cardNumber}">
+                       value="${user.cardAccount.cardNumber}" required>
             </div>
             <div class="row">
                 <button type="submit" class="btn btn-outline-white btn-lg" name="command"

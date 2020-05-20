@@ -93,18 +93,18 @@
             </c:if>
             <div class="form-group">
                 <label for="inputName"><fmt:message key="registration.name"/></label>
-                <input type="text" class="form-control" id="inputName" name="userName">
+                <input type="text" class="form-control" id="inputName" name="userName" required>
             </div>
             <div class="form-group">
                 <label for="inputEmail"><fmt:message key="registration.email"/></label>
-                <input type="email" class="form-control" id="inputEmail" name="userEmail" aria-describedby="emailHelp">
+                <input type="email" class="form-control" id="inputEmail" name="userEmail" aria-describedby="emailHelp" required>
                 <small id="emailHelp" class="form-text  text-white">
                     <fmt:message key="registration.email_help"/>
                 </small>
             </div>
             <div class="form-group">
                 <label for="inputPassword"><fmt:message key="registration.password"/></label>
-                <input type="password" class="form-control" id="inputPassword" name="userPassword">
+                <input type="password" class="form-control" id="inputPassword" name="userPassword" required>
             </div>
             <button type="submit" class="btn btn-outline-white btn-lg" name="command"
                     value="REGISTER">

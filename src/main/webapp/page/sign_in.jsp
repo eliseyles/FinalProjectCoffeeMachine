@@ -75,12 +75,12 @@
                 <div class="form-group">
                     <label for="inputEmail"><fmt:message key="sign_in.email"/></label>
                     <input type="email" class="form-control" id="inputEmail" name="userEmail"
-                           aria-describedby="emailHelp">
+                           aria-describedby="emailHelp" required>
                 </div>
 
                 <div class="form-group">
                     <label for="inputPassword"><fmt:message key="sign_in.password"/></label>
-                    <input type="password" class="form-control" id="inputPassword" name="userPassword">
+                    <input type="password" class="form-control" id="inputPassword" name="userPassword" required>
                 </div>
                 <button type="submit" class="btn btn-outline-white btn-lg" name="command"
                         value="SIGN_IN">

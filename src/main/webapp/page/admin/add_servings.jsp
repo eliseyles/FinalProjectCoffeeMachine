@@ -105,7 +105,7 @@
                 <label for="inputNumber"><fmt:message key="add_servings.servings_number"/></label>
                 <input type="text" class="form-control" id="inputNumber" name="servingNumber"
                        pattern="[0-9]{1,}"
-                       title="<fmt:message key="add_servings.servings_validation"/>">
+                       title="<fmt:message key="add_servings.servings_validation"/>" required>
             </div>
             <button type="submit" class="btn btn-outline-white btn-lg" name="command"
                     value="ADD_SERVINGS">
