@@ -30,8 +30,9 @@
         body,
         header,
         .view {
-            height: 50%;
-            top: 150px;
+            height: 100%;
+            /*top: 150px;*/
+            background-color: #c19c82;
         }
 
         @media (min-width: 800px) and (max-width: 850px) {
@@ -50,10 +51,12 @@
         }
 
         .form-active {
+            height: auto;
             width: 60%;
             margin: 60px auto;
             /*background: ;*/
             padding: 60px 120px 80px 120px;
+            background-color: white;
         }
 
     </style>

@@ -31,7 +31,8 @@
         header,
         .view {
             height: 50%;
-            top: 150px;
+            /*top: 150px;*/
+            background-color: #c19c82;
         }
 
         @media (min-width: 800px) and (max-width: 850px) {
@@ -52,11 +53,15 @@
         .form-table {
             width: 60%;
             margin: 10px auto;
-            /*background: ;*/
+            background-color: white;
         }
 
         .form-active {
             padding: 60px 50px 15px 50px;
+            background-color: #c19c82;
+        }
+        .card-body {
+            background-color: #c19c82;
         }
 
     </style>
@@ -73,7 +78,7 @@
 <div class="card text-center">
     <div class="card-body">
         <form class="form-active" action="coffee_machine" method="get">
-            <button type="submit" class="btn" name="command" value="ADD_DRINK_PAGE">
+            <button type="submit" class="btn white" name="command" value="ADD_DRINK_PAGE">
                 <fmt:message key="drink_management.add_drink"/>
             </button>
         </form>
