@@ -54,7 +54,7 @@
             /*background: ;*/
         }
 
-        form {
+        .form-active {
             padding: 60px 50px 15px 50px;
         }
 
@@ -71,7 +71,7 @@
 <%--<div class="view">--%>
 <div class="card text-center">
     <div class="card-body">
-        <form action="coffee_machine" method="get">
+        <form class="form-active" action="coffee_machine" method="get">
             <button type="submit" class="btn" name="command" value="ADD_DRINK_PAGE">
                 <fmt:message key="drink_management.add_drink"/>
             </button>

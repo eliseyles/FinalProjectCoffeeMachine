@@ -48,7 +48,7 @@
             padding: 20px;
         }
 
-        form {
+        .form-active {
             width: 60%;
             margin: 60px auto;
             /*background: ;*/
@@ -66,7 +66,7 @@
 
 
 <%--<div class="view">--%>
-<form>
+<form class="form-active">
     <div>
         <table class="table">
             <thead class="thead ">
