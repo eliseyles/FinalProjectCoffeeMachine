@@ -43,7 +43,7 @@
 <!-- Navbar -->
 
 
-<form class="content">
+<form class="content" action="coffee_machine" method="post">
 
     <c:if test="${empty drinkList}">
         <h1><fmt:message key="menu.empty_menu"/></h1>

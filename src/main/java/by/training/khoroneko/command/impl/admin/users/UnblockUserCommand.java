@@ -5,6 +5,7 @@ import by.training.khoroneko.command.Attribute;
 import by.training.khoroneko.command.Command;
 import by.training.khoroneko.command.JSPParameter;
 import by.training.khoroneko.command.Pages;
+import by.training.khoroneko.entity.User;
 import by.training.khoroneko.exception.ServiceException;
 import by.training.khoroneko.factory.ServiceFactory;
 import by.training.khoroneko.service.UserService;
@@ -19,17 +20,17 @@ public class UnblockUserCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
             userService.update(new UserBuilder()
-                    .setId(Integer.parseInt(request.getParameter(JSPParameter.USER_ID.getValue())))
+                    .setId(((User)request.getSession().getAttribute(Attribute.USER_PROFILE.getValue())).getId())
                     .setActivity(true)
                     .getResult());
-            request.setAttribute(Attribute.USER_PROFILE.getValue(), userService.findById(
+            request.getSession().setAttribute(Attribute.USER_PROFILE.getValue(), userService.findById(
                     new UserBuilder()
                             .setId(Integer.parseInt(request.getParameter(JSPParameter.USER_ID.getValue())))
                             .getResult()));
             return Pages.USER_EDIT_JSP.getValue();
         } catch (ServiceException ex) {
-            request.setAttribute(Attribute.ERROR_MASSAGE.getValue(), ex.getMessage());
-            return Pages.ERROR_JSP.getValue();
+            request.setAttribute(Attribute.ERROR_MESSAGE.getValue(), ex.getMessage());
+            return Pages.ERROR_500_JSP.getValue();
         }
     }
 }

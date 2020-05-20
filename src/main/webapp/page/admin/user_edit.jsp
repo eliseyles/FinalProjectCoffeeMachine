@@ -31,7 +31,7 @@
         header {
         }
 
-        form {
+        .form-act {
             width: 60%;
             margin: 60px auto;
             /*background: ;*/
@@ -48,32 +48,32 @@
 <!-- Navbar -->
 <%@include file="../jspheader/nav.jsp" %>
 <!-- Navbar -->
-<form>
+<div class ="form-act">
     <h5><fmt:message key="user_edit.name"/>: ${userProfile.name}</h5>
     <h5><fmt:message key="user_edit.email"/>: ${userProfile.email}</h5>
     <c:if test="${userProfile.activity.equals(true)}">
-        <td>
-            <form action="coffee_machine" method="POST">
-                <input type="hidden" id="BlockUserID" name="userId" value="${userProfile.id}">
-                <button type="submit" name="command" value="BLOCK_USER"
-                        class="btn btn-outline-danger">
-                    <fmt:message key="user_edit.block"/>
-                </button>
-            </form>
-        </td>
+
+        <form action="coffee_machine" method="post">
+            <input type="hidden" id="BlockUserID" name="userId" value="${userProfile.id}">
+            <button type="submit" name="command" value="BLOCK_USER"
+                    class="btn btn-outline-danger">
+                <fmt:message key="user_edit.block"/>
+            </button>
+        </form>
+
     </c:if>
 
     <c:if test="${!userProfile.activity.equals(true)}">
-        <td>
-            <form action="coffee_machine" method="POST">
-                <input type="hidden" id="UnblockUserID" name="userId" value="${userProfile.id}">
-                <button type="submit" name="command" value="UNBLOCK_USER"
-                        class="btn btn-outline-success">
-                    <fmt:message key="user_edit.unblock"/>
-                </button>
-            </form>
-        </td>
+
+        <form action="coffee_machine" method="post">
+            <input type="hidden" id="UnblockUserID" name="userId" value="${userProfile.id}">
+            <button type="submit" name="command" value="UNBLOCK_USER"
+                    class="btn btn-outline-success">
+                <fmt:message key="user_edit.unblock"/>
+            </button>
+        </form>
+
     </c:if>
-</form>
+</div>
 </body>
 </html>

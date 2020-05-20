@@ -21,8 +21,8 @@ public class AddServingsPageCommand implements Command {
                             .getResult()));
             return Pages.DRINK_ADDING_SERVINGS_JSP.getValue();
         } catch (ServiceException ex) {
-            request.setAttribute(Attribute.ERROR_MASSAGE.getValue(), ex.getMessage());
-            return Pages.ERROR_JSP.getValue();
+            request.setAttribute(Attribute.ERROR_MESSAGE.getValue(), ex.getMessage());
+            return Pages.ERROR_500_JSP.getValue();
         }
     }
 }

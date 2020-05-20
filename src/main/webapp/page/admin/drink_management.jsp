@@ -54,7 +54,7 @@
             /*background: ;*/
         }
 
-        form{
+        form {
             padding: 60px 50px 15px 50px;
         }
 
@@ -71,14 +71,14 @@
 <%--<div class="view">--%>
 <div class="card text-center">
     <div class="card-body">
-        <form action="coffee_machine" method="post">
+        <form action="coffee_machine" method="get">
             <button type="submit" class="btn" name="command" value="ADD_DRINK_PAGE">
                 <fmt:message key="drink_management.add_drink"/>
             </button>
         </form>
     </div>
 </div>
-<form class="form-table">
+<div class="form-table">
     <div>
         <table class="table">
             <thead class="thead ">
@@ -93,25 +93,26 @@
             <tbody>
             <c:forEach var="drink" items="${drinkList}">
                 <tr>
-                    <form action="coffee_machine" method="post">
-                        <input type="hidden" name="drinkId" value="${drink.id}"/>
-                        <td>${drink.title}</td>
-                        <td><fmt:message key="drink_management.${drink.drinkSize}"/></td>
-                        <td>${drink.price}</td>
-                        <td>${drink.servingNumber}</td>
-                        <td>
+                    <td>${drink.title}</td>
+                    <td><fmt:message key="drink_management.${drink.drinkSize}"/></td>
+                    <td>${drink.price}</td>
+                    <td>${drink.servingNumber}</td>
+                    <td>
+                        <form action="coffee_machine" method="get">
+                            <input type="hidden" name="drinkId" value="${drink.id}"/>
                             <button type="submit" class="btn" name="command" value="ADD_SERVINGS_PAGE">
                                 <fmt:message key="drink_management.add_servings"/>
                             </button>
-                        </td>
-                    </form>
+                        </form>
+                    </td>
+
                 </tr>
             </c:forEach>
             </tbody>
         </table>
     </div>
 
-</form>
+</div>
 
 
 <%--</div>--%>

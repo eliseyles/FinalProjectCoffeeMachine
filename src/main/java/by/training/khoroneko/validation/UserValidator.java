@@ -6,7 +6,7 @@ import by.training.khoroneko.exception.ValidationException;
 
 public class UserValidator {
 
-    private static final String USER_NAME_REGEX = "^[a-zA-Zа-яА-Я]{5,20}$";
+    private static final String USER_NAME_REGEX = "^[a-zA-Zа-яА-Я-]{2,20}$";
     private static final String EMAIL_REGEX = "^[A-Za-z0-9+_]+@(.+)$";
     private static final String PASSWORD_REGEX = "^[a-zA-Z0-9]{8,20}$";
     private static final int MIN_ID = 1;

@@ -24,7 +24,7 @@
         <url-pattern>/coffee_machine</url-pattern>
     </filter-mapping>
     <filter-mapping>
-        <filter-name>UserCheckingToAddDrinkFilter</filter-name>
+        <filter-name>OrderFilter</filter-name>
         <url-pattern>/coffee_machine</url-pattern>
     </filter-mapping>
     <filter-mapping>
@@ -48,7 +48,13 @@
     </welcome-file-list>
 
     <error-page>
-        <exception-type>java.lang.Exception</exception-type>
-        <location>/page/error.jsp</location>
+        <error-code>500</error-code>
+        <location>/page/error500.jsp</location>
     </error-page>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/page/error404.jsp</location>
+    </error-page>
+
 </web-app>

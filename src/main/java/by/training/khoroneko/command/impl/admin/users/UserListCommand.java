@@ -19,8 +19,8 @@ public class UserListCommand implements Command {
             request.setAttribute(Attribute.USER_LIST.getValue(), userList);
             return Pages.USER_LIST_JSP.getValue();
         } catch (ServiceException ex) {
-            request.setAttribute(Attribute.ERROR_MASSAGE.getValue(), ex.getMessage());
-            return Pages.ERROR_JSP.getValue();
+            request.setAttribute(Attribute.ERROR_MESSAGE.getValue(), ex.getMessage());
+            return Pages.ERROR_500_JSP.getValue();
         }
     }
 }

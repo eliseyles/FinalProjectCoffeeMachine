@@ -232,7 +232,7 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
         preparedStatement.setString(++statementIndex, user.getName());
         preparedStatement.setString(++statementIndex, user.getEmail());
         preparedStatement.setString(++statementIndex, user.getPassword());
-        preparedStatement.setBoolean(++statementIndex, user.isActivity());
+        preparedStatement.setBoolean(++statementIndex, user.getActivity());
         preparedStatement.setInt(++statementIndex, user.getRole().getId());
         return preparedStatement;
     }
@@ -241,7 +241,7 @@ public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO {
     protected PreparedStatement buildUpdateByIDStatement(Connection connection, User user) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_BY_ID);
         int statementIndex = 0;
-        preparedStatement.setBoolean(++statementIndex, user.isActivity());
+        preparedStatement.setBoolean(++statementIndex, user.getActivity());
         preparedStatement.setInt(++statementIndex, user.getId());
         return preparedStatement;
     }

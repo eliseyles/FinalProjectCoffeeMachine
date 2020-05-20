@@ -1,13 +1,13 @@
 package by.training.khoroneko.command.impl.user.card;
 
 import by.training.khoroneko.builder.CardAccountBuilder;
-import by.training.khoroneko.builder.DrinkBuilder;
 import by.training.khoroneko.builder.UserBuilder;
 import by.training.khoroneko.command.Attribute;
 import by.training.khoroneko.command.Command;
 import by.training.khoroneko.command.JSPParameter;
 import by.training.khoroneko.command.Pages;
 import by.training.khoroneko.entity.User;
+import by.training.khoroneko.exception.DAOException;
 import by.training.khoroneko.exception.ServiceException;
 import by.training.khoroneko.factory.ServiceFactory;
 import by.training.khoroneko.service.UserService;
@@ -30,14 +30,14 @@ public class AddCardCommand implements Command {
                             .getResult())
                     .getResult();
             userService.attachCardToUserById(user);
-            request.getSession().setAttribute(Attribute.USER.getValue(),
-                    userService.findById(new UserBuilder()
-                            .setId(Integer.parseInt(request.getParameter(JSPParameter.USER_ID.getValue())))
-                            .getResult()));
             return Pages.USER_PROFILE_JSP.getValue();
         } catch (ServiceException ex) {
-            request.setAttribute(Attribute.ERROR_MASSAGE.getValue(), ex.getMessage());
-            return Pages.ADD_CARD_JSP.getValue();
+            if (ex.getCause() instanceof DAOException) {
+                return Pages.ERROR_500_JSP.getValue();
+            } else {
+                request.setAttribute(Attribute.ERROR_MESSAGE.getValue(), ex.getMessage());
+                return Pages.ADD_CARD_JSP.getValue();
+            }
         }
     }
 }

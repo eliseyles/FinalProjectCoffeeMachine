@@ -4,6 +4,7 @@ import by.training.khoroneko.builder.DrinkBuilder;
 import by.training.khoroneko.dao.AbstractCommonDAO;
 import by.training.khoroneko.dao.DrinkDAO;
 import by.training.khoroneko.entity.Drink;
+import by.training.khoroneko.entity.User;
 import by.training.khoroneko.exception.DAOException;
 import org.apache.log4j.Logger;
 
@@ -11,6 +12,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DrinkDAOImpl extends AbstractCommonDAO<Drink> implements DrinkDAO {
 
@@ -33,6 +36,10 @@ public class DrinkDAOImpl extends AbstractCommonDAO<Drink> implements DrinkDAO {
 
     private static final String FIND_DRINK_BY_TITLE_AND_SIZE_AND_PRICE =
             FIND_ALL_DRINKS + "WHERE `title`=? AND `volume`=? AND `price`=?";
+
+    private static final String FIND_HISTORY_BY_USER_ID =
+            FIND_ALL_DRINKS + "JOIN `drink_sales` ON `drinks`.`id`=`drink_sales`.`drinks_id` " +
+                    "WHERE `user_id`=?";
 
     @Override
     public Drink findById(Drink drink) throws DAOException {
@@ -58,6 +65,22 @@ public class DrinkDAOImpl extends AbstractCommonDAO<Drink> implements DrinkDAO {
                 return createEntityFromResultSet(resultSet);
             }
             return null;
+        } catch (SQLException ex) {
+            logger.error(ex);
+            throw new DAOException(ex);
+        }
+    }
+
+    @Override
+    public List<Drink> findHistoryByUserId(User user) throws DAOException {
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = buildFindHistoryByUserIdStatement(connection, user);
+             ResultSet resultSet = statement.executeQuery()) {
+            List<Drink> result = new ArrayList<>();
+            while (resultSet.next()) {
+                result.add(createEntityFromResultSet(resultSet));
+            }
+            return result;
         } catch (SQLException ex) {
             logger.error(ex);
             throw new DAOException(ex);
@@ -108,6 +131,12 @@ public class DrinkDAOImpl extends AbstractCommonDAO<Drink> implements DrinkDAO {
         preparedStatement.setString(++statementIndex, drink.getTitle());
         preparedStatement.setString(++statementIndex, drink.getDrinkSize().toString());
         preparedStatement.setBigDecimal(++statementIndex, drink.getPrice());
+        return preparedStatement;
+    }
+
+    protected PreparedStatement buildFindHistoryByUserIdStatement(Connection connection, User user) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(FIND_HISTORY_BY_USER_ID);
+        preparedStatement.setInt(1, user.getId());
         return preparedStatement;
     }
 

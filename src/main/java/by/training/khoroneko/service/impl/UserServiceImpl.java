@@ -94,6 +94,10 @@ public class UserServiceImpl implements UserService {
                 logger.error(ExceptionsValue.INCORRECT_SIGN_IN_DATA.toString());
                 throw new ServiceException(ExceptionsValue.INCORRECT_SIGN_IN_DATA.toString());
             }
+            if (!userFromDB.getActivity()) {
+                logger.error(ExceptionsValue.BLOCKED_USER.toString());
+                throw new ServiceException(ExceptionsValue.BLOCKED_USER.toString());
+            }
             userFromDB.setPassword(null);
             return userFromDB;
         } catch (DAOException ex) {

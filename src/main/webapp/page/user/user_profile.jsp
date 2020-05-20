@@ -130,18 +130,29 @@
 
 
                         <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="profile-tab">
-                            <c:if test="${history == null}">
+                            <c:if test="${history == null or empty history}">
                                 <p><fmt:message key="user_profile.empty_history"/></p>
                             </c:if>
-                            <c:if test="${history != null}">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label></label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p></p>
-                                    </div>
-                                </div>
+                            <c:if test="${not empty history}">
+                                <table class="table">
+                                    <thead class="thead ">
+                                    <tr>
+                                        <th scope="col"><fmt:message key="user_profile.drink_title"/></th>
+                                        <th scope="col"><fmt:message key="user_profile.volume"/></th>
+                                        <th scope="col"><fmt:message key="user_profile.price"/></th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <c:forEach var="drink" items="${history}">
+                                        <tr>
+                                            <td>${drink.title}</td>
+                                            <td><fmt:message key="drink_management.${drink.drinkSize}"/></td>
+                                            <td>${drink.price}</td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
                             </c:if>
 
                         </div>

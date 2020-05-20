@@ -33,7 +33,13 @@
 <!-- Navbar -->
 
 <h1><fmt:message key="cart.cart"/></h1>
-
+<c:if test="${not empty errorMessage}">
+    <div class="text-center text-warning">
+        <h2 class="text">
+            <fmt:message key="${errorMessage}"/>
+        </h2>
+    </div>
+</c:if>
 <div class="shopping-cart">
 
     <div class="column-labels">
@@ -95,14 +101,6 @@
             <fmt:message key="cart.checkout"/>
         </button>
     </form>
-
-    <c:if test="${not empty errorMessage}">
-        <div class="text-center text-warning">
-            <label class="text">
-                <fmt:message key="${errorMessage}"/>
-            </label>
-        </div>
-    </c:if>
 
 </div>
 

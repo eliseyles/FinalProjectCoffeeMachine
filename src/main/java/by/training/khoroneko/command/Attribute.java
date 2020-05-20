@@ -1,7 +1,7 @@
 package by.training.khoroneko.command;
 
 public enum Attribute {
-    ERROR_MASSAGE("errorMessage"),
+    ERROR_MESSAGE("errorMessage"),
     USER_PROFILE("userProfile"),
     USER("user"),
     USER_LIST("userList"),
@@ -9,7 +9,8 @@ public enum Attribute {
     DRINK("drink"),
     ORDER_LIST("orderList"),
     LOCALE("locale"),
-    LANGUAGE("language");
+    LANGUAGE("language"),
+    HISTORY("history");
 
     private String value;
 

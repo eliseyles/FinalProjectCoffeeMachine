@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(filterName = "UserCheckingToAddDrinkFilter", urlPatterns = {"/coffee_machine"})
-public class UserCheckingToAddDrinkFilter implements Filter {
+@WebFilter(filterName = "OrderFilter", urlPatterns = {"/coffee_machine"})
+public class OrderFilter implements Filter {
 
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain) throws IOException, ServletException {
@@ -28,7 +28,6 @@ public class UserCheckingToAddDrinkFilter implements Filter {
                 return;
             }
         }
-//        todo order filter
         chain.doFilter(request, response);
     }
 }

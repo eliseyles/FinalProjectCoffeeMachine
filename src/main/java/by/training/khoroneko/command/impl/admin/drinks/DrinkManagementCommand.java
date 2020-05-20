@@ -16,8 +16,8 @@ public class DrinkManagementCommand implements Command {
             request.setAttribute(Attribute.DRINK_LIST.getValue(), ServiceFactory.INSTANCE.getDrinkService().getAll());
             return Pages.DRINK_MANAGEMENT_JSP.getValue();
         } catch (ServiceException ex) {
-            request.setAttribute(Attribute.ERROR_MASSAGE.getValue(), ex.getMessage());
-            return Pages.ERROR_JSP.getValue();
+            request.setAttribute(Attribute.ERROR_MESSAGE.getValue(), ex.getMessage());
+            return Pages.ERROR_500_JSP.getValue();
         }
     }
 }
