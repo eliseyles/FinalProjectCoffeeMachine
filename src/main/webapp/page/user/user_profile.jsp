@@ -24,7 +24,7 @@
     <!-- Your custom styles (optional) -->
     <link href="css/style.min.css" rel="stylesheet">
     <link href="css/profile_style.css" rel="stylesheet" type="text/css">
-
+    <link href="css/fullstyle.css" rel="stylesheet">
 </head>
 <body>
 <!-- Navbar -->
@@ -165,6 +165,8 @@
 
 <!-- SCRIPTS -->
 
-
+<footer>
+    <ctg:copyrightTag/>
+</footer>
 </body>
 </html>

@@ -23,7 +23,7 @@
     <!-- Your custom styles (optional) -->
     <link href="css/style.min.css" rel="stylesheet">
     <link href="css/cart.css" rel="stylesheet" type="text/css">
-
+    <link href="css/fullstyle.css" rel="stylesheet">
 </head>
 
 <body>
@@ -104,7 +104,7 @@
 
 </div>
 
-<!-- SCRIPTS -->
+
 </body>
 </html>
 
