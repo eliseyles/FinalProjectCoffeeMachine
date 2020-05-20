@@ -5,6 +5,7 @@ import by.training.khoroneko.command.Attribute;
 import by.training.khoroneko.command.Command;
 import by.training.khoroneko.command.JSPParameter;
 import by.training.khoroneko.command.Pages;
+import by.training.khoroneko.entity.User;
 import by.training.khoroneko.exception.ServiceException;
 import by.training.khoroneko.factory.ServiceFactory;
 import by.training.khoroneko.service.UserService;
@@ -19,10 +20,10 @@ public class BlockUserCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
             userService.update(new UserBuilder()
-                    .setId(Integer.parseInt(request.getParameter(JSPParameter.USER_ID.getValue())))
+                    .setId(((User)request.getSession().getAttribute(Attribute.USER_PROFILE.getValue())).getId())
                     .setActivity(false)
                     .getResult());
-            request.setAttribute(Attribute.USER_PROFILE.getValue(), userService
+            request.getSession().setAttribute(Attribute.USER_PROFILE.getValue(), userService
                     .findById(new UserBuilder()
                             .setId(Integer.parseInt(request.getParameter(JSPParameter.USER_ID.getValue())))
                             .getResult()));

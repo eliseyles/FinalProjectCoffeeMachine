@@ -16,8 +16,6 @@ public class CheckoutCartCommand implements Command {
         try {
             User user = (User) request.getSession().getAttribute(Attribute.USER.getValue());
             ServiceFactory.INSTANCE.getOrderService().checkoutCart(user);
-            request.getSession().setAttribute(Attribute.USER.getValue(),
-                    ServiceFactory.INSTANCE.getUserService().findById(user));
             return Pages.CART_JSP.getValue();
         } catch (ServiceException ex) {
             request.setAttribute(Attribute.ERROR_MESSAGE.getValue(), ex.getMessage());

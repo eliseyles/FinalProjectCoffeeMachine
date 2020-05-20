@@ -15,6 +15,8 @@ public class UserProfilePageCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
             User user = (User) request.getSession().getAttribute(Attribute.USER.getValue());
+            request.getSession().setAttribute(Attribute.USER.getValue(),
+                    ServiceFactory.INSTANCE.getUserService().findById(user));
             request.setAttribute(Attribute.HISTORY.getValue(),
                     ServiceFactory.INSTANCE.getDrinkService().getPurchaseHistoryByUserId(user));
             return Pages.USER_PROFILE_JSP.getValue();

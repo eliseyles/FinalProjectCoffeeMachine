@@ -24,8 +24,6 @@ public class AddDrinkToCartCommand implements Command {
                                     .getResult())
                             .setUser((User) request.getSession().getAttribute(Attribute.USER.getValue()))
                             .getResult());
-
-            request.setAttribute(Attribute.DRINK_LIST.getValue(), ServiceFactory.INSTANCE.getDrinkService().getAll());
             return Pages.DRINK_LIST_JSP.getValue();
         } catch (ServiceException ex) {
             request.setAttribute(Attribute.ERROR_MESSAGE.getValue(), ex.getMessage());
