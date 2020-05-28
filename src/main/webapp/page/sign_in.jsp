@@ -25,6 +25,7 @@
     <link href="css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     <link href="css/style.min.css" rel="stylesheet">
+    <link href="css/fullstyle.css" rel="stylesheet">
     <style type="text/css">
         /* Necessary for full page carousel*/
         html,
@@ -75,12 +76,12 @@
                 <div class="form-group">
                     <label for="inputEmail"><fmt:message key="sign_in.email"/></label>
                     <input type="email" class="form-control" id="inputEmail" name="userEmail"
-                           aria-describedby="emailHelp">
+                           aria-describedby="emailHelp" required>
                 </div>
 
                 <div class="form-group">
                     <label for="inputPassword"><fmt:message key="sign_in.password"/></label>
-                    <input type="password" class="form-control" id="inputPassword" name="userPassword">
+                    <input type="password" class="form-control" id="inputPassword" name="userPassword" required>
                 </div>
                 <button type="submit" class="btn btn-outline-white btn-lg" name="command"
                         value="SIGN_IN">
@@ -90,5 +91,8 @@
     </div>
     <!-- Content -->
 </section>
+<footer>
+    <ctg:copyrightTag/>
+</footer>
 </body>
 </html>

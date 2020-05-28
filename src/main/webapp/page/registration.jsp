@@ -24,6 +24,7 @@
     <link href="css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     <link href="css/style.min.css" rel="stylesheet">
+    <link href="css/fullstyle.css" rel="stylesheet">
     <style type="text/css">
         /* Necessary for full page carousel*/
         html,
@@ -37,7 +38,7 @@
             background-size: cover;
         }
 
-        form {
+        .form-active {
             width: 60%;
             margin: 60px auto;
             /*background: ;*/
@@ -83,7 +84,7 @@
     <div class="card-body text-white  py-5 px-5 my-5">
 
 
-        <form class="brown" action="coffee_machine" method="post">
+        <form class="brown form-active" action="coffee_machine" method="post">
             <c:if test="${not empty errorMessage}">
                 <div class="text-center text-warning">
                     <label class="text">
@@ -93,18 +94,18 @@
             </c:if>
             <div class="form-group">
                 <label for="inputName"><fmt:message key="registration.name"/></label>
-                <input type="text" class="form-control" id="inputName" name="userName">
+                <input type="text" class="form-control" id="inputName" name="userName" required>
             </div>
             <div class="form-group">
                 <label for="inputEmail"><fmt:message key="registration.email"/></label>
-                <input type="email" class="form-control" id="inputEmail" name="userEmail" aria-describedby="emailHelp">
+                <input type="email" class="form-control" id="inputEmail" name="userEmail" aria-describedby="emailHelp" required>
                 <small id="emailHelp" class="form-text  text-white">
                     <fmt:message key="registration.email_help"/>
                 </small>
             </div>
             <div class="form-group">
                 <label for="inputPassword"><fmt:message key="registration.password"/></label>
-                <input type="password" class="form-control" id="inputPassword" name="userPassword">
+                <input type="password" class="form-control" id="inputPassword" name="userPassword" required>
             </div>
             <button type="submit" class="btn btn-outline-white btn-lg" name="command"
                     value="REGISTER">
@@ -114,5 +115,8 @@
     </div>
     <!-- Content -->
 </section>
+<footer>
+    <ctg:copyrightTag/>
+</footer>
 </body>
 </html>

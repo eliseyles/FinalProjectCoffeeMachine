@@ -23,6 +23,7 @@
     <link href="css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     <link href="css/style.min.css" rel="stylesheet">
+    <link href="css/fullstyle.css" rel="stylesheet">
     <style type="text/css">
         /* Necessary for full page carousel*/
         html,
@@ -30,7 +31,8 @@
         header,
         .view {
             height: 50%;
-            top: 150px;
+            /*top: 150px;*/
+            background-color: #c19c82;
         }
 
         @media (min-width: 800px) and (max-width: 850px) {
@@ -51,11 +53,15 @@
         .form-table {
             width: 60%;
             margin: 10px auto;
-            /*background: ;*/
+            background-color: white;
         }
 
-        form {
+        .form-active {
             padding: 60px 50px 15px 50px;
+            background-color: #c19c82;
+        }
+        .card-body {
+            background-color: #c19c82;
         }
 
     </style>
@@ -71,8 +77,8 @@
 <%--<div class="view">--%>
 <div class="card text-center">
     <div class="card-body">
-        <form action="coffee_machine" method="get">
-            <button type="submit" class="btn" name="command" value="ADD_DRINK_PAGE">
+        <form class="form-active" action="coffee_machine" method="get">
+            <button type="submit" class="btn white" name="command" value="ADD_DRINK_PAGE">
                 <fmt:message key="drink_management.add_drink"/>
             </button>
         </form>
@@ -116,7 +122,9 @@
 
 
 <%--</div>--%>
-
+<footer>
+    <ctg:copyrightTag/>
+</footer>
 </body>
 
 </html>

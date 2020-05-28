@@ -26,6 +26,7 @@
     <link href="css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     <link href="css/style.min.css" rel="stylesheet">
+    <link href="css/fullstyle.css" rel="stylesheet">
     <style type="text/css">
         /* Necessary for full page carousel*/
         html,
@@ -39,13 +40,6 @@
             .navbar:not(.top-nav-collapse) {
                 background: #1C2331 !important;
             }
-        }
-
-        footer {
-            display: block;
-            text-align: center;
-            background-color: #3c2a1e;
-            color: white;
         }
 
         dropdown-menu{
@@ -154,21 +148,6 @@
 <%--</div>--%>
 
 <%--<!--/.Footer-->--%>
-
-<%--<!-- SCRIPTS -->--%>
-<%--<!-- JQuery -->--%>
-<%--<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>--%>
-<%--<!-- Bootstrap tooltips -->--%>
-<%--<script type="text/javascript" src="js/popper.min.js"></script>--%>
-<%--<!-- Bootstrap core JavaScript -->--%>
-<%--<script type="text/javascript" src="js/bootstrap.min.js"></script>--%>
-<%--<!-- MDB core JavaScript -->--%>
-<%--<script type="text/javascript" src="js/mdb.min.js"></script>--%>
-<%--<!-- Initializations -->--%>
-<%--<script type="text/javascript">--%>
-<%--    // Animations initialization--%>
-<%--    new WOW().init();--%>
-<%--</script>--%>
 <footer>
     <ctg:copyrightTag/>
 </footer>

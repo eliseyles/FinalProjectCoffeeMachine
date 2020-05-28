@@ -24,6 +24,7 @@
     <!-- Your custom styles (optional) -->
     <link href="css/style.min.css" rel="stylesheet">
     <link href="css/500style.css" rel="stylesheet">
+    <link href="css/fullstyle.css" rel="stylesheet">
     <style type="text/css">
         /* Necessary for full page carousel*/
         html,

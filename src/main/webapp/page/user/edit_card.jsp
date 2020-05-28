@@ -24,6 +24,7 @@
     <link href="css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     <link href="css/style.min.css" rel="stylesheet">
+    <link href="css/fullstyle.css" rel="stylesheet">
     <style type="text/css">
         /* Necessary for full page carousel*/
         html,
@@ -37,7 +38,7 @@
             background-size: cover;
         }
 
-        form {
+        .form-active {
             width: 60%;
             margin: 60px auto;
             /*background: ;*/
@@ -74,7 +75,7 @@
     <div class="card-body text-white  py-5 px-5 my-5">
 
 
-        <form class="brown" action="coffee_machine" method="post">
+        <form class="brown form-active" action="coffee_machine" method="post">
             <c:if test="${not empty errorMessage}">
                 <div class="text-center text-warning">
                     <label class="text">
@@ -91,7 +92,7 @@
             <div class="form-group">
                 <label for="inputCardNumber"><fmt:message key="edit_card.number"/></label>
                 <input type="text" class="form-control" id="inputCardNumber" name="cardNumber"
-                       value="${user.cardAccount.cardNumber}">
+                       value="${user.cardAccount.cardNumber}" required>
             </div>
             <div class="row">
                 <button type="submit" class="btn btn-outline-white btn-lg" name="command"
@@ -105,5 +106,8 @@
     </div>
     <!-- Content -->
 </section>
+<footer>
+    <ctg:copyrightTag/>
+</footer>
 </body>
 </html>
