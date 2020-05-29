@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Security filter. Restricts access without command.
+ */
 @WebFilter(filterName = "PageRedirectSecurityFilter", urlPatterns = {"/page/*"})
 public class PageRedirectSecurityFilter implements Filter {
 

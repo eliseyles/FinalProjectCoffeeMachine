@@ -13,6 +13,9 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Security filter. Checks existed commands.
+ */
 @WebFilter(filterName = "CommandCheckingFilter", urlPatterns = {"/coffee_machine"})
 public class CommandCheckingFilter implements Filter {
 

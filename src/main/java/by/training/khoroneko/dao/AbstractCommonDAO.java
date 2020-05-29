@@ -9,11 +9,27 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Abstract class dao. Base class for all DAO.
+ *
+ * @param <T> some entity.
+ */
 public abstract class AbstractCommonDAO<T> implements CommonDAO<T> {
-
+    /**
+     * Connection Pool object.
+     */
     protected ConnectionPool connectionPool = ConnectionPool.INSTANCE;
+    /**
+     * Logger.
+     */
     private Logger logger = Logger.getLogger(AbstractCommonDAO.class);
 
+    /**
+     * Create object.
+     *
+     * @param element object.
+     * @throws DAOException dao exception.
+     */
     @Override
     public void create(T element) throws DAOException {
         try (Connection connection = connectionPool.getConnection();
@@ -25,6 +41,12 @@ public abstract class AbstractCommonDAO<T> implements CommonDAO<T> {
         }
     }
 
+    /**
+     * Update object.
+     *
+     * @param element object.
+     * @throws DAOException dao exception.
+     */
     @Override
     public void update(T element) throws DAOException {
         try (Connection connection = connectionPool.getConnection();
@@ -36,6 +58,12 @@ public abstract class AbstractCommonDAO<T> implements CommonDAO<T> {
         }
     }
 
+    /**
+     * Delete object.
+     *
+     * @param element object.
+     * @throws DAOException dao exception.
+     */
     @Override
     public void delete(T element) throws DAOException {
         try (Connection connection = connectionPool.getConnection();
@@ -47,6 +75,12 @@ public abstract class AbstractCommonDAO<T> implements CommonDAO<T> {
         }
     }
 
+    /**
+     * Find all object.
+     *
+     * @return list of objects.
+     * @throws DAOException dao exception.
+     */
     @Override
     public List<T> getAll() throws DAOException {
         try (Connection connection = connectionPool.getConnection();
@@ -63,6 +97,11 @@ public abstract class AbstractCommonDAO<T> implements CommonDAO<T> {
         }
     }
 
+    /**
+     * Close result set.
+     *
+     * @param resultSet object.
+     */
     protected void closeResultSet(ResultSet resultSet) {
         if (resultSet != null) {
             try {
@@ -73,6 +112,11 @@ public abstract class AbstractCommonDAO<T> implements CommonDAO<T> {
         }
     }
 
+    /**
+     * Close statement.
+     *
+     * @param statement object.
+     */
     protected void closeStatement(Statement statement) {
         if (statement != null) {
             try {
@@ -83,6 +127,11 @@ public abstract class AbstractCommonDAO<T> implements CommonDAO<T> {
         }
     }
 
+    /**
+     * Close connection.
+     *
+     * @param connection object.
+     */
     protected void closeConnection(Connection connection) {
         if (connection != null) {
             try {
@@ -93,6 +142,11 @@ public abstract class AbstractCommonDAO<T> implements CommonDAO<T> {
         }
     }
 
+    /**
+     * Rollback transaction.
+     *
+     * @param connection object.
+     */
     protected void rollbackTransaction(Connection connection) {
         if (connection != null) {
             try {
@@ -103,13 +157,46 @@ public abstract class AbstractCommonDAO<T> implements CommonDAO<T> {
         }
     }
 
+    /**
+     * Build prepared statement for insert method.
+     *
+     * @param connection
+     * @param element
+     * @return builded statement
+     */
     protected abstract PreparedStatement buildInsertStatement(Connection connection, T element) throws SQLException;
 
+    /**
+     * Build prepared statement for updating method.
+     *
+     * @param connection
+     * @param element
+     * @return builded statement
+     */
     protected abstract PreparedStatement buildUpdateByIDStatement(Connection connection, T element) throws SQLException;
 
+    /**
+     * Build prepared statement for deleting method.
+     *
+     * @param connection
+     * @param element
+     * @return builded statement
+     */
     protected abstract PreparedStatement buildDeleteByIdStatement(Connection connection, T element) throws SQLException;
 
+    /**
+     * Build prepared statement for finding all method.
+     *
+     * @param connection
+     * @return builded statement
+     */
     protected abstract PreparedStatement buildFindAllStatement(Connection connection) throws SQLException;
 
+    /**
+     * Build entity from result set.
+     *
+     * @param resultSet
+     * @return builded entity
+     */
     protected abstract T createEntityFromResultSet(ResultSet resultSet) throws SQLException;
 }

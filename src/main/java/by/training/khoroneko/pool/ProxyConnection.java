@@ -8,14 +8,34 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
+/**
+ * Connection proxy class, instances of that created and provided by the
+ * {@link ConnectionPool}. Delegates all method invocations to the real
+ * connection except for close() method which puts ProxyConnection
+ * to the connection pool. Method realClose() allows to close
+ * proxied connection.
+ */
 public class ProxyConnection implements Connection {
 
+    /**
+     * Real connection. Most of the method invocations are delegated to it.
+     */
     Connection connection;
 
+    /**
+     * Creates ProxyConnection for chosen connection.
+     *
+     * @param connection Connection that will be proxied.
+     */
     ProxyConnection(Connection connection) {
         this.connection = connection;
     }
 
+    /**
+     * Getter.
+     *
+     * @return connection.
+     */
     public Connection getConnection() {
         return connection;
     }

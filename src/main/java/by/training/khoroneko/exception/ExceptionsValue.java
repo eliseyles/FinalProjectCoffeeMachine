@@ -1,5 +1,8 @@
 package by.training.khoroneko.exception;
 
+/**
+ * Enum represent exception messages.
+ */
 public enum ExceptionsValue {
     NULL_USER("User is null"),
     INVALID_USER_NAME("Invalid user name"),

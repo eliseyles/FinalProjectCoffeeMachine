@@ -1,5 +1,8 @@
 package by.training.khoroneko.exception;
 
+/**
+ * Validation exception.
+ */
 public class ValidationException extends Exception {
     public ValidationException() {
         super();

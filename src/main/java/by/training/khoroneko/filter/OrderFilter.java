@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Security filter. Restricts authorized users adding to  cart.
+ */
 @WebFilter(filterName = "OrderFilter", urlPatterns = {"/coffee_machine"})
 public class OrderFilter implements Filter {
 

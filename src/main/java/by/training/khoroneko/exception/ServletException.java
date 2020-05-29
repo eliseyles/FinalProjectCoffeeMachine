@@ -1,5 +1,8 @@
 package by.training.khoroneko.exception;
 
+/**
+ * Servlet exception.
+ */
 public class ServletException extends Exception {
     public ServletException() {
         super();

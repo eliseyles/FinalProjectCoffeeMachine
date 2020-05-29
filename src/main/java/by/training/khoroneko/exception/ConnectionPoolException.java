@@ -1,5 +1,8 @@
 package by.training.khoroneko.exception;
 
+/**
+ * Connection pool exception.
+ */
 public class ConnectionPoolException extends Exception {
     public ConnectionPoolException() {
     }
