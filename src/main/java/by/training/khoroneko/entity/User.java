@@ -2,6 +2,9 @@ package by.training.khoroneko.entity;
 
 import java.util.Objects;
 
+/**
+ * User.
+ */
 public class User {
     private int id;
     private String name;

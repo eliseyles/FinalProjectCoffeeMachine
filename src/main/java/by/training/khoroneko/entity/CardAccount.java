@@ -3,6 +3,9 @@ package by.training.khoroneko.entity;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+/**
+ * Card Account.
+ */
 public class CardAccount {
     private int id;
     private String cardNumber;

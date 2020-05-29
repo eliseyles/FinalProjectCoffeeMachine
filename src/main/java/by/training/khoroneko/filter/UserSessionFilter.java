@@ -14,6 +14,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.EnumSet;
 
+/**
+ * Security filter. Restricts authorized users access.
+ */
 @WebFilter(filterName = "UserSessionFilter", urlPatterns = {"/coffee_machine"})
 public class UserSessionFilter implements Filter {
     private static final EnumSet<CommandParameter> USER_COMMANDS =

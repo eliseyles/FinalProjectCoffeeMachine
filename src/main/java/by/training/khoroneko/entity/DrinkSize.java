@@ -1,5 +1,8 @@
 package by.training.khoroneko.entity;
 
+/**
+ * Enum which represents drink sizes.
+ */
 public enum DrinkSize {
     SMALL(1),
     MEDIUM(2),
