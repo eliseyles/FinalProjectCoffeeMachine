@@ -42,19 +42,19 @@ public class UserValidator {
     }
 
     private void isValidName(User user) throws ValidationException {
-        if (!user.getName().matches(USER_NAME_REGEX)) {
+        if (user.getName() == null || !user.getName().matches(USER_NAME_REGEX)) {
             throw new ValidationException(ExceptionsValue.INVALID_USER_NAME.toString());
         }
     }
 
     private void isValidEmail(User user) throws ValidationException {
-        if (!user.getEmail().matches(EMAIL_REGEX)) {
+        if (user.getEmail() == null || !user.getEmail().matches(EMAIL_REGEX)) {
             throw new ValidationException(ExceptionsValue.INVALID_USER_EMAIL.toString());
         }
     }
 
     private void isValidPassword(User user) throws ValidationException {
-        if (!user.getPassword().matches(PASSWORD_REGEX)) {
+        if (user.getPassword() == null || !user.getPassword().matches(PASSWORD_REGEX)) {
             throw new ValidationException(ExceptionsValue.INVALID_USER_PASSWORD.toString());
         }
     }
