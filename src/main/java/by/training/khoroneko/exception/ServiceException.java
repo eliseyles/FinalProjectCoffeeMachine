@@ -1,5 +1,8 @@
 package by.training.khoroneko.exception;
 
+/**
+ * Service exception.
+ */
 public class ServiceException extends Exception {
     public ServiceException() {
         super();

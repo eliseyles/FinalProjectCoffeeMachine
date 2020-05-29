@@ -7,6 +7,9 @@ import by.training.khoroneko.service.impl.DrinkServiceImpl;
 import by.training.khoroneko.service.impl.OrderServiceImpl;
 import by.training.khoroneko.service.impl.UserServiceImpl;
 
+/**
+ * Factory for services.
+ */
 public enum ServiceFactory {
     INSTANCE;
 

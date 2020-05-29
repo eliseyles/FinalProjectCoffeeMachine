@@ -2,6 +2,9 @@ package by.training.khoroneko.entity;
 
 import java.math.BigDecimal;
 
+/**
+ * Addition.
+ */
 public class Addition {
     private int id;
     private String title;

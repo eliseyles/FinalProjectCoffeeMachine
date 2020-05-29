@@ -4,6 +4,9 @@ import by.training.khoroneko.dao.impl.DrinkDAOImpl;
 import by.training.khoroneko.dao.impl.OrderDAOImpl;
 import by.training.khoroneko.dao.impl.UserDAOImpl;
 
+/**
+ * Factory for DAO.
+ */
 public enum DAOFactory {
     INSTANCE;
 

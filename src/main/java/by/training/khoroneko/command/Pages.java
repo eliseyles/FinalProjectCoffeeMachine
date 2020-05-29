@@ -1,5 +1,8 @@
 package by.training.khoroneko.command;
 
+/**
+ * Represent URL for pages.
+ */
 public enum Pages {
     INDEX_JSP("page/index.jsp", "INDEX_PAGE"),
     REGISTRATION_JSR("page/registration.jsp","REGISTRATION_PAGE"),

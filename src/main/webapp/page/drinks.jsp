@@ -23,6 +23,7 @@
     <link href="css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     <link href="css/style.min.css" rel="stylesheet">
+    <link href="css/fullstyle.css" rel="stylesheet">
     <style type="text/css">
         /* Necessary for full page carousel*/
         html,
@@ -31,6 +32,10 @@
         .content {
             /*height: 50%;*/
             padding: 40px 50px 10px 50px;
+            background-color: #c19c82;
+        }
+        .c{
+            background-color: #ffffcc;
         }
 
     </style>
@@ -55,7 +60,7 @@
             <div class="col-md-4 mb-4">
                 <div class="card h-100">
                         <%--                    <img class="card-img-top">--%>
-                    <div class="card-body">
+                    <div class="card-body c">
                         <h5 class="card-title">${drink.title}</h5>
                         <h6 class="card-subtitle mb-2 text-muted"><fmt:message key="menu.${drink.drinkSize}"/></h6>
                         <h6 class="card-title">${drink.price}</h6>

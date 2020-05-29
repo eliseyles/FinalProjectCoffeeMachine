@@ -23,7 +23,43 @@
     <!-- Your custom styles (optional) -->
     <link href="css/style.min.css" rel="stylesheet">
     <link href="css/cart.css" rel="stylesheet" type="text/css">
+    <link href="css/fullstyle.css" rel="stylesheet">
+    <style type="text/css">
+        /* Necessary for full page carousel*/
+        html,
+        body,
+        header,
+        .view {
+            height: 100%;
+            /*top: 150px;*/
+            background-color: #c19c82;
+        }
 
+        @media (min-width: 800px) and (max-width: 850px) {
+            .navbar:not(.top-nav-collapse) {
+                background: #1C2331 !important;
+            }
+        }
+
+        .content {
+            position: fixed;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            color: #f1f1f1;
+            width: 100%;
+            padding: 20px;
+        }
+
+        .form-active {
+            height: auto;
+            width: 60%;
+            margin: 60px auto;
+            /*background: ;*/
+            padding: 60px 120px 80px 120px;
+            background-color: white;
+        }
+
+    </style>
 </head>
 
 <body>
@@ -40,84 +76,97 @@
         </h2>
     </div>
 </c:if>
-<div class="shopping-cart">
 
-    <div class="column-labels">
-        <label class="product-details"><fmt:message key="cart.product"/></label>
-        <label class="product-price"><fmt:message key="cart.price"/></label>
-<%--                    <label class="product-quantity">Quantity</label>--%>
-        <label class="product-removal"><fmt:message key="cart.removing"/></label>
-        <label class="product-line-price"><fmt:message key="cart.total"/></label>
-    </div>
+<section class="view card white wow fadeIn" id="intro">
+    <table class="table">
+        <thead class="thead ">
+        <tr>
+            <th/>
+            <th><fmt:message key="cart.product"/></th>
+            <th><fmt:message key="cart.volume"/></th>
+            <th><fmt:message key="cart.price"/></th>
+            <th><fmt:message key="cart.removing"/></th>
 
-    <c:if test="${empty orderList}">
-        <h1><fmt:message key="cart.empty_cart"/></h1>
+        </tr>
+        </thead>
+
+        <tbody>
+        <c:if test="${empty orderList}">
+            <h1><fmt:message key="cart.empty_cart"/></h1>
+        </c:if>
+
+        <c:if test="${not empty orderList}">
+        <c:forEach var="order" items="${orderList}">
+            <tr>
+                    <%--            <div class="product">--%>
+                    <%--                <div class="product-details">--%>
+                        <td/>
+                <td>${order.drink.title}</td>
+                <td><fmt:message key="cart.${order.drink.drinkSize}"/></td>
+                    <%--                </div>--%>
+                <td>${order.drink.price}</td>
+                <td>
+                    <form action="coffee_machine" method="post">
+                        <input type="hidden" name="drinkId" value="${order.id}">
+                        <button type="submit" class="btn small btn-danger" name="command" value="DELETE_DRINK_FROM_CART">
+                            <fmt:message key="cart.remove"/>
+                        </button>
+                    </form>
+                </td>
+
+                    <%--            </div>--%>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
     </c:if>
 
-    <c:forEach var="order" items="${orderList}">
-        <div class="product">
-            <div class="product-details">
-                <div class="product-title">${order.drink.title}</div>
-                <p><fmt:message key="cart.${order.drink.drinkSize}"/></p>
-            </div>
-            <div class="product-price">${order.drink.price}</div>
-<%--                            <div class="product-quantity">--%>
-<%--                                <input type="number" value="1" min="1">--%>
-<%--                            </div>--%>
-            <div class="product-removal">
-                <form action="coffee_machine" method="post">
-                    <input type="hidden" name="drinkId" value="${order.id}">
-                    <button type="submit" class="remove-product" name="command" value="DELETE_DRINK_FROM_CART">
-                        <fmt:message key="cart.remove"/>
-                    </button>
-                </form>
-            </div>
-            <div class="product-line-price">${order.drink.price}</div>
-        </div>
-    </c:forEach>
+</section>
 
-<%--    <div class="totals">--%>
-<%--        <div class="totals-item">--%>
-<%--            <label>Total</label>--%>
-<%--            <div class="totals-value" id="cart-subtotal">0</div>--%>
-<%--        </div>--%>
-        <%--            <div class="totals-item">--%>
-        <%--                <label>Tax (5%)</label>--%>
-        <%--                <div class="totals-value" id="cart-tax">3.60</div>--%>
-        <%--            </div>--%>
-        <%--            <div class="totals-item">--%>
-        <%--                <label>Shipping</label>--%>
-        <%--                <div class="totals-value" id="cart-shipping">15.00</div>--%>
-        <%--            </div>--%>
-<%--        <div class="totals-item totals-item-total">--%>
-<%--            <label>Grand Total</label>--%>
-<%--            <div class="totals-value" id="cart-total">0</div>--%>
-<%--        </div>--%>
+<%--<div class="shopping-cart">--%>
+
+<%--    <div class="column-labels">--%>
+<%--        <label class="product-details"><fmt:message key="cart.product"/></label>--%>
+<%--        <label class="product-price"><fmt:message key="cart.price"/></label>--%>
+<%--&lt;%&ndash;                    <label class="product-quantity">Quantity</label>&ndash;%&gt;--%>
+<%--        <label class="product-removal"><fmt:message key="cart.removing"/></label>--%>
+<%--        <label class="product-line-price"><fmt:message key="cart.total"/></label>--%>
 <%--    </div>--%>
-<%--    <input id="getTotalPrice" type="button" class="checkout" value="Get total">--%>
 
-    <form action="coffee_machine" method="post">
-        <button id="checkoutButton" type="submit" class="checkout" name="command" value="CHECKOUT_CART">
-            <fmt:message key="cart.checkout"/>
-        </button>
-    </form>
+<%--    <c:if test="${empty orderList}">--%>
+<%--        <h1><fmt:message key="cart.empty_cart"/></h1>--%>
+<%--    </c:if>--%>
 
-</div>
+<%--    <c:forEach var="order" items="${orderList}">--%>
+<%--        <div class="product">--%>
+<%--            <div class="product-details">--%>
+<%--                <div class="product-title">${order.drink.title}</div>--%>
+<%--                <p><fmt:message key="cart.${order.drink.drinkSize}"/></p>--%>
+<%--            </div>--%>
+<%--            <div class="product-price">${order.drink.price}</div>--%>
+<%--&lt;%&ndash;                            <div class="product-quantity">&ndash;%&gt;--%>
+<%--&lt;%&ndash;                                <input type="number" value="1" min="1">&ndash;%&gt;--%>
+<%--&lt;%&ndash;                            </div>&ndash;%&gt;--%>
+<%--            <div class="product-removal">--%>
+<%--                <form action="coffee_machine" method="post">--%>
+<%--                    <input type="hidden" name="drinkId" value="${order.id}">--%>
+<%--                    <button type="submit" class="remove-product" name="command" value="DELETE_DRINK_FROM_CART">--%>
+<%--                        <fmt:message key="cart.remove"/>--%>
+<%--                    </button>--%>
+<%--                </form>--%>
+<%--            </div>--%>
+<%--            <div class="product-line-price">${order.drink.price}</div>--%>
+<%--        </div>--%>
+<%--    </c:forEach>--%>
 
-<!-- SCRIPTS -->
-<!-- JQuery -->
-<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-<!-- Bootstrap tooltips -->
-<script type="text/javascript" src="js/popper.min.js"></script>
-<!-- Bootstrap core JavaScript -->
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<!-- MDB core JavaScript -->
-<script type="text/javascript" src="js/mdb.min.js"></script>
-<script type="text/javascript" src="js/cart.js"></script>
-<!-- Initializations -->
-<script type="text/javascript">{
-    }
-</script>
+
+<%--</div>--%>
+<form action="coffee_machine" method="post">
+    <button id="checkoutButton" type="submit" class="checkout" name="command" value="CHECKOUT_CART">
+        <fmt:message key="cart.checkout"/>
+    </button>
+</form>
+
 </body>
 </html>
 

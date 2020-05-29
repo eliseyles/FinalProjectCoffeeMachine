@@ -22,6 +22,9 @@ import by.training.khoroneko.command.redirect.*;
 import by.training.khoroneko.command.redirect.admin.AddDrinkPageCommand;
 import by.training.khoroneko.command.redirect.user.*;
 
+/**
+ * Represent request command attribute parameters.
+ */
 public enum CommandParameter {
     INDEX_PAGE(new IndexPageCommand()),
     DRINK_LIST(new DrinkListCommand()),

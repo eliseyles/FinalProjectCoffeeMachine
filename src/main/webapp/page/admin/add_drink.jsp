@@ -24,6 +24,7 @@
     <link href="css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     <link href="css/style.min.css" rel="stylesheet">
+    <link href="css/fullstyle.css" rel="stylesheet">
     <style type="text/css">
         /* Necessary for full page carousel*/
         html,
@@ -37,7 +38,7 @@
             background-size: cover;
         }
 
-        form {
+        .form-active {
             width: 60%;
             margin: 60px auto;
             /*background: ;*/
@@ -83,7 +84,7 @@
     <div class="card-body text-white  py-5 px-5 my-5">
 
 
-        <form class="brown" action="coffee_machine" method="post">
+        <form class="brown form-active" action="coffee_machine" method="post">
             <c:if test="${not empty errorMessage}">
                 <div class="text-center text-warning">
                     <label class="text">
@@ -93,7 +94,7 @@
             </c:if>
             <div class="form-group">
                 <label for="inputTitle"><fmt:message key="add_drink.drink_title"/></label>
-                <input type="text" class="form-control" id="inputTitle" name="drinkTitle">
+                <input type="text" class="form-control" id="inputTitle" name="drinkTitle" required>
             </div>
             <div class="form-group">
                 <select class="form-control" name="drinkVolume">
@@ -111,14 +112,14 @@
                     <input type="text" class="form-control" id="price" aria-describedby="inputGroupPrepend"
                            name="drinkPrice"
                            pattern="[0-9]+([\.,][0-9]{2})?"
-                           title="<fmt:message key="add_drink.money_validation"/>">
+                           title="<fmt:message key="add_drink.money_validation"/>" required>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputNumber"><fmt:message key="add_drink.servings_number"/></label>
                 <input type="text" class="form-control" id="inputNumber" name="servingNumber"
                        pattern="[0-9]{1,}"
-                       title="<fmt:message key="add_drink.servings_validation"/>">
+                       title="<fmt:message key="add_drink.servings_validation"/>" required>
             </div>
             <button type="submit" class="btn btn-outline-white btn-lg" name="command"
                     value="ADD_DRINK">
@@ -128,5 +129,8 @@
     </div>
     <!-- Content -->
 </section>
+<footer>
+    <ctg:copyrightTag/>
+</footer>
 </body>
 </html>

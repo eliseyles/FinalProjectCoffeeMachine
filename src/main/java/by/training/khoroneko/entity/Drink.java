@@ -2,6 +2,9 @@ package by.training.khoroneko.entity;
 
 import java.math.BigDecimal;
 
+/**
+ * Drink.
+ */
 public class Drink {
     private int id;
     private String title;

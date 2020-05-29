@@ -23,14 +23,16 @@
     <link href="css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     <link href="css/style.min.css" rel="stylesheet">
+    <link href="css/fullstyle.css" rel="stylesheet">
     <style type="text/css">
         /* Necessary for full page carousel*/
         html,
         body,
         header,
         .view {
-            height: 50%;
-            top: 150px;
+            height: 100%;
+            /*top: 150px;*/
+            background-color: #c19c82;
         }
 
         @media (min-width: 800px) and (max-width: 850px) {
@@ -48,11 +50,13 @@
             padding: 20px;
         }
 
-        form {
+        .form-active {
+            height: auto;
             width: 60%;
             margin: 60px auto;
             /*background: ;*/
             padding: 60px 120px 80px 120px;
+            background-color: white;
         }
 
     </style>
@@ -66,7 +70,7 @@
 
 
 <%--<div class="view">--%>
-<form>
+<form class="form-active">
     <div>
         <table class="table">
             <thead class="thead ">
@@ -100,7 +104,6 @@
 </form>
 
 
-<%--</div>--%>
 
 </body>
 

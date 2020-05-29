@@ -1,5 +1,8 @@
 package by.training.khoroneko.command;
 
+/**
+ * Represent request attribute names.
+ */
 public enum JSPParameter {
     COMMAND("command"),
     REGISTER("register"),

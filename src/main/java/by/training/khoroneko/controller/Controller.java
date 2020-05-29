@@ -16,13 +16,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Application servlet. Runner.
+ */
 @WebServlet("/coffee_machine")
-
 public class Controller extends HttpServlet {
+    /**
+     * Logger.
+     */
     private Logger logger = Logger.getLogger(Controller.class);
+    /**
+     * Command Factory.
+     */
     private static final CommandFactory COMMAND_FACTORY = CommandFactory.INSTANCE;
+    /**
+     * Redirect URL template.
+     */
     private static final String URL = "%s%s?command=%s";
 
+    /**
+     * Initialize project and connection pool.
+     */
     @Override
     public void init() throws ServletException {
         super.init();
@@ -33,17 +47,32 @@ public class Controller extends HttpServlet {
         }
     }
 
+    /**
+     * Close connection pool.
+     */
     @Override
     public void destroy() {
         super.destroy();
         ConnectionPool.INSTANCE.destroyPool();
     }
 
+    /**
+     * Get.
+     *
+     * @param req  request.
+     * @param resp response.
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher(processRequest(req, resp)).forward(req, resp);
     }
 
+    /**
+     * Post.
+     *
+     * @param req  request.
+     * @param resp response.
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String nextPage = processRequest(req, resp);
