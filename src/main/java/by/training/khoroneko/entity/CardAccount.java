@@ -1,7 +1,6 @@
 package by.training.khoroneko.entity;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
 public class CardAccount {
     private int id;
@@ -47,13 +46,16 @@ public class CardAccount {
         if (o == null || getClass() != o.getClass()) return false;
         CardAccount that = (CardAccount) o;
         return id == that.id &&
-                Objects.equals(cardNumber, that.cardNumber) &&
-                Objects.equals(amount, that.amount);
+                cardNumber.equals(that.cardNumber) &&
+                amount.equals(that.amount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, cardNumber, amount);
+        int result = id;
+        result = 31 * result + (cardNumber != null ? cardNumber.hashCode() : 0);
+        result = 31 * result + (amount != null ? amount.hashCode() : 0);
+        return result;
     }
 
     @Override

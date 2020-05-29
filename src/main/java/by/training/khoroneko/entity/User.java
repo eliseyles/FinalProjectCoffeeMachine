@@ -1,7 +1,5 @@
 package by.training.khoroneko.entity;
 
-import java.util.Objects;
-
 public class User {
     private int id;
     private String name;
@@ -87,16 +85,23 @@ public class User {
         User user = (User) o;
         return id == user.id &&
                 activity == user.activity &&
-                Objects.equals(name, user.name) &&
-                Objects.equals(email, user.email) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(cardAccount, user.cardAccount) &&
+                name.equals(user.name) &&
+                email.equals(user.email) &&
+                password.equals(user.password) &&
+                cardAccount.equals(user.cardAccount) &&
                 role == user.role;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, password, activity, cardAccount, role);
+        int result = id;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (activity ? 1 : 0);
+        result = 31 * result + (cardAccount != null ? cardAccount.hashCode() : 0);
+        result = 31 * result + (role != null ? role.hashCode() : 0);
+        return result;
     }
 
     @Override
