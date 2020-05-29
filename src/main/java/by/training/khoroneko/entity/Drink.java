@@ -1,7 +1,6 @@
 package by.training.khoroneko.entity;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
 /**
  * Drink.
@@ -72,16 +71,20 @@ public class Drink {
         Drink drink = (Drink) o;
         return id == drink.id &&
                 servingNumber == drink.servingNumber &&
-                Objects.equals(title, drink.title) &&
-                Objects.equals(price, drink.price) &&
+                title.equals(drink.title) &&
+                price.equals(drink.price) &&
                 drinkSize == drink.drinkSize;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, price, drinkSize, servingNumber);
+        int result = id;
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (price != null ? price.hashCode() : 0);
+        result = 31 * result + (drinkSize != null ? drinkSize.hashCode() : 0);
+        result = 31 * result + servingNumber;
+        return result;
     }
-
 
     @Override
     public String toString() {

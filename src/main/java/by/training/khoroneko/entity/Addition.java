@@ -1,7 +1,6 @@
 package by.training.khoroneko.entity;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
 /**
  * Addition.
@@ -50,13 +49,16 @@ public class Addition {
         if (o == null || getClass() != o.getClass()) return false;
         Addition addition = (Addition) o;
         return id == addition.id &&
-                Objects.equals(title, addition.title) &&
-                Objects.equals(price, addition.price);
+                title.equals(addition.title) &&
+                price.equals(addition.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, price);
+        int result = id;
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (price != null ? price.hashCode() : 0);
+        return result;
     }
 
     @Override
